@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<mapper namespace="com.xandone.wcdog.mapper.UserMapper">
+    <resultMap id="userList" type="com.xandone.wcdog.pojo.UserBean">
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_icon" property="userIcon" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="regist_time" property="registTime" jdbcType="TIMESTAMP"/>
+        <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- id名称必须和 UserMapper中的方法名相对应 -->
+    <insert id="addUser" parameterType="com.xandone.wcdog.pojo.UserBean">
+        insert into y_user
+        (name,password,nickname,user_id,regist_time) values
+        (#{name},#{password},#{nickname},#{userId},#{registTime})
+    </insert>
+
+    <select id="getUserByName" parameterType="java.lang.String"
+            resultType="com.xandone.wcdog.pojo.UserBean">
+        select * from y_user where name = #{name}
+    </select>
+
+    <select id="getUserList" resultMap="userList">
+        select * from y_user
+    </select>
+
+</mapper>

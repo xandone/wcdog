@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../../plugin/layui/src/css/layui.css">
+    <style type="text/css">
+        .title {
+            width: 400px;
+            height: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+  <legend>完整功能（没错，目前工具栏只有这么多）</legend>
+</fieldset>
+ -->
+<input id='title' type="text" name="" class="title" placeholder="请输入标题.."/>
+<textarea class="layui-textarea" id="LAY_demo1" style="display: none">  
+ 请输入..
+</textarea>
+
+<div class="site-button" style="margin-top: 20px;">
+    <button class="layui-btn site-demo-layedit" data-type="report">发布</button>
+    <button class="layui-btn site-demo-layedit" data-type="reset">重置</button>
+</div>
+
+<!-- <div class="site-demo-button" style="margin-top: 20px;">
+  <button class="layui-btn site-demo-layedit" data-type="content">获取编辑器内容</button>
+  <button class="layui-btn site-demo-layedit" data-type="text">获取编辑器纯文本内容</button>
+  <button class="layui-btn site-demo-layedit" data-type="selection">获取编辑器选中内容</button>
+</div>
+ 
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+  <legend>自定义工具栏</legend>
+</fieldset> -->
+
+<!-- <div style="margin-bottom: 20px; width: 500px;">
+  <textarea class="layui-textarea" id="LAY_demo2" style="display: none"></textarea>
+</div>   -->
+
+<script type="text/javascript" src="../../plugin/layui/src/layui.js"></script>
+
+
+<script>
+    layui.use('layedit', function () {
+        var layedit = layui.layedit
+            , $ = layui.jquery;
+
+        //构建一个默认的编辑器
+        var index = layedit.build('LAY_demo1');
+
+        //编辑器外部操作
+        var active = {
+            content: function () {
+                alert(layedit.getContent(index)); //获取编辑器内容
+            }
+            , text: function () {
+                alert(layedit.getText(index)); //获取编辑器纯文本内容
+            }
+            , selection: function () {
+                alert(layedit.getSelection(index));
+            }
+            , report: function () {
+                var str1 = title.value.replace(/(^\s*)|(\s*$)/g, '');//去除空格;
+                var str2 = layedit.getContent(index).replace(/(^\s*)|(\s*$)/g, '');
+                if (str1 == '' || str1 == undefined || str1 == null) {
+                    alert('请输入标题');
+                    return;
+                }
+                if (str2 == '' || str2 == undefined || str2 == null) {
+                    alert('请输入内容');
+                    return;
+                }
+
+                $.ajax({
+                    type: 'get',
+                    url: '/ycat3/joke/add',
+                    dataType: 'json',
+                    data: "title=" + title.value + "&content=" + layedit.getContent(index) + "&joke_user_id=" + "152146249752110",
+                    success: function (data) {
+                        layer.msg('发布成功');
+                        $('#LAY_layedit_1').contents().find('body').html('');
+                        title.value = '';
+                    },
+                    error: function () {
+                        layer.msg('发布失败');
+                    }
+                });
+            }
+            , reset: function () {
+                $('#LAY_layedit_1').contents().find('body').html('');
+                title.value = '';
+            }
+        };
+
+        $('.site-demo-layedit').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        //自定义工具栏
+        layedit.build('LAY_demo2', {
+            tool: ['face', 'link', 'unlink', '|', 'left', 'center', 'right']
+            , height: 100
+        })
+    });
+</script>
+
+</body>
+</html>
