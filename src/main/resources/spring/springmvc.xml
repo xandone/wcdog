@@ -11,11 +11,12 @@
     <mvc:annotation-driven/>
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
+        <property name="prefix" value="/resource/assets/"/>
+        <property name="suffix" value=".html"/>
     </bean>
 
     <!-- 资源映射 -->
     <!--<mvc:resources location="/WEB-INF/view/" mapping="/view/**"/>-->
     <mvc:resources location="/resource/assets/" mapping="/**"/>
+
 </beans>

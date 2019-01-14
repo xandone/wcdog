@@ -9,6 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @RequestMapping(value = "/front")
     public String frontHome() {
-        return "/view/manager/home";
+        return "view/manager/home";
     }
 }

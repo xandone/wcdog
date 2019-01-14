@@ -28,7 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserBean> getAllUser(Integer page, Integer row) {
-        System.out.println("执行allUser...");
         PageHelper.startPage(page, row);
         List<UserBean> list = userMapper.getUserList();
         return list;

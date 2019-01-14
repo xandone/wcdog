@@ -12,25 +12,25 @@
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a href="">控制台</a></li>
-            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">统计</a></li>
             <li class="layui-nav-item"><a href="">用户</a></li>
             <li class="layui-nav-item"><a href="javascript:;">其它系统</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="">邮件管理</a>
+                        <a href="">系统1</a>
                     </dd>
                     <dd>
-                        <a href="">消息管理</a>
+                        <a href="">系统2</a>
                     </dd>
                     <dd>
-                        <a href="">授权管理</a>
+                        <a href="">系统3</a>
                     </dd>
                 </dl>
             </li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item"><a href="javascript:;"> <img
-                    src="https://upload-images.jianshu.io/upload_images/2518499-f5c1aa291b65d334.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"
+                    src=""
                     class="layui-nav-img"> xandone
             </a>
                 <dl class="layui-nav-child">
@@ -42,7 +42,7 @@
                     </dd>
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="">退了</a></li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
         </ul>
     </div>
 
@@ -93,18 +93,7 @@
         </div>
     </div>
 
-    <!--         主体
-            <div class="layui-body">
-                顶部切换卡
-                <div class="layui-tab layui-tab-card" lay-filter="top-tab" lay-allowClose="true">
-                    <ul class="layui-tab-title"></ul>
-                    <div class="layui-tab-button">
-                    </div>
-                    <div class="layui-tab-content"></div>
-                </div>
-            </div> -->
-
-    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+    <div class="layui-tab" lay-filter="mytab" lay-allowclose="true" style="margin-left: 200px;">
         <ul class="layui-tab-title">
         </ul>
         <ul class="rightmenu" style="display: none;position: absolute;">
@@ -114,43 +103,32 @@
         <div class="layui-tab-content">
         </div>
     </div>
-
 </div>
 
 <script type="text/javascript" src="../../plugin/layui/src/layui.js"></script>
-<!-- 	<script>
-		//JavaScript代码区域
-		layui.use('element', function() {
-			var element = layui.element;
-		});
-	</script> -->
-
 <script>
-
     layui.use('element', function () {
-
         var $ = layui.jquery;
         var element = layui.element;
-
         var active = {
             tabAdd: function (url, id, name) {
-                element.tabAdd('demo', {
+                element.tabAdd('mytab', {
                     title: name,
                     content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '.html" style="width:100%;height:99%;"></iframe>',
                     id: id
-                })
+                });
                 CustomRightClick(id);
                 FrameWH();
             },
             tabChange: function (id) {
-                element.tabChange('demo', id);
+                element.tabChange('mytab', id);
             },
             tabDelete: function (id) {
-                element.tabDelete("demo", id);
+                element.tabDelete("mytab", id);
             },
             tabDeleteAll: function (ids) {
                 $.each(ids, function (i, item) {
-                    element.tabDelete("demo", item);
+                    element.tabDelete("mytab", item);
                 })
             }
         };
