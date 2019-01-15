@@ -9,6 +9,10 @@ public interface UserService {
 
     UserBean getUserByName(String name) throws Exception;
 
+    UserBean getUserById(String userId) throws Exception;
+
+    UserBean getUserByNick(String userId) throws Exception;
+
     List<UserBean> getAllUser(Integer page, Integer row) throws Exception;
 
 }

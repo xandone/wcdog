@@ -4,38 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>wangEditor demo</title>
+    <link rel="stylesheet" type="text/css" href="css/joke.css">
     <script type="text/javascript" src="plugin/wangEditor/release/wangEditor.min.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/joke.js"></script>
+    <script type="text/javascript" src="js/commonUtils.js"></script>
 </head>
 
 <body>
-    <div id="editor">
-        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    <div>
+        <input id="joke_title" class="joke_title" type="text" name="" placeholder="输入标题">
     </div>
-    <button id="btn1">
-        获取1
-    </button>
-    <script type="text/javascript">
-    $(function() {
-        var E = window.wangEditor
-        var editor = new E('#editor')
-        editor.create()
-
-        $('#btn1').click(function(event) {
-            var content = $(editor.txt.html());
-            $.ajax({
-                type: 'post',
-                url: '/joke/add',
-                data: { title: 'fuwenben测试', content: content, jokeUserId: '001' },
-                dataType: 'json',
-                success: function(result) {
-
-                }
-            })
-        })
-
-    })
-    </script>
+    <div id="editor">
+        <span>请输入..</span>
+    </div>
+    <input id="joke_commit" class="css_btn_class" type="button" name="" value="提交">
+    <input id="joke_reset" class="css_btn_class" type="button" name="" value="重置">
 </body>
 
 </html>

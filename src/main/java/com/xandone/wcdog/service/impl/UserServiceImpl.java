@@ -27,6 +27,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserBean getUserById(String userId) throws Exception {
+        UserBean userBean = userMapper.getUserById(userId);
+        return userBean;
+    }
+
+    @Override
+    public UserBean getUserByNick(String userId) throws Exception {
+        UserBean userBean = userMapper.getUserByNick(userId);
+        return userBean;
+    }
+
+
+    @Override
     public List<UserBean> getAllUser(Integer page, Integer row) {
         PageHelper.startPage(page, row);
         List<UserBean> list = userMapper.getUserList();

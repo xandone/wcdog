@@ -26,6 +26,15 @@
             resultType="com.xandone.wcdog.pojo.UserBean">
         select * from y_user where name = #{name}
     </select>
+    <select id="getUserById" parameterType="java.lang.String"
+            resultType="com.xandone.wcdog.pojo.UserBean">
+        select * from y_user where user_id = #{userId}
+    </select>
+
+    <select id="getUserByNick" parameterType="java.lang.String"
+            resultType="com.xandone.wcdog.pojo.UserBean">
+        select * from y_user where nickname = #{nick}
+    </select>
 
     <select id="getUserList" resultMap="userList">
         select * from y_user

@@ -17,25 +17,23 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImgController {
     @Autowired
     ImageService imageService;
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @RequestMapping("/upImage")
     @ResponseBody
     public String upfileByUser(@RequestParam(value = "file") MultipartFile file, String userId) throws Exception {
         ImageLayBean baseResult = new ImageLayBean();
-
         if (file == null) {
             System.out.println("上传文件为空");
             return "";
         }
         ImageBean imageBean = imageService.upfileByUser(file, userId);
         baseResult.setCode(0);
-        baseResult.setMsg("sucesse");
+        baseResult.setMsg("success");
         ImageLayBean.Data data = new ImageLayBean.Data(imageBean.getImgUrl(), "图片");
         baseResult.setData(data);
 
         String json = objectMapper.writeValueAsString(baseResult);
-
         System.out.println(json);
 
         return json;

@@ -18,11 +18,11 @@ public class JokeServiceIml implements JokeService {
     UserMapper userMapper;
 
 
-    public JokeBean addJoke(String title, String joke_user_id, String content) throws Exception {
+    public JokeBean addJoke(String title, String jokeUserId, String content) throws Exception {
         JokeBean jokeBean = new JokeBean();
 
         jokeBean.setJokeId(IDUtils.RandomId());
-        jokeBean.setJokeUserId(joke_user_id);
+        jokeBean.setJokeUserId(jokeUserId);
         jokeBean.setTitle(title);
         jokeBean.setContent(content);
         jokeBean.setPostTime(new Date());

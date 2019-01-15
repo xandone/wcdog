@@ -9,5 +9,9 @@ public interface UserMapper {
 
     UserBean getUserByName(String name);
 
+    UserBean getUserById(String userId);
+
+    UserBean getUserByNick(String nick);
+
     List<UserBean> getUserList();
 }
