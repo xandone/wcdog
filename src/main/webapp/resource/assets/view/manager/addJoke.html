@@ -32,14 +32,14 @@
 <script>
     layui.use('layedit', function () {
         var layedit = layui.layedit, $ = layui.jquery;
+        layedit.set({
+            uploadImage: {
+                url: '/wcdog/img/upImage' //接口url
+            }
+        })
 
         //构建一个默认的编辑器
         var index = layedit.build('add_joke_lay', {height: 360});
-        layedit.set({
-            uploadImage: {
-                url: '/wcdog/joke/upImg' //接口url
-            }
-        })
 
         //编辑器外部操作
         var active = {
