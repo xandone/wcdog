@@ -1,6 +1,6 @@
 package com.xandone.wcdog.controller;
 
-import com.xandone.wcdog.pojo.Base.BaseBean;
+import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.LoginBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.UserService;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +21,9 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public BaseBean login(@RequestParam(value = "name") String name,
-                          @RequestParam(value = "psw") String psw) {
-        BaseBean baseBean = new BaseBean();
+    public BaseResult login(@RequestParam(value = "name") String name,
+                            @RequestParam(value = "psw") String psw) {
+        BaseResult baseBean = new BaseResult();
         List list = new ArrayList();
         UserBean userBean = null;
         try {
@@ -41,8 +40,8 @@ public class UserController {
 
     @RequestMapping(value = "/userlist")
     @ResponseBody
-    public BaseBean getAllUser(Integer page, Integer row) {
-        BaseBean baseBean = new BaseBean();
+    public BaseResult getAllUser(Integer page, Integer row) {
+        BaseResult baseBean = new BaseResult();
         List<UserBean> list = null;
         try {
             list = userService.getAllUser(page, row);

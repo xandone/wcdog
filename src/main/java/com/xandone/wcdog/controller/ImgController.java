@@ -1,8 +1,6 @@
 package com.xandone.wcdog.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.xandone.wcdog.pojo.Base.BaseBean;
 import com.xandone.wcdog.pojo.ImageBean;
 import com.xandone.wcdog.pojo.ImageLayBean;
 import com.xandone.wcdog.service.ImageService;
@@ -12,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller

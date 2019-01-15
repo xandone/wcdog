@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xandone.wcdog.mapper.JokeMapper">
+
+    <resultMap id="BaseResultMap" type="com.xandone.wcdog.pojo.JokeBean">
+        <result column="joke_id" property="jokeId" jdbcType="VARCHAR"/>
+        <result column="joke_user_id" property="jokeUserId" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="art_like_count" property="articleLikeCount"
+                jdbcType="INTEGER"/>
+        <result column="art_comment_count" property="articleCommentCount"
+                jdbcType="INTEGER"/>
+        <result column="post_time" property="postTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="JokeLikeMap" type="com.xandone.wcdog.pojo.JokeLikeBean">
+        <result column="joke_id" property="joke_id" jdbcType="VARCHAR"/>
+        <result column="joke_user_id" property="joke_user_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="JokeCommentMap" type="com.xandone.wcdog.pojo.CommentBean">
+        <result column="comment_id" property="commentId" jdbcType="VARCHAR"/>
+        <result column="joke_id" property="jokeId" jdbcType="VARCHAR"/>
+        <result column="comment_user_id" property="commentUserId"
+                jdbcType="VARCHAR"/>
+        <result column="comment_details" property="commentDetails"
+                jdbcType="VARCHAR"/>
+        <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="addJoke" parameterType="com.xandone.wcdog.pojo.JokeBean">
+        insert into y_joke
+        (joke_id,
+        joke_user_id,
+        title,
+        content,
+        post_time,
+        art_like_count,
+        art_comment_count
+        ) values
+        (#{jokeId},
+        #{jokeUserId},
+        #{title},
+        #{content},
+        #{postTime},
+        #{articleLikeCount},
+        #{articleCommentCount}
+        )
+    </insert>
+
+    <!-- asc 按升序排列 (不用写，默认使用这个) desc 按降序排列 -->
+    <select id="getJokeList" resultMap="BaseResultMap">
+        select * from y_joke order by
+        id desc
+    </select>
+
+    <select id="selectJokeLikeById" resultMap="JokeLikeMap">
+        select * from
+        y_joke_like
+        where joke_id = #{joke_id}
+    </select>
+
+    <select id="selectJokeBeanById" parameterType="java.lang.String"
+            resultType="com.xandone.wcdog.pojo.JokeBean">
+        select * from
+        y_joke
+        where joke_id = #{joke_id}
+    </select>
+
+    <insert id="thumbsJoke" parameterType="com.xandone.wcdog.pojo.JokeLikeBean">
+        insert into y_joke_like(
+        joke_id,
+        joke_user_id)
+        values(
+        #{joke_id},
+        #{joke_user_id})
+    </insert>
+
+    <insert id="addComment" parameterType="com.xandone.wcdog.pojo.CommentBean">
+        insert into
+        y_joke_comment(
+        comment_id,
+        joke_id,
+        comment_user_id,
+        comment_details,
+        comment_date)
+        values(
+        #{comment_id},
+        #{joke_id},
+        #{comment_user_id},
+        #{comment_details},
+        #{comment_date})
+    </insert>
+
+    <select id="getJokeCommentById" resultMap="JokeCommentMap">
+        select * from
+        y_joke_comment where joke_id = #{joke_id} order by id desc
+    </select>
+
+    <update id="changeJokeLikeCount" parameterType="java.util.Map">
+        update y_joke set
+        art_like_count=#{art_like_count} where joke_id = #{joke_id}
+    </update>
+
+    <delete id="deleteJokeById">
+        delete from y_joke where joke_id= #{joke_id};
+    </delete>
+
+    <delete id="deleteJokeCommentById">
+        delete from y_joke_comment where comment_id=
+        #{comment_id};
+    </delete>
+
+</mapper>

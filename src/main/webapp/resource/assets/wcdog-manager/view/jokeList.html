@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../plugin/layui/src/css/layui.css">
+</head>
+<body>
+<div class="layui-btn-group demoTable">
+    <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+    <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+    <button class="layui-btn" data-type="isAll">验证是否全选</button>
+</div>
+
+<table class="layui-table"
+       lay-data="{width: 1200, height:500, url:'/ycat3/joke/list',page:true,id:'idTest',request: {pageName: 'page',limitName: 'rows'},
+		response: {statusName: 'code' ,statusCode: 200,msgName: 'msg' ,countName: 'total' ,dataName: 'rows' }}"
+       lay-filter="andone">
+    <thead>
+    <tr>
+        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+        <th lay-data="{field:'joke_user_id', width:150}">作者ID</th>
+        <th lay-data="{field:'joke_user_nick',width:120}">作者昵称</th>
+        <th lay-data="{field:'title',width:120}">标题</th>
+        <th lay-data="{field:'content',width:150}">内容</th>
+        <th lay-data="{field:'post_time', width:150}">发表时间</th>
+        <th lay-data="{field:'article_like_count', width:100}">喜欢数</th>
+        <th lay-data="{field:'article_comment_count', width:100}">评论数</th>
+        <th lay-data="{field:'joke_id', width:150}">段子ID</th>
+        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+    </tr>
+    </thead>
+</table>
+
+<script type="text/javascript" src="../plugin/layui/src/layui.js"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">评论</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script>
+    var jokeId;
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(andone)', function (obj) {
+            console.log(obj);
+        });
+        //监听工具条
+        table.on('tool(andone)',
+            function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    layer.msg('ID：' + data.joke_user_nick + ' 的查看操作');
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除《' + data.title + '》吗？', function (index) {
+                        $.ajax({
+                            type: 'post',
+                            url: '/ycat3/rest/joke/delete',
+                            dataType: 'json',
+                            data: "jokeId=" + data.joke_id,
+                            success: function (data) {
+                                obj.del();
+                                layer.msg('删除成功');
+                            },
+                            error: function () {
+                                layer.msg('删除失败');
+                            }
+                        });
+
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                    /* layer.alert('编辑行：<br>'+ JSON.stringify(data)) */
+
+                    jokeId = data.joke_id;
+                    /* type:2才可以打开一个html页面 */
+                    layer.open({
+                        type: 2,
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['900px', '500px'], //宽高
+                        content: 'commentList.html'
+                    });
+
+                }
+            });
+
+        var $ = layui.$, active = {
+            getCheckData: function () { //获取选中数据
+                var checkStatus = table.checkStatus('idTest'), data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            },
+            getCheckLength: function () { //获取选中数目
+                var checkStatus = table.checkStatus('idTest'), data = checkStatus.data;
+                layer.msg('选中了：' + data.length + ' 个');
+            },
+            isAll: function () { //验证是否全选
+                var checkStatus = table.checkStatus('idTest');
+                layer.msg(checkStatus.isAll ? '全选' : '未全选')
+            }
+        };
+
+        $('.demoTable .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>
+
+</body>
+</html>
