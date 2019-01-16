@@ -1,7 +1,9 @@
 package com.xandone.wcdog.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xandone.wcdog.mapper.UserMapper;
+import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +40,25 @@ public class UserServiceImpl implements UserService {
         return userBean;
     }
 
+    @Override
+    public void deleteUserById(String userId) throws Exception {
+        userMapper.deleteUserById(userId);
+    }
 
     @Override
-    public List<UserBean> getAllUser(Integer page, Integer row) {
+    public void deleteUserByList(List<String> userIds) throws Exception {
+        userMapper.deleteUserByList(userIds);
+    }
+
+
+    @Override
+    public BaseListResult getAllUser(Integer page, Integer row) {
+        BaseListResult base = new BaseListResult();
         PageHelper.startPage(page, row);
         List<UserBean> list = userMapper.getUserList();
-        return list;
+        int total = (int) new PageInfo<>(list).getTotal();
+        base.setData(list);
+        base.setTotal(total);
+        return base;
     }
 }

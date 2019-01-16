@@ -65,10 +65,10 @@
                 }
 
                 $.ajax({
-                    type: 'get',
+                    type: 'post',
                     url: '/wcdog/joke/add',
                     dataType: 'json',
-                    data: "title=" + title.value + "&content=" + layedit.getContent(index) + "&joke_user_id=" + "152146249752110",
+                    data: "title=" + title.value + "&content=" + layedit.getContent(index) + "&jokeUserId=" + "1",
                     success: function (data) {
                         layer.msg('发布成功');
                         $('#LAY_layedit_1').contents().find('body').html('');

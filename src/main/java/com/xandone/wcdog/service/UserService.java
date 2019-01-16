@@ -1,5 +1,6 @@
 package com.xandone.wcdog.service;
 
+import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.UserBean;
 
 import java.util.List;
@@ -13,6 +14,10 @@ public interface UserService {
 
     UserBean getUserByNick(String userId) throws Exception;
 
-    List<UserBean> getAllUser(Integer page, Integer row) throws Exception;
+    void deleteUserById(String userId) throws Exception;
+
+    void deleteUserByList(List<String> userIds) throws Exception;
+
+    BaseListResult getAllUser(Integer page, Integer row) throws Exception;
 
 }

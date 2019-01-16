@@ -106,7 +106,14 @@
     </update>
 
     <delete id="deleteJokeById">
-        delete from y_joke where joke_id= #{joke_id};
+        delete from y_joke where joke_id= #{jokeId};
+    </delete>
+
+    <delete id="deleteJokeByList" parameterType="java.util.List">
+        delete from y_joke where joke_id IN
+        <foreach collection="list" item="jokeId" open="(" separator="," close=")">
+            #{jokeId}
+        </foreach>
     </delete>
 
     <delete id="deleteJokeCommentById">

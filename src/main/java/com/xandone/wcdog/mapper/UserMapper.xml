@@ -40,4 +40,15 @@
         select * from y_user
     </select>
 
+    <delete id="deleteUserById">
+        delete from y_user where user_id= #{userId};
+    </delete>
+
+    <delete id="deleteUserByList" parameterType="java.util.List">
+        delete from y_user where user_id IN
+        <foreach collection="list" item="userId" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
 </mapper>

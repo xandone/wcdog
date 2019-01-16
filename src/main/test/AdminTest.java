@@ -15,10 +15,10 @@ public class AdminTest {
         UserMapper mapper = context.getBean(UserMapper.class);
 
         UserBean user = new UserBean(
-                "3@qq.com",
+                "2@qq.com",
                 "2",
                 "狗蛋2",
-                "2",
+                "3",
                 new Date());
 
         mapper.addUser(user);

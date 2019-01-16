@@ -9,24 +9,24 @@
 <div class="layui-btn-group demoTable">
     <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
     <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
-    <button class="layui-btn" data-type="isAll">验证是否全选</button>
+    <button class="layui-btn" data-type="deleteList">批量删除</button>
 </div>
 
 <table class="layui-table"
-       lay-data="{width: 1200, height:500, url:'/ycat3/joke/list',page:true,id:'idTest',request: {pageName: 'page',limitName: 'rows'},
-		response: {statusName: 'code' ,statusCode: 200,msgName: 'msg' ,countName: 'total' ,dataName: 'rows' }}"
+       lay-data="{width: 1200, height:500, url:'/wcdog/joke/jokelist',page:true,id:'idTest',request: {pageName: 'page',limitName: 'row'},
+		response: {statusName: 'code' ,statusCode: 200,msgName: 'msg' ,countName: 'total' ,dataName: 'data' }}"
        lay-filter="andone">
     <thead>
     <tr>
         <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-        <th lay-data="{field:'joke_user_id', width:150}">作者ID</th>
-        <th lay-data="{field:'joke_user_nick',width:120}">作者昵称</th>
+        <th lay-data="{field:'jokeUserId', width:150}">作者ID</th>
+        <th lay-data="{field:'jokeUserNick',width:120}">作者昵称</th>
         <th lay-data="{field:'title',width:120}">标题</th>
         <th lay-data="{field:'content',width:150}">内容</th>
-        <th lay-data="{field:'post_time', width:150}">发表时间</th>
-        <th lay-data="{field:'article_like_count', width:100}">喜欢数</th>
-        <th lay-data="{field:'article_comment_count', width:100}">评论数</th>
-        <th lay-data="{field:'joke_id', width:150}">段子ID</th>
+        <th lay-data="{field:'postTime', width:150}">发表时间</th>
+        <th lay-data="{field:'articleLikeCount', width:100}">喜欢数</th>
+        <th lay-data="{field:'articleCommentCount', width:100}">评论数</th>
+        <th lay-data="{field:'jokeId', width:150}">段子ID</th>
         <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
     </tr>
     </thead>
@@ -53,14 +53,14 @@
             function (obj) {
                 var data = obj.data;
                 if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.joke_user_nick + ' 的查看操作');
+                    layer.msg('ID：' + data.jokeUserNick + ' 的查看操作');
                 } else if (obj.event === 'del') {
                     layer.confirm('真的删除《' + data.title + '》吗？', function (index) {
                         $.ajax({
                             type: 'post',
-                            url: '/ycat3/rest/joke/delete',
+                            url: '/wcdog/joke/delete',
                             dataType: 'json',
-                            data: "jokeId=" + data.joke_id,
+                            data: "jokeId=" + data.jokeId,
                             success: function (data) {
                                 obj.del();
                                 layer.msg('删除成功');
@@ -96,9 +96,33 @@
                 var checkStatus = table.checkStatus('idTest'), data = checkStatus.data;
                 layer.msg('选中了：' + data.length + ' 个');
             },
-            isAll: function () { //验证是否全选
-                var checkStatus = table.checkStatus('idTest');
-                layer.msg(checkStatus.isAll ? '全选' : '未全选')
+            deleteList: function () { //批量删除
+                var checkStatus = table.checkStatus('idTest'),
+                    data = checkStatus.data,
+                    delList = [];
+                data.forEach(function (n, i) {
+                    delList.push(n.jokeId);
+                });
+                console.log(delList);
+                if (delList.length > 0) {
+                    layer.confirm('确定删除所选项吗？', function (index) {
+                        $.ajax({
+                            url: '/wcdog/joke/deleteList',
+                            type: 'post',
+                            dataType: 'json',
+                            data: "jokeIds=" + JSON.stringify(delList),
+                            success: function (data, statusText) {
+                                layer.msg('删除成功');
+                                table.reload('idTest', {});
+                            },
+                            'error': function () {
+                                layer.msg('删除失败');
+                            }
+                        })
+                    })
+                } else {
+                    layer.msg('请选择要删除的项');
+                }
             }
         };
 

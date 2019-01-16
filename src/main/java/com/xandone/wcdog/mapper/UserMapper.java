@@ -13,5 +13,9 @@ public interface UserMapper {
 
     UserBean getUserByNick(String nick);
 
+    void deleteUserById(String userId);
+
+    void deleteUserByList(List<String> userIds);
+
     List<UserBean> getUserList();
 }

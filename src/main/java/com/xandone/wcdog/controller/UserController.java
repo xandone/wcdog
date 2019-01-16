@@ -1,11 +1,13 @@
 package com.xandone.wcdog.controller;
 
 import com.xandone.wcdog.config.Config;
+import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.LoginBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
+import com.xandone.wcdog.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,25 +96,57 @@ public class UserController {
 
     @RequestMapping(value = "/userlist")
     @ResponseBody
-    public BaseResult getAllUser(Integer page, Integer row) {
-
-        BaseResult baseResult = new BaseResult();
-        List<UserBean> list = null;
+    public BaseListResult getAllUser(Integer page, Integer row) {
+        BaseListResult baseResult = new BaseListResult();
         try {
-            list = userService.getAllUser(page, row);
-            if (list != null && list.isEmpty()) {
-                baseResult.setCode(Config.SUCCESS_CODE);
-                baseResult.setMsg(Config.MES_REQUEST_SUCCESS);
-            } else {
-                baseResult.setCode(Config.ERROR_CODE);
+            BaseListResult result = userService.getAllUser(page, row);
+            if (result != null) {
+                result.setCode(Config.SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
             }
+            baseResult.setCode(Config.ERROR_CODE);
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(Config.ERROR_CODE);
             baseResult.setMsg(Config.MES_SERVER_ERROR);
         }
-        baseResult.setData(list);
+        return baseResult;
+    }
 
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteUserById(String userId, String adminId) {
+        BaseListResult baseResult = new BaseListResult();
+        System.out.println("delete:.." + userId);
+        try {
+            userService.deleteUserById(userId);
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/deleteList", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteUserByList(String userIds) {
+        BaseListResult baseResult = new BaseListResult();
+        System.out.println("user:" + userIds);
+        try {
+            userService.deleteUserByList(SimpleUtils.toList(userIds));
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
         return baseResult;
     }
 

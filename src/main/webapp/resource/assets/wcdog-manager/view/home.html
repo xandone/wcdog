@@ -133,7 +133,6 @@
             }
         };
 
-
         $('.demo-active').on('click', function () {
             var dataid = $(this);
             if ($(".layui-tab-title li[lay-id]").length <= 0) {
@@ -141,11 +140,11 @@
             } else {
                 var isData = false;
                 $.each($(".layui-tab-title li[lay-id]"), function () {
-                    if ($(this).attr("lay-id") == dataid.attr("data-id")) {
+                    if ($(this).attr("lay-id") === dataid.attr("data-id")) {
                         isData = true;
                     }
                 })
-                if (isData == false) {
+                if (isData === false) {
                     active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
                 }
             }

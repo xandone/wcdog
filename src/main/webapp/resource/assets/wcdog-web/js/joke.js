@@ -17,7 +17,7 @@
             $.ajax({
                 type: 'post',
                 url: '/wcdog/joke/add',
-                data: "title=" + title + "&content=" + content + "&jokeUserId=" + "22",
+                data: "title=" + title + "&content=" + content + "&jokeUserId=" + "1",
                 dataType: 'json',
                 success: function(result) {
                     if (result.code === 200) {
