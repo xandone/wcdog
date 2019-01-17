@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xandone.wcdog.mapper.BannerMapper">
+
+    <resultMap id="BaseResultMap" type="com.xandone.wcdog.pojo.BannerBean">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="articel_id" property="articelId" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR"/>
+        <result column="article_url" property="articleUrl" jdbcType="VARCHAR"/>
+        <result column="pageViews" property="pageViews"
+                jdbcType="INTEGER"/>
+        <result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="addBanner" parameterType="com.xandone.wcdog.pojo.BannerBean">
+        insert into y_banner
+        (user_id,articel_id,title,img_url,article_url,pageViews,up_time) values
+        (#{userId},#{articelId},#{title},#{imgUrl},#{articleUrl},#{pageViews},#{upTime})
+    </insert>
+
+    <select id="getBannerData" resultMap="BaseResultMap">
+        select * from y_banner order by
+        id desc
+    </select>
+
+</mapper>

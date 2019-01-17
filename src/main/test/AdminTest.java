@@ -1,7 +1,11 @@
+import com.xandone.wcdog.mapper.BannerMapper;
 import com.xandone.wcdog.mapper.JokeMapper;
 import com.xandone.wcdog.mapper.UserMapper;
+import com.xandone.wcdog.pojo.BannerBean;
+import com.xandone.wcdog.pojo.CommentBean;
 import com.xandone.wcdog.pojo.JokeBean;
 import com.xandone.wcdog.pojo.UserBean;
+import com.xandone.wcdog.utils.IDUtils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -45,6 +49,36 @@ public class AdminTest {
                 + "开始寻求卡塔尔的合作。但卡塔尔不愿意与周边国家共同举办世界杯，而它自身的场馆数量，又无法满足48支球队比赛的需求，这一计划才最终作罢。");
         jokeBean.setPostTime(new Date());
         mapper.addJoke(jokeBean);
+
+    }
+
+    @Test
+    public void addComment() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        JokeMapper mapper = context.getBean(JokeMapper.class);
+
+        CommentBean commentBean = new CommentBean();
+        commentBean.setCommentId(IDUtils.RandomId());
+        commentBean.setJokeId("152112021530410");
+        commentBean.setCommentUserId("152112021530406");
+        commentBean.setCommentDetails("写得好");
+        commentBean.setCommentDate(new Date());
+
+        mapper.addComment(commentBean);
+    }
+
+    @Test
+    public void addBanner() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        BannerMapper mapper = context.getBean(BannerMapper.class);
+        BannerBean bannerBean = new BannerBean();
+        bannerBean.setUserId("1");
+        bannerBean.setArticelId(IDUtils.RandomId());
+        bannerBean.setImgUrl("");
+        bannerBean.setTitle("FIFA探讨世界杯扩");
+        bannerBean.setPageViews(0);
+        bannerBean.setUpTime(new Date());
+        mapper.addBanner(bannerBean);
 
     }
 

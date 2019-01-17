@@ -1,5 +1,10 @@
 package com.xandone.wcdog.config;
 
+/**
+ * @author ：xandone
+ * created on  ：2019/1/15 9:52
+ * description：
+ */
 public class Config {
     public static final String AADMIN_ID = "00001";
 

@@ -9,6 +9,7 @@
         <result column="joke_user_id" property="jokeUserId" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="contentHtml" property="contentHtml" jdbcType="VARCHAR"/>
         <result column="art_like_count" property="articleLikeCount"
                 jdbcType="INTEGER"/>
         <result column="art_comment_count" property="articleCommentCount"
@@ -37,6 +38,7 @@
         joke_user_id,
         title,
         content,
+        contentHtml,
         post_time,
         art_like_count,
         art_comment_count
@@ -45,6 +47,7 @@
         #{jokeUserId},
         #{title},
         #{content},
+        #{contentHtml},
         #{postTime},
         #{articleLikeCount},
         #{articleCommentCount}
@@ -88,16 +91,16 @@
         comment_details,
         comment_date)
         values(
-        #{comment_id},
-        #{joke_id},
-        #{comment_user_id},
-        #{comment_details},
-        #{comment_date})
+        #{commentId},
+        #{jokeId},
+        #{commentUserId},
+        #{commentDetails},
+        #{commentDate})
     </insert>
 
     <select id="getJokeCommentById" resultMap="JokeCommentMap">
         select * from
-        y_joke_comment where joke_id = #{joke_id} order by id desc
+        y_joke_comment where joke_id = #{jokeId} order by id desc
     </select>
 
     <update id="changeJokeLikeCount" parameterType="java.util.Map">
@@ -119,6 +122,13 @@
     <delete id="deleteJokeCommentById">
         delete from y_joke_comment where comment_id=
         #{comment_id};
+    </delete>
+
+    <delete id="deleteCommentByList" parameterType="java.util.List">
+        delete from y_joke_comment where comment_id IN
+        <foreach collection="list" item="commentId" open="(" separator="," close=")">
+            #{commentId}
+        </foreach>
     </delete>
 
 </mapper>

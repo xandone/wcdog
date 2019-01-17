@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: 400
+}
+
+ol,
+ul {
+    list-style: none
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: 400
+}
+
+fieldset,
+img {
+    border: 0
+}
+
+textarea {
+    resize: none
+}
+
+a {
+    color: #000;
+    text-decoration: none
+}
+
+.fontsize24,
+h1 {
+    font-size: 24px
+}
+
+.fontsize20,
+h2 {
+    font-size: 20px
+}
+
+.fontsize18,
+h3 {
+    font-size: 18px
+}
+
+.fontsize16,
+h4 {
+    font-size: 16px
+}
+
+.fontsize14,
+h5 {
+    font-size: 14px
+}
+
+.fontsize12,
+h6 {
+    font-size: 12px
+}
+
+.bold {
+    font-weight: 700
+}
+
+.fllil li {
+    float: left
+}
+
+.fllir li {
+    float: right
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.radius {
+    border-radius: 100%
+}
+
+.positionCenterLeft {
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+.positionCenterTop {
+    top: 0;
+    bottom: 0;
+    margin: auto
+}
+
+.positionCenter {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+.distable {
+    display: table
+}
+
+.distablecell {
+    display: table-cell;
+    vertical-align: middle
+}
+
+.textels {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+
+.marginCenter {
+    margin: 0 auto
+}
+
+.t_l {
+    text-align: left
+}
+
+.t_c {
+    text-align: center
+}
+
+.t_r {
+    text-align: right
+}
+
+.unLine {
+    text-decoration: underline
+}
+
+.fiexd {
+    position: fixed
+}
+
+.absolute {
+    position: absolute
+}
+
+.relative {
+    position: relative
+}
+
+.wrapper {
+    clear: both;
+    overflow: hidden
+}
+
+.o-hidden {
+    overflow: hidden
+}
+
+.hidden {
+    display: none
+}
+
+.block {
+    display: block
+}
+
+.lblock {
+    display: inline-block
+}
+
+.clear {
+    clear: both
+}
+
+.pointer {
+    cursor: pointer
+}
+
+img {
+    border: 0;
+    vertical-align: middle
+}

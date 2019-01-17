@@ -1,0 +1,213 @@
+body {
+    background-color: #F6F6F6;
+}
+
+.header {
+    height: 50px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+.header-center {
+    width: 900px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.header-user {
+    float: right;
+    display: inline-block;
+}
+
+.header-logo {
+    display: inline-block;
+}
+
+.header-logo span {
+    line-height: 50px;
+    margin-left: 20px;
+}
+
+.header-user img {
+    width: 40px;
+    height: 40px;
+    margin-right: 6px;
+    border: 1px #ddd solid;
+}
+
+.header-user span {
+    line-height: 50px;
+    margin-right: 20px;
+}
+
+
+.banner {
+    width: 800px;
+    height: 320px;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+    padding: 10px;
+}
+
+.banner img {
+    width: 600px;
+    height: 320px;
+    position: absolute;
+}
+
+@keyframes imgAlpha {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1
+    }
+
+}
+
+.hide-banner-img {
+    display: none;
+}
+
+.show-banner-img {
+    display: block;
+    animation: imgAlpha 1s;
+}
+
+.banner-box {
+    position: absolute;
+    bottom: 15px;
+    right: 300px;
+    z-index: 2;
+}
+
+.banner-box li {
+    width: 10px;
+    margin-left: 6px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.banner-box-bg {
+    background: #ddd;
+}
+
+.banner-box-select {
+    background: #D5B867;
+}
+
+
+.joke-list {
+    width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 10px;
+}
+
+.joke-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 0.5px solid #eee;
+}
+
+
+.joke-author {
+    float: right;
+    color: #555;
+    font-size: 14px;
+}
+
+.joke-content {
+    margin-top: 10px;
+    margin-bottom: 6px;
+    color: #6A6868;
+}
+
+.joke-author-icon-root {
+    display: inline-block;
+    position: relative;
+}
+
+.joke-author-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 0;
+    border: 1px solid #ddd;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.joke-author-dialog {
+    width: 200px;
+    height: 100px;
+    display: none;
+    position: absolute;
+    margin-top: 15px;
+    border-left: 0.5px solid #eee;
+    border-right: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
+    background-color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+}
+
+
+.joke-author-dialog img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+}
+
+.author-dialog-name {
+    color: #333;
+    font-size: 16px;
+    margin-left: 50px;
+    font-weight: bolder;
+}
+
+.author-dialog-say{
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.joke-dialog-line {
+    height: 1px;
+    background-color: #eee;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+.joke-title {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.joke-date {
+    float: right;
+    font-size: 14px;
+    color: #A0A6A5;
+}
+
+.helpful {
+    color: #A0A6A5;
+    vertical-align: middle;
+    text-align: center;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.helpful img {
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+}

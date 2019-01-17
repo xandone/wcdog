@@ -60,7 +60,7 @@
                             type: 'post',
                             url: '/wcdog/joke/delete',
                             dataType: 'json',
-                            data: "jokeId=" + data.jokeId,
+                            data: "jokeId =" + data.jokeId,
                             success: function (data) {
                                 obj.del();
                                 layer.msg('删除成功');
@@ -75,7 +75,7 @@
                 } else if (obj.event === 'edit') {
                     /* layer.alert('编辑行：<br>'+ JSON.stringify(data)) */
 
-                    jokeId = data.joke_id;
+                    jokeId = data.jokeId;
                     /* type:2才可以打开一个html页面 */
                     layer.open({
                         type: 2,

@@ -31,4 +31,6 @@ public interface JokeMapper {
 
     void deleteJokeCommentById(String id);
 
+    void deleteCommentByList(List<String> commentsId);
+
 }

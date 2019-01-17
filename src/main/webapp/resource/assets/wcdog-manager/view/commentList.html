@@ -7,45 +7,12 @@
 </head>
 <body>
 <div class="layui-btn-group demoTable">
-    <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
-    <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
-    <button class="layui-btn" data-type="isAll">验证是否全选</button>
+    <button class="layui-btn" data-type="isAll">批量删除</button>
 </div>
 
 <table id="commentTb" lay-filter="andone"></table>
 
 <script type="text/javascript" src="../plugin/layui/src/layui.js"></script>
-
-<script>
-    layui.use('table', function () {
-        var table = layui.table;
-
-        table.render({
-            elem: '#commentTb'
-            , width: 800
-            , height: 400
-            , url: '/ycat3/joke/comment/list' //数据接口
-            , page: true //开启分页
-            , where: {jokeId: parent.jokeId}
-            , request: {pageName: 'page', limitName: 'rows'}
-            , response: {
-                statusName: 'code'
-                , msgName: 'msg'
-                , countName: 'total'
-                , dataName: 'rows'
-            }
-            , cols: [[ //表头
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'comment_user_id', title: '评论者ID', width: 120}
-                , {field: 'comment_nick', title: '评论者昵称', width: 120}
-                , {field: 'comment_details', title: '评论详情', width: 200}
-                , {field: 'comment_date', title: '评论时间', width: 140}
-                , {fixed: 'right', width: 180, align: 'center', toolbar: '#barDemo'}
-            ]]
-        });
-
-    });
-</script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
@@ -56,9 +23,38 @@
 <script>
     layui.use('table', function () {
         var table = layui.table;
+        table.render({
+            elem: '#commentTb'
+            , width: 800
+            , height: 400
+            , url: '/wcdog/joke/comment/list' //数据接口
+            , page: true //开启分页
+            , where: {jokeId: parent.jokeId}
+            , request: {pageName: 'page', limitName: 'row'}
+            , response: {
+                statusName: 'code'
+                , msgName: 'msg'
+                , countName: 'total'
+                , dataName: 'data'
+            }
+            , cols: [[ //表头
+                {type: 'checkbox', fixed: 'left'}
+                , {field: 'commentUserId', title: '评论者ID', width: 120}
+                , {field: 'commentNick', title: '评论者昵称', width: 120}
+                , {field: 'commentDetails', title: '评论详情', width: 200}
+                , {field: 'commentDate', title: '评论时间', width: 140}
+                , {fixed: 'right', width: 180, align: 'center', toolbar: '#barDemo'}
+            ]]
+        });
+    });
+</script>
+
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
         //监听表格复选框选择
         table.on('checkbox(andone)', function (obj) {
-            console.log(obj);
+            console.log(obj.data);
         });
         //监听工具条
         table.on('tool(andone)',
@@ -70,9 +66,9 @@
                     layer.confirm('真的删除这条评论?', function (index) {
                         $.ajax({
                             type: 'post',
-                            url: '/ycat3/rest/joke/comment/delete',
+                            url: '/wcdog/joke/comment/delete',
                             dataType: 'json',
-                            data: "commentId=" + data.comment_id,
+                            data: "commentId=" + data.commentId,
                             success: function (data) {
                                 obj.del();
                                 layer.msg('删除成功');
@@ -90,14 +86,6 @@
             });
 
         var $ = layui.$, active = {
-            getCheckData: function () { //获取选中数据
-                var checkStatus = table.checkStatus('idTest'), data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            },
-            getCheckLength: function () { //获取选中数目
-                var checkStatus = table.checkStatus('idTest'), data = checkStatus.data;
-                layer.msg('选中了：' + data.length + ' 个');
-            },
             isAll: function () { //验证是否全选
                 var checkStatus = table.checkStatus('idTest');
                 layer.msg(checkStatus.isAll ? '全选' : '未全选')

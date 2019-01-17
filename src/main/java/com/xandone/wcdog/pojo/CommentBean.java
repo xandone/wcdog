@@ -3,12 +3,14 @@ package com.xandone.wcdog.pojo;
 import java.util.Date;
 
 public class CommentBean {
-
     private String commentId;
     private String jokeId;
     private String commentUserId;
     private String commentDetails;
     private Date commentDate;
+
+    private String commentNick;
+    private String commentIcon;
 
     public String getCommentId() {
         return commentId;
@@ -48,5 +50,21 @@ public class CommentBean {
 
     public void setCommentDate(Date commentDate) {
         this.commentDate = commentDate;
+    }
+
+    public String getCommentNick() {
+        return commentNick;
+    }
+
+    public void setCommentNick(String commentNick) {
+        this.commentNick = commentNick;
+    }
+
+    public String getCommentIcon() {
+        return commentIcon;
+    }
+
+    public void setCommentIcon(String commentIcon) {
+        this.commentIcon = commentIcon;
     }
 }

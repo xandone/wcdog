@@ -5,6 +5,11 @@ import com.xandone.wcdog.pojo.UserBean;
 
 import java.util.List;
 
+/**
+ * @author ：xandone
+ * created on  ：2019/1/15 22:30
+ * description：
+ */
 public interface UserService {
     UserBean addUser(UserBean userBean) throws Exception;
 

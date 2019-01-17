@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author ：xandone
+ * created on  ：2019/1/15 22:30
+ * description：
+ */
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -24,20 +29,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserBean getUserByName(String name) {
-        UserBean userBean = userMapper.getUserByName(name);
-        return userBean;
+        return userMapper.getUserByName(name);
     }
 
     @Override
     public UserBean getUserById(String userId) throws Exception {
-        UserBean userBean = userMapper.getUserById(userId);
-        return userBean;
+        return userMapper.getUserById(userId);
     }
 
     @Override
     public UserBean getUserByNick(String userId) throws Exception {
-        UserBean userBean = userMapper.getUserByNick(userId);
-        return userBean;
+        return userMapper.getUserByNick(userId);
     }
 
     @Override

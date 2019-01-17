@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author ：xandone
+ * created on  ：2019/1/13 10:06
+ * description：
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -96,7 +101,8 @@ public class UserController {
 
     @RequestMapping(value = "/userlist")
     @ResponseBody
-    public BaseListResult getAllUser(Integer page, Integer row) {
+    public BaseListResult getAllUser(@RequestParam(value = "page") Integer page,
+                                     @RequestParam(value = "row") Integer row) {
         BaseListResult baseResult = new BaseListResult();
         try {
             BaseListResult result = userService.getAllUser(page, row);
@@ -116,7 +122,8 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteUserById(String userId, String adminId) {
+    public BaseResult deleteUserById(@RequestParam(value = "userId") String userId,
+                                     @RequestParam(value = "adminId") String adminId) {
         BaseListResult baseResult = new BaseListResult();
         System.out.println("delete:.." + userId);
         try {
@@ -134,7 +141,7 @@ public class UserController {
 
     @RequestMapping(value = "/deleteList", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteUserByList(String userIds) {
+    public BaseResult deleteUserByList(@RequestParam(value = "userIds") String userIds) {
         BaseListResult baseResult = new BaseListResult();
         System.out.println("user:" + userIds);
         try {

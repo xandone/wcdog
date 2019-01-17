@@ -7,6 +7,7 @@ public class JokeBean {
     private String jokeUserId;
     private String title;
     private String content;
+    private String contentHtml;
     private Date postTime;
     private int articleLikeCount;
     private int articleCommentCount;
@@ -44,6 +45,14 @@ public class JokeBean {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getContentHtml() {
+        return contentHtml;
+    }
+
+    public void setContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
     }
 
     public Date getPostTime() {

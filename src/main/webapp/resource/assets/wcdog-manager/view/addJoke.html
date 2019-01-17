@@ -64,15 +64,16 @@
                     return;
                 }
 
+                var temp = layedit.getContent(index);
+                var content = temp.length > 200 ? temp.substring(0, 200) + '...' : temp;
+
                 $.ajax({
                     type: 'post',
                     url: '/wcdog/joke/add',
                     dataType: 'json',
-                    data: "title=" + title.value + "&content=" + layedit.getContent(index) + "&jokeUserId=" + "1",
+                    data: "title=" + title.value + "&content=" + content + "&contentHtml=" + layedit.getText(index) + "&jokeUserId=" + "1",
                     success: function (data) {
                         layer.msg('发布成功');
-                        $('#LAY_layedit_1').contents().find('body').html('');
-                        title.value = '';
                     },
                     error: function () {
                         console.log(layedit.getContent(index));
