@@ -2,16 +2,13 @@ package com.xandone.wcdog.controller;
 
 import com.xandone.wcdog.config.Config;
 import com.xandone.wcdog.pojo.BannerBean;
-import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
-import com.xandone.wcdog.pojo.JokeBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.BannerService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,9 +31,22 @@ public class BannerController {
     UserService userService;
 
     @RequestMapping(value = "/list")
+    @ResponseBody
     public BaseResult getBannerData() {
-        BaseResult result = bannerService.getBannerData();
-        return result;
+        BaseResult baseResult = new BaseResult();
+        try {
+            BaseResult temp = bannerService.getBannerData();
+            if (temp != null) {
+                temp.setCode(Config.SUCCESS_CODE);
+                return temp;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            return baseResult;
+        }
+        baseResult.setCode(Config.ERROR_CODE);
+        return baseResult;
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

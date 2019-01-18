@@ -73,7 +73,7 @@ body {
 
 .show-banner-img {
     display: block;
-    animation: imgAlpha 1s;
+    /*animation: imgAlpha 1s;*/
 }
 
 .banner-box {
@@ -173,7 +173,7 @@ body {
     font-weight: bolder;
 }
 
-.author-dialog-say{
+.author-dialog-say {
     color: #555;
     font-size: 14px;
     margin-top: 10px;
@@ -210,4 +210,26 @@ body {
     width: 20px;
     height: 20px;
     margin-right: 4px;
+}
+
+.reply_root {
+    display: none;
+}
+
+.reply_joke {
+    width: 800px;
+    min-height: 50px;
+    margin-top: 10px;
+    outline: 0.5px solid #eee;
+}
+
+.reply_btn_root {
+    height: 30px;
+}
+
+.reply_joke_btn {
+    height: 30px;
+    width: 50px;
+    margin-top: 10px;
+    float: right;
 }

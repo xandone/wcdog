@@ -10,7 +10,6 @@ import com.xandone.wcdog.pojo.JokeBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.utils.IDUtils;
-import com.xandone.wcdog.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="../plugin/layui/src/css/layui.css">
+</head>
+<body>
+
+<table class="layui-table"
+       lay-data="{width: 1200, height:500, url:'/wcdog/banner/list',page:false,id:'idTest',
+		response: {statusName: 'code' ,statusCode: 200,msgName: 'msg' ,countName: 'total' ,dataName: 'data' }}"
+       lay-filter="andone">
+    <thead>
+    <tr>
+        <th lay-data="{type: 'numbers', width:80, fixed: 'left'}">序号</th>
+        <th lay-data="{field:'title', width:150}">标题</th>
+        <th lay-data="{field:'imgUrl',width:300}">图片地址</th>
+        <th lay-data="{field:'articleUrl', width:300}">内容地址</th>
+        <th lay-data="{field:'upTime', width:150}">发表时间</th>
+        <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+    </tr>
+    </thead>
+</table>
+
+<script type="text/javascript" src="../plugin/layui/src/layui.js"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script>
+    var jokeId;
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听表格复选框选择
+        table.on('checkbox(andone)', function (obj) {
+            console.log(obj);
+        });
+        //监听工具条
+        table.on('tool(andone)',
+            function (obj) {
+                var data = obj.data;
+                if (obj.event === 'detail') {
+                    jokeId = data.joke_id;
+                    /* type:2才可以打开一个html页面 */
+                    layer.open({
+                        type: 2,
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['900px', '500px'], //宽高
+                        content: 'commentList.html'
+                    });
+                } else if (obj.event === 'del') {
+                    layer.confirm('真的删除《\"' + data.title + '\"》吗？', function (index) {
+                        $.ajax({
+                            type: 'post',
+                            url: '/ycat3/rest/joke/delete',
+                            dataType: 'json',
+                            data: "jokeId=" + data.joke_id,
+                            success: function (data) {
+                                obj.del();
+                                layer.msg('删除成功');
+                            },
+                            error: function () {
+                                layer.msg('删除失败');
+                            }
+                        });
+
+                        layer.close(index);
+                    });
+                }
+            });
+    });
+</script>
+
+</body>
+</html>

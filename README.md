@@ -20,6 +20,7 @@ joke_id varchar(18) not null,
 joke_user_id varchar(18) not null,
 title varchar(255) not null,
 content mediumtext,
+contentHtml mediumtext,
 post_time datetime DEFAULT NULL,
 art_like_count int(5) DEFAULT '0',
 art_comment_count int(5) DEFAULT '0',
@@ -58,7 +59,7 @@ primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 ## 首页轮播
-create table y_head_article(
+create table y_banner(
 id int(11) unsigned not null auto_increment,
 user_id varchar(18) not null,
 articel_id varchar(18) not null,

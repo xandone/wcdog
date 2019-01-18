@@ -8,8 +8,7 @@ $(function () {
     var currentIndex = 0;
 
     getjokeList();
-
-    // getBannerImgList();
+    getBannerImgList();
 
     function getjokeList(page, count) {
         $.ajax({
@@ -28,15 +27,11 @@ $(function () {
 
     function getBannerImgList(page, count) {
         $.ajax({
-            url: '/wcdog/headAticleList',
+            url: '/wcdog/banner/list',
             type: 'GET',
             dataType: 'json',
-            data: {
-                page: 0,
-                rows: 10
-            },
             success: function (result) {
-                createBanner(result.rows);
+                createBanner(result.data);
             }
         });
     }
@@ -65,8 +60,10 @@ $(function () {
                 '<span>' + result[i].content + '</span>' +
                 '</div>' +
                 '<span class="helpful"><img src="imgs/zan.png" alt="">' + result[i].articleLikeCount + '</span>' +
-                '<span class="helpful"><img src="imgs/comment_icon.png" alt="">' + result[i].articleCommentCount + '</span>' +
+                '<span id="helpful_comment_icon" class="helpful"><img src="imgs/comment_icon.png" alt="">' + result[i].articleCommentCount + '</span>' +
                 '<span class="joke-date">' + result[i].postTime + '</span>' +
+                '<div id="reply_root" class="reply_root"><div class="reply_joke" contenteditable="true"></div>' +
+                '<div class="reply_btn_root"><button class="reply_joke_btn">回复</button></div></div>' +
                 ' </div>';
 
             jokeItem.html(temp);
@@ -74,6 +71,8 @@ $(function () {
 
             setEvent();
         }
+
+        setReply();
     }
 
     function createBanner(result) {
@@ -113,7 +112,6 @@ $(function () {
                 currentIndex = 0;
             }
 
-
             for (var i = 0; i < bannerImgs.length; i++) {
                 $(bannerImgs[i]).removeClass();
                 $(bannerImgs[i]).addClass('hidden');
@@ -143,7 +141,18 @@ $(function () {
 
             });
         });
+
+
     }
 
+    function setReply() {
+        // $(".panel-heading").on("click", function () {
+        //     $(this).next().toggle(500);
+        // });
+
+        $('.helpful_comment_icon').click('click',function () {
+            $(this).next().toggle("200");
+        });
+    }
 
 })

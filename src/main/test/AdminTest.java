@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
+import java.util.List;
 
 public class AdminTest {
     @Test
@@ -19,21 +20,30 @@ public class AdminTest {
         UserMapper mapper = context.getBean(UserMapper.class);
 
         UserBean user = new UserBean(
-                "2@qq.com",
+                "6@qq.com",
                 "2",
                 "狗蛋2",
-                "3",
+                "6",
                 new Date());
+        user.setUserIcon("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
 
         mapper.addUser(user);
+    }
+
+    @Test
+    public void getUser() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        UserMapper mapper = context.getBean(UserMapper.class);
+        UserBean bean = mapper.getUserById("1");
+        System.out.println(bean.toString());
     }
 
     @Test
     public void getUserByName() {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
         UserMapper mapper = context.getBean(UserMapper.class);
-        UserBean user = mapper.getUserByName("2@qq.com");
-        System.out.println(user.toString());
+        UserBean user = mapper.getUserByName("6@qq.com");
+        System.out.println(user);
     }
 
     @Test
@@ -74,8 +84,8 @@ public class AdminTest {
         BannerBean bannerBean = new BannerBean();
         bannerBean.setUserId("1");
         bannerBean.setArticelId(IDUtils.RandomId());
-        bannerBean.setImgUrl("");
-        bannerBean.setTitle("FIFA探讨世界杯扩");
+        bannerBean.setImgUrl("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
+        bannerBean.setTitle("长河落日圆");
         bannerBean.setPageViews(0);
         bannerBean.setUpTime(new Date());
         mapper.addBanner(bannerBean);

@@ -1,6 +1,7 @@
 $(function () {
     var E = window.wangEditor;
     var editor = new E('#editor');
+    editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
     editor.create();
 
     $('#joke_commit').click(function (event) {

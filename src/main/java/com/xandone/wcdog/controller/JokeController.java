@@ -39,18 +39,10 @@ public class JokeController {
     public BaseResult addJoke(@RequestParam(value = "title") String title,
                               @RequestParam(value = "jokeUserId") String jokeUserId,
                               @RequestParam(value = "content") String content,
-                              @RequestParam(value = "content") String contentHtml
-    ) {
+                              @RequestParam(value = "content") String contentHtml ) {
         BaseResult baseResult = new BaseResult();
         try {
-            UserBean userBean = userService.getUserById(jokeUserId);
-            if (userBean == null) {
-                baseResult.setCode(Config.ERROR_CODE);
-                return baseResult;
-            }
             JokeBean jokeBean = jokeService.addJoke(title, jokeUserId, content, contentHtml);
-            jokeBean.setJokeUserIcon(userBean.getUserIcon());
-            jokeBean.setJokeUserNick(userBean.getNickname());
             List<JokeBean> list = new ArrayList<>();
             list.add(jokeBean);
             baseResult.setData(list);
@@ -66,7 +58,7 @@ public class JokeController {
 
     @RequestMapping(value = "/jokelist")
     @ResponseBody
-    public BaseListResult getAllUser(@RequestParam(value = "page") Integer page,
+    public BaseListResult getAllJoke(@RequestParam(value = "page") Integer page,
                                      @RequestParam(value = "row") Integer row) {
         BaseListResult baseResult = new BaseListResult();
         try {

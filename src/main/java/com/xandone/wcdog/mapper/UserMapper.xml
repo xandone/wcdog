@@ -4,7 +4,7 @@
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
 <mapper namespace="com.xandone.wcdog.mapper.UserMapper">
-    <resultMap id="userList" type="com.xandone.wcdog.pojo.UserBean">
+    <resultMap id="userBean" type="com.xandone.wcdog.pojo.UserBean">
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
@@ -23,20 +23,20 @@
     </insert>
 
     <select id="getUserByName" parameterType="java.lang.String"
-            resultType="com.xandone.wcdog.pojo.UserBean">
+            resultMap="userBean">
         select * from y_user where name = #{name}
     </select>
     <select id="getUserById" parameterType="java.lang.String"
-            resultType="com.xandone.wcdog.pojo.UserBean">
+            resultMap="userBean">
         select * from y_user where user_id = #{userId}
     </select>
 
     <select id="getUserByNick" parameterType="java.lang.String"
-            resultType="com.xandone.wcdog.pojo.UserBean">
+            resultMap="userBean">
         select * from y_user where nickname = #{nick}
     </select>
 
-    <select id="getUserList" resultMap="userList">
+    <select id="getUserList" resultMap="userBean">
         select * from y_user
     </select>
 
