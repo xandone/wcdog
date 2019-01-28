@@ -225,11 +225,11 @@ body {
 
 .reply_btn_root {
     height: 30px;
+    padding: 10px 0;
 }
 
 .reply_joke_btn {
     height: 30px;
     width: 50px;
-    margin-top: 10px;
     float: right;
 }

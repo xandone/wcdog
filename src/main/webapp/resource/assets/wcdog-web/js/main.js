@@ -46,8 +46,8 @@ $(function () {
                 '<a class="joke-title" href="javascript:;">' + result[i].title + '</a>' +
                 '<div class="joke-author"> ' +
                 '<div class="joke-author-icon-root">' +
-                '<img id="joke-author-icon" class="joke-author-icon"src=' + result[i].jokeUserIcon + ' alt="">' +
-                '<div id="joke-author-dialog" class="joke-author-dialog">' +
+                '<img class="joke-author-icon" src=' + result[i].jokeUserIcon + ' alt="">' +
+                '<div class="joke-author-dialog">' +
                 '<img src="imgs/headicon.jpg" alt="">' +
                 '<span class="author-dialog-name">狗蛋</span>' +
                 '<div class="joke-dialog-line"></div>' +
@@ -60,18 +60,17 @@ $(function () {
                 '<span>' + result[i].content + '</span>' +
                 '</div>' +
                 '<span class="helpful"><img src="imgs/zan.png" alt="">' + result[i].articleLikeCount + '</span>' +
-                '<span id="helpful_comment_icon" class="helpful"><img src="imgs/comment_icon.png" alt="">' + result[i].articleCommentCount + '</span>' +
+                '<span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt="">' + result[i].articleCommentCount + '</span>' +
                 '<span class="joke-date">' + result[i].postTime + '</span>' +
-                '<div id="reply_root" class="reply_root"><div class="reply_joke" contenteditable="true"></div>' +
+                '<div  class="reply_root"><div class="reply_joke" contenteditable="true"></div>' +
                 '<div class="reply_btn_root"><button class="reply_joke_btn">回复</button></div></div>' +
-                ' </div>';
+                '</div>';
 
             jokeItem.html(temp);
             jokeItemParent.append(jokeItem);
 
-            setEvent();
         }
-
+        setEvent();
         setReply();
     }
 
@@ -128,20 +127,17 @@ $(function () {
 
 
     function setEvent() {
-        $('#joke-author-icon').mouseover(function (event) {
+        $('.joke-author-icon').mouseenter(function (event) {
             /* Act on the event */
-            $('#joke-author-dialog').show('400', function () {
+            $(this).next().show('300', function () {
+
+            });
+        }).mouseleave(function (event) {
+            /* Act on the event */
+            $(this).next().hide('300', function () {
 
             });
         });
-
-        $('#joke-author-icon').mouseout(function (event) {
-            /* Act on the event */
-            $('#joke-author-dialog').hide('400', function () {
-
-            });
-        });
-
 
     }
 
@@ -150,9 +146,24 @@ $(function () {
         //     $(this).next().toggle(500);
         // });
 
-        $('.helpful_comment_icon').click('click',function () {
-            $(this).next().toggle("200");
+        $('.helpful_comment_icon').on('click', function () {
+            $(this).parent().find('.reply_root').toggle(200);
+        });
+
+        $('.reply_joke_btn').click(function () {
+            var jokeId = '152138655864341';
+            var userId = '152146249752110';
+            var details = $(this).parent().prev().text();
+            $.ajax({
+                url: '/wcdog/joke/comment/add',
+                type: 'GET',
+                dataType: 'json',
+                data: 'jokeId=' + jokeId + '&userId=' + userId + '&details=' + details,
+                success: function (result) {
+                    alert('评论成功');
+                }
+            })
         });
     }
 
-})
+});

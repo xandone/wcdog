@@ -39,7 +39,7 @@ public class JokeController {
     public BaseResult addJoke(@RequestParam(value = "title") String title,
                               @RequestParam(value = "jokeUserId") String jokeUserId,
                               @RequestParam(value = "content") String content,
-                              @RequestParam(value = "content") String contentHtml ) {
+                              @RequestParam(value = "contentHtml") String contentHtml) {
         BaseResult baseResult = new BaseResult();
         try {
             JokeBean jokeBean = jokeService.addJoke(title, jokeUserId, content, contentHtml);
