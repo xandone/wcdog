@@ -58,9 +58,13 @@ public class JokeServiceIml implements JokeService {
 
         for (JokeBean bean : list) {
             UserBean user = userMapper.getUserById(bean.getJokeUserId());
+            List<CommentBean> commentBeans = jokeMapper.getJokeCommentById(bean.getJokeId());
             if (user != null) {
                 bean.setJokeUserNick(user.getNickname());
                 bean.setJokeUserIcon(user.getUserIcon());
+            }
+            if (commentBeans != null) {
+                bean.setArticleCommentCount(commentBeans.size());
             }
         }
 

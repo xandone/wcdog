@@ -7,8 +7,20 @@ $(function () {
     var boxPoints;
     var currentIndex = 0;
 
-    getjokeList();
-    getBannerImgList();
+
+    // initData()
+    initEvent();
+
+    function initData() {
+        getjokeList();
+        getBannerImgList();
+    }
+
+    function initEvent(result) {
+        setEvent();
+        setReply(result);
+    }
+
 
     function getjokeList(page, count) {
         $.ajax({
@@ -41,7 +53,7 @@ $(function () {
         jokeList.html(jokeItemParent);
 
         for (var i = 0; i < result.length; i++) {
-            var jokeItem = $('<li></li>');
+            var jokeItem = $('<li class="joke-item-li"></li>');
             var temp = '<div class="joke-item">' +
                 '<a class="joke-title" href="javascript:;">' + result[i].title + '</a>' +
                 '<div class="joke-author"> ' +
@@ -59,8 +71,8 @@ $(function () {
                 '<div class="joke-content">' +
                 '<span>' + result[i].content + '</span>' +
                 '</div>' +
-                '<span class="helpful"><img src="imgs/zan.png" alt="">' + result[i].articleLikeCount + '</span>' +
-                '<span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt="">' + result[i].articleCommentCount + '</span>' +
+                '<span class="helpful"><img src="imgs/zan.png" alt=""><span>' + result[i].articleLikeCount + '</span></span>' +
+                '<span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt=""><span class="helpful_comment_icon_text">' + result[i].articleCommentCount + '</span></span>' +
                 '<span class="joke-date">' + result[i].postTime + '</span>' +
                 '<div  class="reply_root"><div class="reply_joke" contenteditable="true"></div>' +
                 '<div class="reply_btn_root"><button class="reply_joke_btn">回复</button></div></div>' +
@@ -70,25 +82,25 @@ $(function () {
             jokeItemParent.append(jokeItem);
 
         }
-        setEvent();
-        setReply();
+        initEvent(result);
+
     }
 
     function createBanner(result) {
-        for (var i = 0; i < result.length; i++) {
-            var imgTemp = '<a href="javascript:;" >' +
+        for (let i = 0; i < result.length; i++) {
+            let imgTemp = '<a href="javascript:;" >' +
                 '<img src=' + result[i].imgUrl + ' alt="">' +
                 '</a>';
             banner.append(imgTemp);
 
-            var point = '<li class="banner-box-bg"></li>';
+            let point = '<li class="banner-box-bg"></li>';
             bannerBox.append(point);
         }
 
         bannerImgs = $('#banner a');
         boxPoints = $('#banner-box li');
 
-        for (var i = 0; i < bannerImgs.length; i++) {
+        for (let i = 0; i < bannerImgs.length; i++) {
             $(bannerImgs[i]).removeClass();
             $(bannerImgs[i]).addClass('hidden');
 
@@ -141,27 +153,31 @@ $(function () {
 
     }
 
-    function setReply() {
-        // $(".panel-heading").on("click", function () {
-        //     $(this).next().toggle(500);
-        // });
-
+    function setReply(result) {
         $('.helpful_comment_icon').on('click', function () {
             $(this).parent().find('.reply_root').toggle(200);
         });
 
-        $('.reply_joke_btn').click(function () {
-            var jokeId = '152138655864341';
-            var userId = '152146249752110';
+        $('.reply_joke_btn').on('click', function () {
+            var $rootLi = $(this).parents('.joke-item-li');
+            var jokeId = result[$rootLi.index()].jokeId;
+            var userId = '1';
             var details = $(this).parent().prev().text();
+            if (isEmpty(details)) {
+                alert('请输入内容');
+                return;
+            }
             $.ajax({
                 url: '/wcdog/joke/comment/add',
                 type: 'GET',
                 dataType: 'json',
                 data: 'jokeId=' + jokeId + '&userId=' + userId + '&details=' + details,
                 success: function (result) {
-                    alert('评论成功');
-                }
+                    $(this).parent().prev().text("");
+                    var $comment = $(this).parents('.joke-item').find('.helpful_comment_icon_text');
+                    var count = Number($comment.text()) + 1;
+                    $comment.text(count);
+                }.bind(this)
             })
         });
     }
