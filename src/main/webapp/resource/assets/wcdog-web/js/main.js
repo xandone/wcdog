@@ -19,9 +19,8 @@ $(function () {
 
     function initEvent(result) {
         setEvent();
-        setReply(result);
+        setReplyEvent(result);
     }
-
 
     function getjokeList(page, count) {
         $.ajax({
@@ -70,12 +69,19 @@ $(function () {
                 '</div>' +
                 '<span>' + data[i].jokeUserNick + '</span>' +
                 '</div>' +
+                '<div class="joke_item_details_root">' +
+                '<div class="joke_item_left">' +
+                '<img src="https://upload-images.jianshu.io/upload_images/2518499-f5c1aa291b65d334.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">' +
+                '</div>' +
+                '<div class="joke_item_right">' +
                 '<div class="joke-content">' +
                 '<span>' + data[i].content + '</span>' +
                 '</div>' +
                 '<span class="helpful"><img src="imgs/zan.png" alt=""><span>' + data[i].articleLikeCount + '</span></span>' +
                 '<span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt=""><span class="helpful_comment_icon_text">' + data[i].articleCommentCount + '</span></span>' +
                 '<span class="joke-date">' + data[i].postTime + '</span>' +
+                '</div>' +
+                '</div>' +
                 '<div  class="reply_root">' +
                 '<div class="joke_comment_root">' +
                 '<div class="joke_comment_ul_root">' +
@@ -170,10 +176,12 @@ $(function () {
      * 回复
      * @param result
      */
-    function setReply(result) {
+    function setReplyEvent(result) {
         $('.helpful_comment_icon').on('click', function () {
-            $(this).parent().find('.reply_root').toggle(200, function () {
-                if (!$(this).parent().find('.reply_root').is(":hidden")) {
+            console.log('fddfdsfsd');
+            let $replyRoot = $(this).parents('.joke-item').find('.reply_root');
+            $replyRoot.toggle(200, function () {
+                if (!$replyRoot.is(":hidden")) {
                     let $rootLi = $(this).parents('.joke-item-li');
                     let jokeId = result[$rootLi.index()].jokeId;
                     initComments($(this), jokeId);
@@ -199,11 +207,11 @@ $(function () {
                     let $myReplay = $(this).parent().prev();
                     let $comment = $(this).parents('.joke-item').find('.helpful_comment_icon_text');
                     let $replyRoot = $(this).parents('.reply_root');
-                    let $commentCount=$replyRoot.find('.joke_comment_first');
+                    let $commentCount = $replyRoot.find('.joke_comment_first');
                     let count = Number($comment.text()) + 1;
                     let replayStr = $myReplay.text();
                     $comment.text(count);
-                    $commentCount.text(count+"条评论");
+                    $commentCount.text(count + "条评论");
                     $myReplay.text("");
 
                     let bean = {

@@ -100,7 +100,7 @@
 
     <select id="getJokeCommentById" resultMap="JokeCommentMap">
         select * from
-        y_joke_comment where joke_id = #{jokeId} order by id desc
+        y_joke_comment where joke_id = #{jokeId} order by id asc
     </select>
 
     <update id="changeJokeLikeCount" parameterType="java.util.Map">

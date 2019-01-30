@@ -100,7 +100,6 @@ body {
     background: #D5B867;
 }
 
-
 .joke-list {
     width: 800px;
     margin: 0 auto;
@@ -114,7 +113,6 @@ body {
     border-top: 0.5px solid #eee;
 }
 
-
 .joke-author {
     float: right;
     color: #555;
@@ -122,8 +120,8 @@ body {
 }
 
 .joke-content {
-    margin-top: 10px;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    min-height:60px; ;
     color: #6A6868;
 }
 
@@ -295,3 +293,24 @@ body {
 .joke_commentor_date {
     float: right;
 }
+
+.joke_item_left {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.joke_item_left img {
+    width: 160px;
+    height: 100px;
+}
+
+.joke_item_right {
+    width: 600px;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+.joke_item_details_root{
+    margin-top: 10px;
+}
+
