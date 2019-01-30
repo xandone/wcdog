@@ -133,8 +133,8 @@ body {
 }
 
 .joke-author-icon {
-    width: 25px;
-    height: 25px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     padding: 0;
     border: 1px solid #ddd;
@@ -214,12 +214,12 @@ body {
 
 .reply_root {
     display: none;
+    padding: 12px 0;
 }
 
 .reply_joke {
-    width: 800px;
+    width: 760px;
     min-height: 50px;
-    margin-top: 10px;
     outline: 0.5px solid #eee;
 }
 
@@ -231,16 +231,67 @@ body {
 .reply_joke_btn {
     height: 30px;
     width: 50px;
+    margin-right: 20px;
     float: right;
 }
 
 .pagination {
-    display: inline-block;
     padding-left: 0;
     margin: 20px 0;
     border-radius: 4px;
 }
 
-.pagination>li {
+/*>li第一代li 不加>是所有后代li*/
+.pagination > li {
     display: inline;
+}
+
+.joke_commentor_img {
+    width: 28px;
+    height: 28px;
+    vertical-align: top;
+    border-radius: 50%;
+}
+
+.joke_commentor_name {
+    color: #333;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.joke_comment_first_div {
+    height: 36px;
+    background: #fafafa;
+    padding: 0 10px;
+}
+
+.joke_comment_first {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 36px;
+}
+
+.joke_comment_root {
+    padding: 5px 10px;
+}
+
+.joke_comment_ul {
+    padding: 10px 0;
+}
+
+.joke_comment_ul > li {
+    margin: 0 10px;
+    padding: 20px 0;
+    border-bottom: 0.5px solid #eee;
+}
+
+.joke_comment_details {
+    width: 680px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.joke_commentor_date {
+    float: right;
 }

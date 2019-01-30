@@ -150,7 +150,7 @@ public class JokeController {
     @ResponseBody
     public BaseListResult getAllJokeCommentById(@RequestParam(value = "page") Integer page,
                                                 @RequestParam(value = "row") Integer row,
-                                                String jokeId) throws Exception {
+                                                @RequestParam(value = "jokeId") String jokeId) throws Exception {
         System.out.println("jokeid.." + jokeId);
         BaseListResult baseResult = new BaseListResult();
         try {

@@ -10,6 +10,7 @@
     <script type="text/javascript" src="plugin/jqpaginator/jq-paginator.js"></script>
     <link rel="stylesheet" type="text/css" href="css/init.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -53,7 +54,26 @@
                     <span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt="">3</span>
                     <span class="joke-date">2018-12-29 23:13</span>
                     <div class="reply_root">
-                        <div>
+                        <div class="joke_comment_root">
+                            <div class="joke_comment_ul_root">
+                                <div class="joke_comment_first_div"><span class="joke_comment_first">16条评论</span></div>
+                                <div>
+                                    <ul class="joke_comment_ul">
+                                        <li>
+                                            <div>
+                                                <img class="joke_commentor_img" src="imgs/headicon.jpg" alt="">
+                                                <div class="joke_comment_details">
+                                                    <span class="joke_commentor_name">狗蛋</span>
+                                                    <span class="joke_commentor_date">2019-1-30</span>
+                                                    <div>
+                                                        <span>哎哟不错这个吊~哎哟这哎哟这个吊哎哟不错这个吊哎哟不错这个吊个吊哎哎哟这个吊哎哟不错这个吊哎哟不错这个吊哎哟这个吊哎哟不错这个吊哎哟不错这个吊哟不错这个吊哎哟不错这个吊</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <ul id="page" class="pagination"></ul>
                         </div>
                         <div class="reply_joke" contenteditable="true">
@@ -68,16 +88,6 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        $('#page').jqPaginator({
-            totalPages: 5,
-            visiblePages: 10,
-            currentPage: 1,
-            onPageChange: function (num, type) {
-                $('#text').html('当前第' + num + '页');
-            }
-        });
-    });
 </script>
 </body>
 
