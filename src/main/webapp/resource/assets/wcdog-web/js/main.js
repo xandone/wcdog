@@ -1,7 +1,7 @@
 $(function () {
-    var jokeList = $('#joke-list');
-    var banner = $('#banner');
-    var bannerBox = $('#banner-box');
+    var $jokeList = $('#joke-list');
+    var $banner = $('#banner');
+    var $bannerBox = $('#banner-box');
     var bannerImgs;
     var boxPoints;
     var currentIndex = 0;
@@ -50,7 +50,7 @@ $(function () {
     function createJokeList(result) {
         let jokeItemParent = $('<ul></ul>');
         let data = result.data;
-        jokeList.html(jokeItemParent);
+        $jokeList.html(jokeItemParent);
 
         for (var i = 0; i < data.length; i++) {
             let jokeItem = $('<li class="joke-item-li"></li>');
@@ -109,10 +109,10 @@ $(function () {
             let imgTemp = '<a href="javascript:;" >' +
                 '<img src=' + data[i].imgUrl + ' alt="">' +
                 '</a>';
-            banner.append(imgTemp);
+            $banner.append(imgTemp);
 
             let point = '<li class="banner-box-bg"></li>';
-            bannerBox.append(point);
+            $bannerBox.append(point);
         }
 
         bannerImgs = $('#banner a');
@@ -181,7 +181,6 @@ $(function () {
      */
     function setReplyEvent(result) {
         $('.helpful_comment_icon').on('click', function () {
-            console.log('fddfdsfsd');
             let $replyRoot = $(this).parents('.joke-item').find('.reply_root');
             $replyRoot.toggle(200, function () {
                 if (!$replyRoot.is(":hidden")) {
@@ -318,5 +317,6 @@ $(function () {
         item.html(temp);
         commentItemParent.append(item);
     }
+
 
 });

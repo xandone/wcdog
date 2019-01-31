@@ -6,15 +6,21 @@ body {
     height: 50px;
     background-color: white;
     border: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
 }
 
 .header-center {
     width: 900px;
     height: 50px;
     margin: 0 auto;
+    position: relative;
 }
 
 .header-user {
+    cursor: pointer;
     float: right;
     display: inline-block;
 }
@@ -37,17 +43,44 @@ body {
 
 .header-user span {
     line-height: 50px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
+.user_info_dialog {
+    width: 120px;
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    right: -30px;
+    top: 48px;
+    border: 0.5px solid #eee;
+    padding: 0 12px;
+    display: none;
+}
+
+.user_info_ul > li {
+    line-height: 40px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.user_info_ul li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.user_info_ul a:hover {
+    text-decoration: none;
+}
 
 .banner {
     width: 800px;
     height: 320px;
-    margin: 10px auto;
     background-color: white;
     position: relative;
     padding: 10px;
+    margin: 50px auto 10px auto;
 }
 
 .banner img {
@@ -110,7 +143,7 @@ body {
 .joke-item {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-top: 0.5px solid #eee;
+    border-bottom: 0.5px solid #eee;
 }
 
 .joke-author {
@@ -121,7 +154,7 @@ body {
 
 .joke-content {
     margin-bottom: 10px;
-    min-height:60px; ;
+    min-height: 60px;;
     color: #6A6868;
 }
 
@@ -312,7 +345,8 @@ body {
     display: inline-block;
     vertical-align: top;
 }
-.joke_item_details_root{
+
+.joke_item_details_root {
     margin-top: 10px;
 }
 

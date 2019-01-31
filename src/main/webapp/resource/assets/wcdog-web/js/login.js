@@ -1,4 +1,10 @@
-$(function() {
+$(function () {
+    var $headerUser = $('#header-user');
+    var $userInfoDialog = $('#user_info_dialog');
+
+
+    initEvent();
+
     /**
      * jquery方法：addClass()
      * addClass() 方法向被选元素添加一个或多个类。该方法不会移除已存在的 class 属性，
@@ -6,8 +12,7 @@ $(function() {
      * 如需添加多个类，请使用空格分隔类名。
      */
 
-    $('#btn').click(function(ev) {
-        console.log("fddf ");
+    $('#btn').click(function (ev) {
         $("#login").addClass("current");
     })
 
@@ -26,15 +31,15 @@ $(function() {
     /**
      * input 按键事件keyup
      */
-    $("input[name]").keyup(function(e) {
+    $("input[name]").keyup(function (e) {
         //禁止输入空格  把空格替换掉(空格的ASCII为32)
         if ($(this).attr('name') == "pass" && e.keyCode == 32) {
-            $(this).val(function(i, v) {
+            $(this).val(function (i, v) {
                 return $.trim(v);
             });
         }
         if ($.trim($(this).val()) != "") {
-            $(this).nextAll('span').eq(0).css({ display: 'none' });
+            $(this).nextAll('span').eq(0).css({display: 'none'});
         }
     });
 
@@ -45,7 +50,7 @@ $(function() {
      * input失去焦点事件focusout
      * 这跟blur事件区别在于，他可以在父元素上检测子元素失去焦点的情况。
      */
-    $("input[name]").focusout(function(e) {
+    $("input[name]").focusout(function (e) {
         var msg = "";
         if ($.trim($(this).val()) == "") {
             if ($(this).attr('name') == 'userName') {
@@ -62,13 +67,13 @@ $(function() {
                 succ_arr[1] = true;
             }
         }
-        $(this).nextAll('span').eq(0).css({ display: 'block' }).text(msg);
+        $(this).nextAll('span').eq(0).css({display: 'block'}).text(msg);
     });
 
     /**
      * Ajax用户注册
      */
-    $("button[type='button']").click(function() {
+    $("button[type='button']").click(function () {
         $("input[name]").focusout(); //让所有的input标记失去一次焦点来设置msg信息
         for (x in succ_arr) {
             if (succ_arr[x] == false) return;
@@ -79,5 +84,22 @@ $(function() {
          * 有兴趣的可以到这里 自行发送Ajax请求 实现注册功能
          */
     });
+
+    function initEvent() {
+        userHeadEvent();
+    }
+
+    function userHeadEvent() {
+        $headerUser.on('click', function (event) {
+            //阻止事件冒泡
+            event.stopPropagation();
+            $userInfoDialog.slideToggle(200);
+        });
+        $(document).on('click', function () {
+            if (!$userInfoDialog.is(':hidden')) {
+                $userInfoDialog.hide();
+            }
+        })
+    }
 
 });
