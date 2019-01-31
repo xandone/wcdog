@@ -1,6 +1,5 @@
 $(function () {
     var jokeList = $('#joke-list');
-
     var banner = $('#banner');
     var bannerBox = $('#banner-box');
     var bannerImgs;
@@ -71,7 +70,7 @@ $(function () {
                 '</div>' +
                 '<div class="joke_item_details_root">' +
                 '<div class="joke_item_left">' +
-                '<img src="https://upload-images.jianshu.io/upload_images/2518499-f5c1aa291b65d334.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="">' +
+                '<img src=' + data[i].coverImg + ' alt="">' +
                 '</div>' +
                 '<div class="joke_item_right">' +
                 '<div class="joke-content">' +
@@ -79,7 +78,7 @@ $(function () {
                 '</div>' +
                 '<span class="helpful"><img src="imgs/zan.png" alt=""><span>' + data[i].articleLikeCount + '</span></span>' +
                 '<span class="helpful_comment_icon helpful"><img src="imgs/comment_icon.png" alt=""><span class="helpful_comment_icon_text">' + data[i].articleCommentCount + '</span></span>' +
-                '<span class="joke-date">' + data[i].postTime + '</span>' +
+                '<span class="joke-date">' + data[i].postTimeStr + '</span>' +
                 '</div>' +
                 '</div>' +
                 '<div  class="reply_root">' +
@@ -105,10 +104,10 @@ $(function () {
 
     }
 
-    function createBanner(result) {
-        for (let i = 0; i < result.length; i++) {
+    function createBanner(data) {
+        for (let i = 0; i < data.length; i++) {
             let imgTemp = '<a href="javascript:;" >' +
-                '<img src=' + result[i].imgUrl + ' alt="">' +
+                '<img src=' + data[i].imgUrl + ' alt="">' +
                 '</a>';
             banner.append(imgTemp);
 
@@ -127,7 +126,9 @@ $(function () {
             $(boxPoints[i]).addClass('banner-box-bg');
         }
 
+        $(bannerImgs[0]).removeClass();
         $(bannerImgs[0]).addClass('show-banner-img');
+        $(boxPoints[0]).removeClass();
         $(boxPoints[0]).addClass('banner-box-select');
 
         startLoop(bannerImgs.length);
@@ -150,7 +151,9 @@ $(function () {
                 $(boxPoints[i]).addClass('banner-box-bg');
             }
 
+            $(bannerImgs[currentIndex]).removeClass();
             $(bannerImgs[currentIndex]).addClass('show-banner-img');
+            $(boxPoints[currentIndex]).removeClass();
             $(boxPoints[currentIndex]).addClass('banner-box-select');
 
         }, 2000);
@@ -219,9 +222,9 @@ $(function () {
                         "jokeId": "154779912420664",
                         "commentUserId": "1",
                         "commentDetails": replayStr,
-                        "commentDate": 1548733376000,
+                        "commentDateStr": "刚刚",
                         "commentNick": "狗蛋1",
-                        "commentIcon": ""
+                        "commentIcon": "imgs/headicon.jpg"
                     };
                     addOneComment($replyRoot, bean);
                 }.bind(this)
@@ -295,10 +298,10 @@ $(function () {
 
     function createCommentItem(bean) {
         let temp = '<div>' +
-            '<img class="joke_commentor_img" src="imgs/headicon.jpg" alt="">' +
+            '<img class="joke_commentor_img" src=' + bean.commentIcon + ' alt="">' +
             '<div class="joke_comment_details">' +
-            '<span class="joke_commentor_name">狗蛋</span>' +
-            '<span class="joke_commentor_date">2019-1-30</span>' +
+            '<span class="joke_commentor_name">' + bean.commentNick + '</span>' +
+            '<span class="joke_commentor_date">' + bean.commentDateStr + '</span>' +
             '<div>' +
             '<span>' + bean.commentDetails + '</span>' +
             '</div>' +

@@ -10,6 +10,7 @@
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="contentHtml" property="contentHtml" jdbcType="VARCHAR"/>
+        <result column="cover_img" property="coverImg" jdbcType="VARCHAR"/>
         <result column="art_like_count" property="articleLikeCount"
                 jdbcType="INTEGER"/>
         <result column="art_comment_count" property="articleCommentCount"
@@ -124,10 +125,22 @@
         #{comment_id};
     </delete>
 
-    <delete id="deleteCommentByList" parameterType="java.util.List">
+    <delete id="deleteCommentList" parameterType="java.util.List">
         delete from y_joke_comment where comment_id IN
         <foreach collection="list" item="commentId" open="(" separator="," close=")">
             #{commentId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteCommentByJokeId">
+        delete from y_joke_comment where joke_id=
+        #{jokeId};
+    </delete>
+
+    <delete id="deleteCommentByJokeIdList" parameterType="java.util.List">
+        delete from y_joke where joke_id IN
+        <foreach collection="list" item="jokeId" open="(" separator="," close=")">
+            #{jokeId}
         </foreach>
     </delete>
 

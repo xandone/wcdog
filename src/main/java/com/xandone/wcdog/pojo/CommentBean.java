@@ -8,6 +8,7 @@ public class CommentBean {
     private String commentUserId;
     private String commentDetails;
     private Date commentDate;
+    private String commentDateStr;
 
     private String commentNick;
     private String commentIcon;
@@ -66,5 +67,13 @@ public class CommentBean {
 
     public void setCommentIcon(String commentIcon) {
         this.commentIcon = commentIcon;
+    }
+
+    public String getCommentDateStr() {
+        return commentDateStr;
+    }
+
+    public void setCommentDateStr(String commentDateStr) {
+        this.commentDateStr = commentDateStr;
     }
 }

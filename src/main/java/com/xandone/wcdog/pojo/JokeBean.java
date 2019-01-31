@@ -8,7 +8,9 @@ public class JokeBean {
     private String title;
     private String content;
     private String contentHtml;
+    private String coverImg;
     private Date postTime;
+    private String postTimeStr;
     private int articleLikeCount;
     private int articleCommentCount;
 
@@ -93,5 +95,21 @@ public class JokeBean {
 
     public void setJokeUserIcon(String jokeUserIcon) {
         this.jokeUserIcon = jokeUserIcon;
+    }
+
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
+    }
+
+    public String getPostTimeStr() {
+        return postTimeStr;
+    }
+
+    public void setPostTimeStr(String postTimeStr) {
+        this.postTimeStr = postTimeStr;
     }
 }

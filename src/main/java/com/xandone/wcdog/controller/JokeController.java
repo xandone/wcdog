@@ -82,9 +82,9 @@ public class JokeController {
     public BaseResult deleteJokeById(@RequestParam(value = "jokeId") String jokeId,
                                      @RequestParam(value = "adminId") String adminId) {
         BaseListResult baseResult = new BaseListResult();
-        System.out.println("delete:.." + jokeId);
         try {
             jokeService.deleteJokeById(jokeId);
+            jokeService.deleteCommentByJokeId(jokeId);
             baseResult.setCode(Config.SUCCESS_CODE);
             baseResult.setMsg("删除成功");
             return baseResult;
@@ -170,10 +170,28 @@ public class JokeController {
 
     @RequestMapping(value = "/comment/deleteList", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteCommentByList(@RequestParam(value = "userIds") String userIds) {
+    public BaseResult deleteCommentList(@RequestParam(value = "userIds") String userIds) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            jokeService.deleteCommentByList(SimpleUtils.toList(userIds));
+            jokeService.deleteCommentList(SimpleUtils.toList(userIds));
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/comment/deletebyjokeid", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteCommentByJokeId(@RequestParam(value = "jokeId") String jokeId,
+                                            @RequestParam(value = "adminId") String adminId) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            jokeService.deleteCommentByJokeId(jokeId);
             baseResult.setCode(Config.SUCCESS_CODE);
             baseResult.setMsg("删除成功");
             return baseResult;

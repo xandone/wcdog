@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface JokeService {
 
-    JokeBean addJoke(String title, String joke_user_id, String content,String contentHtml) throws Exception;
+    JokeBean addJoke(String title, String joke_user_id, String content, String contentHtml) throws Exception;
 
     BaseListResult getAllJoke(Integer page, Integer row) throws Exception;
 
@@ -26,6 +26,8 @@ public interface JokeService {
 
     BaseListResult getAllJokeCommentById(Integer page, Integer row, String jokeId) throws Exception;
 
-    void deleteCommentByList(List<String> commentsId) throws Exception;
+    void deleteCommentList(List<String> commentsId) throws Exception;
+
+    void deleteCommentByJokeId(String jokeId) throws Exception;
 
 }

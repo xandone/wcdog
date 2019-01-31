@@ -10,6 +10,7 @@ import com.xandone.wcdog.pojo.JokeBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.utils.IDUtils;
+import com.xandone.wcdog.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,8 @@ public class JokeServiceIml implements JokeService {
         int total = (int) new PageInfo<>(list).getTotal();
 
         for (JokeBean bean : list) {
+            bean.setPostTimeStr(TimeUtil.getStringByFormat(bean.getPostTime(), TimeUtil.dateFormatYMDHMS));
+
             UserBean user = userMapper.getUserById(bean.getJokeUserId());
             List<CommentBean> commentBeans = jokeMapper.getJokeCommentById(bean.getJokeId());
             if (user != null) {
@@ -81,6 +84,7 @@ public class JokeServiceIml implements JokeService {
     @Override
     public void deleteJokeByList(List<String> jokeIds) throws Exception {
         jokeMapper.deleteJokeByList(jokeIds);
+        jokeMapper.deleteCommentByJokeIdList(jokeIds);
     }
 
     @Override
@@ -96,6 +100,8 @@ public class JokeServiceIml implements JokeService {
         int total = (int) new PageInfo<>(list).getTotal();
 
         for (CommentBean bean : list) {
+            bean.setCommentDateStr(TimeUtil.getStringByFormat(bean.getCommentDate(), TimeUtil.dateFormatYMDHMS));
+
             UserBean user = userMapper.getUserById(bean.getCommentUserId());
             if (user != null) {
                 bean.setCommentNick(user.getNickname());
@@ -109,8 +115,13 @@ public class JokeServiceIml implements JokeService {
     }
 
     @Override
-    public void deleteCommentByList(List<String> commentsId) throws Exception {
-        jokeMapper.deleteCommentByList(commentsId);
+    public void deleteCommentList(List<String> commentsId) throws Exception {
+        jokeMapper.deleteCommentList(commentsId);
+    }
+
+    @Override
+    public void deleteCommentByJokeId(String jokeId) throws Exception {
+        jokeMapper.deleteCommentByJokeId(jokeId);
     }
 
 

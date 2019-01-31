@@ -42,6 +42,7 @@ comment_id varchar(18) not null,
 joke_id varchar(18),
 comment_user_id varchar(18),
 comment_details mediumtext,
+cover_img varchar(255) DEFAULT NULL,,
 comment_date datetime DEFAULT NULL,
 primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;

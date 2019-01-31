@@ -23,7 +23,7 @@
         <th lay-data="{field:'jokeUserNick',width:120}">作者昵称</th>
         <th lay-data="{field:'title',width:120}">标题</th>
         <th lay-data="{field:'content',width:150}">内容</th>
-        <th lay-data="{field:'postTime', width:150}">发表时间</th>
+        <th lay-data="{field:'postTimeStr', width:150}">发表时间</th>
         <th lay-data="{field:'articleLikeCount', width:100}">喜欢数</th>
         <th lay-data="{field:'articleCommentCount', width:100}">评论数</th>
         <th lay-data="{field:'jokeId', width:150}">段子ID</th>
@@ -60,7 +60,7 @@
                             type: 'post',
                             url: '/wcdog/joke/delete',
                             dataType: 'json',
-                            data: "jokeId =" + data.jokeId,
+                            data: "jokeId=" + data.jokeId + "&adminId=" + 1,
                             success: function (data) {
                                 obj.del();
                                 layer.msg('删除成功');

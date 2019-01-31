@@ -44,7 +44,7 @@ body {
 .banner {
     width: 800px;
     height: 320px;
-    margin: 0 auto;
+    margin: 10px auto;
     background-color: white;
     position: relative;
     padding: 10px;
@@ -78,7 +78,7 @@ body {
 
 .banner-box {
     position: absolute;
-    bottom: 15px;
+    bottom: 0;
     right: 300px;
     z-index: 2;
 }
@@ -291,6 +291,8 @@ body {
 }
 
 .joke_commentor_date {
+    font-size: 14px;
+    color: #A0A6A5;
     float: right;
 }
 
