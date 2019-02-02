@@ -69,8 +69,8 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult login(@RequestParam(value = "name") String name,
-                            @RequestParam(value = "psw") String psw) {
+    public BaseResult login(@RequestParam(value = "name", required = false) String name,
+                            @RequestParam(value = "psw", required = false) String psw) {
         BaseResult baseResult = new BaseResult();
         List list = new ArrayList();
         UserBean userBean = null;
@@ -125,7 +125,6 @@ public class UserController {
     public BaseResult deleteUserById(@RequestParam(value = "userId") String userId,
                                      @RequestParam(value = "adminId") String adminId) {
         BaseListResult baseResult = new BaseListResult();
-        System.out.println("delete:.." + userId);
         try {
             userService.deleteUserById(userId);
             baseResult.setCode(Config.SUCCESS_CODE);

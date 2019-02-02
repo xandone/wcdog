@@ -19,6 +19,28 @@ body {
     position: relative;
 }
 
+.header_user_login {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+}
+
+.header_user_login span {
+    cursor: pointer;
+    font-size: 14px;
+    color: #D5B867;
+}
+
+.user_login {
+    line-height: 50px;
+    padding-right: 5px;
+    border-right: 0.5px solid #D5B867;
+}
+
+.user_regist {
+    line-height: 50px
+}
+
 .header-user {
     cursor: pointer;
     float: right;
@@ -187,7 +209,6 @@ body {
     padding-right: 8px;
     padding-top: 8px;
 }
-
 
 .joke-author-dialog img {
     width: 45px;

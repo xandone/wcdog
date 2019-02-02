@@ -202,7 +202,7 @@ $(function () {
             }
             $.ajax({
                 url: '/wcdog/joke/comment/add',
-                type: 'GET',
+                type: 'POST',
                 dataType: 'json',
                 data: 'jokeId=' + jokeId + '&userId=' + userId + '&details=' + details,
                 success: function (result) {
