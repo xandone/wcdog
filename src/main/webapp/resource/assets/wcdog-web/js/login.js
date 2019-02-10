@@ -1,6 +1,7 @@
 $(function () {
     var $headerUser = $('#header-user');
     var $userInfoDialog = $('#user_info_dialog');
+    var $userSendJoke = $('#user_send_joke');
 
     initEvent();
 
@@ -104,6 +105,10 @@ $(function () {
             if (!$userInfoDialog.is(':hidden')) {
                 $userInfoDialog.hide();
             }
+        })
+        $userSendJoke.on('click',function () {
+            window.open('addJoke.html');
+
         })
     }
 

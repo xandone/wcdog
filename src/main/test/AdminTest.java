@@ -20,10 +20,10 @@ public class AdminTest {
         UserMapper mapper = context.getBean(UserMapper.class);
 
         UserBean user = new UserBean(
-                "6@qq.com",
-                "2",
-                "狗蛋2",
-                "6",
+                "1@qq.com",
+                "1",
+                "狗蛋",
+                "1",
                 new Date());
         user.setUserIcon("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
 
@@ -84,7 +84,7 @@ public class AdminTest {
         BannerBean bannerBean = new BannerBean();
         bannerBean.setUserId("1");
         bannerBean.setArticelId(IDUtils.RandomId());
-        bannerBean.setImgUrl("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
+        bannerBean.setImgUrl("https://upload-images.jianshu.io/upload_images/2518499-3d5a6ec6bc7f7efd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240");
         bannerBean.setTitle("长河落日圆");
         bannerBean.setPageViews(0);
         bannerBean.setUpTime(new Date());

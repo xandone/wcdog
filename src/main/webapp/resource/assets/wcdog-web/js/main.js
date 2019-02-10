@@ -267,7 +267,7 @@ $(function () {
     function initPages($itemRoot, total, jokeId) {
         let totalPages = Math.ceil(total / 10);
         $itemRoot.find('.joke_comment_first').text(total + '条评论');
-        if (totalPages <= 0) {
+        if (totalPages <= 1) {
             return;
         }
         $itemRoot.find('.comment_page').jqPaginator({
