@@ -1,7 +1,9 @@
 $(function () {
-    var $headerUser = $('#header-user');
+    var $loginBtn = $('#login_btn');
+    var $headerUser = $('#header_user');
     var $userInfoDialog = $('#user_info_dialog');
     var $userSendJoke = $('#user_send_joke');
+    var $userExit = $('#user_exit');
 
     initEvent();
 
@@ -79,6 +81,7 @@ $(function () {
             dataType: 'json',
             success: function (result) {
                 if (result.code === 200) {
+                    localStorage.setItem('userBean', JSON.stringify(result.data[0].userBean));
                     window.location.href = "main.html";
                 } else {
                     alert(result.msg)
@@ -105,10 +108,19 @@ $(function () {
             if (!$userInfoDialog.is(':hidden')) {
                 $userInfoDialog.hide();
             }
-        })
-        $userSendJoke.on('click',function () {
+        });
+        $userSendJoke.on('click', function () {
             window.open('addJoke.html');
+        });
 
+        $userExit.on('click', function () {
+            localStorage.removeItem('userBean');
+            window.location.href = 'main.html';
+        });
+
+        $loginBtn.on('click', function () {
+            $('#login_dialog_bg').removeClass('hidden').addClass('showflex');
+            $("#login").addClass("current");
         })
     }
 

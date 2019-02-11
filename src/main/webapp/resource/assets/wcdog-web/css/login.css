@@ -10,39 +10,39 @@
     clear: both;
 }
 
-html,
-body {
-    height: 100%;
-}
+/*html,*/
+/*body {*/
+    /*height: 100%;*/
+/*}*/
 
-body {
-    font-family: "Microsoft YaHei";
-    background: #EBEBEB;
-  /*  background: url(./images/stardust.png);*/
-    font-weight: 300;
-    font-size: 15px;
-    color: #333;
-    overflow: hidden;
-}
+/*body {*/
+    /*font-family: "Microsoft YaHei";*/
+    /*background: #EBEBEB;*/
+  /*!*  background: url(./images/stardust.png);*!*/
+    /*font-weight: 300;*/
+    /*font-size: 15px;*/
+    /*color: #333;*/
+    /*overflow: hidden;*/
+/*}*/
 
-a {
-    text-decoration: none;
-    color: #000;
-}
+/*a {*/
+    /*text-decoration: none;*/
+    /*color: #000;*/
+/*}*/
 
-a:hover {
-    color: #F87982;
-}
+/*a:hover {*/
+    /*color: #F87982;*/
+/*}*/
 
 /*home*/
-#home {
+#login_dialog_home {
     padding-top: 100px;
 }
 
 /*logint界面*/
 #login {
     padding: 20px 30px 30px;
-    width: 300px;
+    width: 380px;
     background: #FFF;
     margin: auto;
     border-radius: 3px;
@@ -105,7 +105,7 @@ a:hover {
     height: 20px;
     border: none;
     margin: 7px 0 0 10px;
-    width: 245px;
+    width: 220px;
     outline: none;
     letter-spacing: normal;
     z-index: 1;

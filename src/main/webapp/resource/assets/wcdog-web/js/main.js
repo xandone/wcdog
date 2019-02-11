@@ -5,6 +5,8 @@ $(function () {
     var bannerImgs;
     var boxPoints;
     var currentIndex = 0;
+    var userBean;
+    var isLogin = false;
 
 
     initData()
@@ -12,6 +14,7 @@ $(function () {
     // initEvent();
 
     function initData() {
+        initUser();
         getjokeList();
         getBannerImgList();
     }
@@ -19,6 +22,21 @@ $(function () {
     function initEvent(result) {
         setEvent();
         setReplyEvent(result);
+    }
+
+    function initUser() {
+        userBean = JSON.parse(localStorage.getItem('userBean'));
+        if (userBean === null) {
+            console.log('退出状态');
+            isLogin = false;
+            $('#header_user').addClass('hidden');
+        } else {
+            console.log('登录状态=' + userBean.nickname);
+            isLogin = true;
+            $('#header_user_login').addClass('hidden');
+            $('#header_user_icon').attr('src', userBean.userIcon);
+            $('#header_user_nickname').text(userBean.nickname);
+        }
     }
 
     function getjokeList(page, count) {
@@ -192,10 +210,15 @@ $(function () {
         });
 
         $('.reply_joke_btn').on('click', function () {
+            if (!isLogin) {
+                alert('请先登录');
+                return;
+            }
             var $rootLi = $(this).parents('.joke-item-li');
             var jokeId = result[$rootLi.index()].jokeId;
-            var userId = '1';
+            var userId = userBean.userId;
             var details = $(this).parent().prev().text();
+
             if (isEmpty(details)) {
                 alert('请输入内容');
                 return;
@@ -218,12 +241,12 @@ $(function () {
 
                     let bean = {
                         "commentId": "154873337569716",
-                        "jokeId": "154779912420664",
-                        "commentUserId": "1",
+                        "jokeId": jokeId,
+                        "commentUserId": userBean.userId,
                         "commentDetails": replayStr,
                         "commentDateStr": "刚刚",
-                        "commentNick": "狗蛋1",
-                        "commentIcon": "imgs/headicon.jpg"
+                        "commentNick": userBean.nickname,
+                        "commentIcon": userBean.userIcon
                     };
                     addOneComment($replyRoot, bean);
                 }.bind(this)
