@@ -10,13 +10,11 @@ import com.xandone.wcdog.utils.IDUtils;
 import com.xandone.wcdog.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：xandone
@@ -69,11 +67,12 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult login(@RequestParam(value = "name", required = false) String name,
-                            @RequestParam(value = "psw", required = false) String psw) {
+    public BaseResult login(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         List list = new ArrayList();
         UserBean userBean = null;
+        String name = map.get("name");
+        String psw = map.get("psw");
         try {
             userBean = userService.getUserByName(name);
             if (userBean == null) {
