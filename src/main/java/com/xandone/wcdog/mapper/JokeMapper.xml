@@ -8,6 +8,8 @@
         <result column="joke_id" property="jokeId" jdbcType="VARCHAR"/>
         <result column="joke_user_id" property="jokeUserId" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="VARCHAR"/>
+        <result column="tags" property="tags" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="contentHtml" property="contentHtml" jdbcType="VARCHAR"/>
         <result column="cover_img" property="coverImg" jdbcType="VARCHAR"/>
@@ -38,6 +40,8 @@
         (joke_id,
         joke_user_id,
         title,
+        category,
+        tags,
         content,
         contentHtml,
         post_time,
@@ -47,6 +51,8 @@
         (#{jokeId},
         #{jokeUserId},
         #{title},
+        #{category},
+        #{tags},
         #{content},
         #{contentHtml},
         #{postTime},

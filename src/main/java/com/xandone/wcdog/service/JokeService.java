@@ -6,6 +6,7 @@ import com.xandone.wcdog.pojo.CommentBean;
 import com.xandone.wcdog.pojo.JokeBean;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：xandone
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface JokeService {
 
-    JokeBean addJoke(String title, String joke_user_id, String content, String contentHtml) throws Exception;
+    JokeBean addJoke(Map<String ,String> map) throws Exception;
 
     BaseListResult getAllJoke(Integer page, Integer row) throws Exception;
 

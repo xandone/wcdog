@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：xandone
@@ -33,13 +34,10 @@ public class JokeController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult addJoke(@RequestParam(value = "title") String title,
-                              @RequestParam(value = "jokeUserId") String jokeUserId,
-                              @RequestParam(value = "content") String content,
-                              @RequestParam(value = "contentHtml") String contentHtml) {
+    public BaseResult addJoke(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         try {
-            JokeBean jokeBean = jokeService.addJoke(title, jokeUserId, content, contentHtml);
+            JokeBean jokeBean = jokeService.addJoke(map);
             List<JokeBean> list = new ArrayList<>();
             list.add(jokeBean);
             baseResult.setData(list);

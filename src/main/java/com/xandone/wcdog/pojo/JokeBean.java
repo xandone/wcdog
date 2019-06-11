@@ -1,6 +1,7 @@
 package com.xandone.wcdog.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class JokeBean {
     private String jokeId;
@@ -13,6 +14,8 @@ public class JokeBean {
     private String postTimeStr;
     private int articleLikeCount;
     private int articleCommentCount;
+    private String category;
+    private String tags;
 
     private String jokeUserNick;
     private String jokeUserIcon;
@@ -111,5 +114,21 @@ public class JokeBean {
 
     public void setPostTimeStr(String postTimeStr) {
         this.postTimeStr = postTimeStr;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

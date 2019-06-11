@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ：xandone
@@ -30,20 +31,22 @@ public class JokeServiceIml implements JokeService {
     UserMapper userMapper;
 
 
-    public JokeBean addJoke(String title, String jokeUserId, String content, String contentHtml) throws Exception {
+    public JokeBean addJoke(Map<String ,String> map) throws Exception {
         JokeBean jokeBean = new JokeBean();
 
         jokeBean.setJokeId(IDUtils.RandomId());
-        jokeBean.setJokeUserId(jokeUserId);
-        jokeBean.setTitle(title);
-        jokeBean.setContent(content);
-        jokeBean.setContentHtml(contentHtml);
+        jokeBean.setJokeUserId(map.get("jokeUserId"));
+        jokeBean.setTitle(map.get("title"));
+        jokeBean.setContent(map.get("content"));
+        jokeBean.setContentHtml(map.get("contentHtml"));
         jokeBean.setPostTime(new Date());
         jokeBean.setArticleCommentCount(0);
         jokeBean.setArticleLikeCount(0);
+        jokeBean.setCategory(map.get("category"));
+        jokeBean.setTags(map.get("tags"));
         jokeMapper.addJoke(jokeBean);
 
-        UserBean userBean = userMapper.getUserById(jokeUserId);
+        UserBean userBean = userMapper.getUserById(map.get("jokeUserId"));
         jokeBean.setJokeUserNick(userBean.getNickname());
         jokeBean.setJokeUserIcon(userBean.getUserIcon());
         return jokeBean;
