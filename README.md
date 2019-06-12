@@ -25,6 +25,8 @@ cover_img varchar(255) DEFAULT NULL,
 post_time datetime DEFAULT NULL,
 art_like_count int(5) DEFAULT '0',
 art_comment_count int(5) DEFAULT '0',
+category varchar(4) DEFAULT NULL,
+tags varchar(100) DEFAULT NULL,
 primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 

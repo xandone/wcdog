@@ -44,6 +44,7 @@ public class JokeServiceIml implements JokeService {
         jokeBean.setArticleLikeCount(0);
         jokeBean.setCategory(map.get("category"));
         jokeBean.setTags(map.get("tags"));
+        jokeBean.setCoverImg(map.get("coverImg"));
         jokeMapper.addJoke(jokeBean);
 
         UserBean userBean = userMapper.getUserById(map.get("jokeUserId"));

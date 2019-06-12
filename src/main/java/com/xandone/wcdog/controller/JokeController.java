@@ -74,10 +74,11 @@ public class JokeController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteJokeById(@RequestParam(value = "jokeId") String jokeId,
-                                     @RequestParam(value = "adminId") String adminId) {
+    public BaseResult deleteJokeById(@RequestBody Map<String, String> map) {
         BaseListResult baseResult = new BaseListResult();
         try {
+            String jokeId = map.get("jokeId");
+            String adminId = map.get("adminId");
             jokeService.deleteJokeById(jokeId);
             jokeService.deleteCommentByJokeId(jokeId);
             baseResult.setCode(Config.SUCCESS_CODE);

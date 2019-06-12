@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<mapper namespace="com.xandone.wcdog.mapper.FlowMapper">
+    <resultMap id="flowBean" type="com.xandone.wcdog.pojo.FlowBean">
+        <result column="classic_count" property="classicCount" jdbcType="INTEGER"/>
+        <result column="yellow_count" property="yellowCount" jdbcType="INTEGER"/>
+        <result column="mind_count" property="mindCount" jdbcType="INTEGER"/>
+        <result column="shite_count" property="shiteCount" jdbcType="INTEGER"/>
+        <result column="cold_count" property="coldCount" jdbcType="INTEGER"/>
+        <result column="post_time" property="postTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="getFlowData" resultMap="flowBean">
+        select * from y_wcdog_flow
+    </select>
+
+</mapper>
