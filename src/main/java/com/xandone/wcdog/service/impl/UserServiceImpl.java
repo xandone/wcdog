@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(UserBean userBean) throws Exception {
+        userMapper.updateUser(userBean);
+    }
+
+    @Override
     public void deleteUserById(String userId) throws Exception {
         userMapper.deleteUserById(userId);
     }

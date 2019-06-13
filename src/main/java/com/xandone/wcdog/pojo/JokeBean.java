@@ -1,7 +1,8 @@
 package com.xandone.wcdog.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
-import java.util.List;
 
 public class JokeBean {
     private String jokeId;
@@ -11,7 +12,6 @@ public class JokeBean {
     private String contentHtml;
     private String coverImg;
     private Date postTime;
-    private String postTimeStr;
     private int articleLikeCount;
     private int articleCommentCount;
     private String category;
@@ -60,6 +60,7 @@ public class JokeBean {
         this.contentHtml = contentHtml;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getPostTime() {
         return postTime;
     }
@@ -106,14 +107,6 @@ public class JokeBean {
 
     public void setCoverImg(String coverImg) {
         this.coverImg = coverImg;
-    }
-
-    public String getPostTimeStr() {
-        return postTimeStr;
-    }
-
-    public void setPostTimeStr(String postTimeStr) {
-        this.postTimeStr = postTimeStr;
     }
 
     public String getCategory() {

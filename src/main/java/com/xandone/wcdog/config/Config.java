@@ -6,7 +6,7 @@ package com.xandone.wcdog.config;
  * description：
  */
 public class Config {
-    public static final String AADMIN_ID = "00001";
+    public static final String ADMIN_ID = "250";
 
     //	public static final String FTP_HOST_PATH = "http://192.168.117.128/images/";
     public static final String FTP_HOST_PATH = "http://192.168.191.1:8060/images/";//访问主机虚拟机中的nginx，主机端口转发

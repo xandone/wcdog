@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +70,7 @@ public class UserController {
     @ResponseBody
     public BaseResult login(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
-        List list = new ArrayList();
+        List<LoginBean> list = new ArrayList<>();
         UserBean userBean = null;
         String name = map.get("name");
         String psw = map.get("psw");
@@ -83,18 +84,22 @@ public class UserController {
                 baseResult.setMsg("密码错误");
                 baseResult.setCode(Config.ERROR_CODE);
                 return baseResult;
+            } else {
+                LoginBean loginBean = new LoginBean();
+                loginBean.setUserBean(userBean);
+                list.add(loginBean);
+                baseResult.setData(list);
+                baseResult.setCode(Config.SUCCESS_CODE);
+                baseResult.setMsg("登录成功");
+
+                userBean.setLastLoginTime(new Date());
+                userService.updateUser(userBean);
             }
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setMsg(Config.MES_SERVER_ERROR);
             baseResult.setCode(Config.ERROR_CODE);
         }
-        LoginBean loginBean = new LoginBean();
-        loginBean.setUserBean(userBean);
-        list.add(loginBean);
-        baseResult.setData(list);
-        baseResult.setCode(Config.SUCCESS_CODE);
-        baseResult.setMsg("登录成功");
         return baseResult;
     }
 
@@ -121,10 +126,16 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteUserById(@RequestParam(value = "userId") String userId,
-                                     @RequestParam(value = "adminId") String adminId) {
+    public BaseResult deleteUserById(@RequestBody Map<String, String> map) {
         BaseListResult baseResult = new BaseListResult();
         try {
+            String userId = map.get("userId");
+            String adminId = map.get("adminId");
+            if (!Config.ADMIN_ID.equals(adminId)) {
+                baseResult.setCode(Config.ERROR_CODE);
+                baseResult.setMsg("没有删除权限");
+                return baseResult;
+            }
             userService.deleteUserById(userId);
             baseResult.setCode(Config.SUCCESS_CODE);
             baseResult.setMsg("删除成功");

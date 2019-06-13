@@ -32,4 +32,9 @@ public class BannerServiceImpl implements BannerService {
         bannerMapper.addBanner(bean);
         return bean;
     }
+
+    @Override
+    public void deleteBannerById(String articelId) throws Exception {
+        bannerMapper.deleteBannerById(articelId);
+    }
 }

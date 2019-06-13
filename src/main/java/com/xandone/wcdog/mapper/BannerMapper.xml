@@ -26,4 +26,8 @@
         id desc
     </select>
 
+    <delete id="deleteBannerById">
+        delete from y_banner where articel_id= #{articelId};
+    </delete>
+
 </mapper>

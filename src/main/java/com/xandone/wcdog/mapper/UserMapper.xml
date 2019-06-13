@@ -40,6 +40,21 @@
         select * from y_user
     </select>
 
+    <update id="updateUser" parameterType="com.xandone.wcdog.pojo.UserBean">
+        update y_user
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="password != null">password = #{password,jdbcType=VARCHAR},</if>
+            <if test="nickname != null">nickname = #{nickname,jdbcType=VARCHAR},</if>
+            <if test="userId != null">user_id = #{userId,jdbcType=VARCHAR},</if>
+            <if test="userIcon != null">user_icon = #{userIcon,jdbcType=VARCHAR},</if>
+            <if test="token != null">token = #{token,jdbcType=VARCHAR},</if>
+            <if test="registTime != null">regist_time = #{registTime,jdbcType=TIMESTAMP},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
     <delete id="deleteUserById">
         delete from y_user where user_id= #{userId};
     </delete>

@@ -19,6 +19,8 @@ public interface UserService {
 
     UserBean getUserByNick(String userId) throws Exception;
 
+    void updateUser(UserBean userBean) throws Exception;
+
     void deleteUserById(String userId) throws Exception;
 
     void deleteUserByList(List<String> userIds) throws Exception;

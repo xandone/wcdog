@@ -20,10 +20,10 @@ public class AdminTest {
         UserMapper mapper = context.getBean(UserMapper.class);
 
         UserBean user = new UserBean(
-                "1@qq.com",
+                "4@qq.com",
                 "1",
-                "狗蛋",
-                "1",
+                "狗蛋2",
+                "4",
                 new Date());
         user.setUserIcon("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
 

@@ -1,5 +1,7 @@
 package com.xandone.wcdog.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class UserBean {
@@ -72,6 +74,7 @@ public class UserBean {
         this.token = token;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getRegistTime() {
         return registTime;
     }
@@ -80,6 +83,7 @@ public class UserBean {
         this.registTime = registTime;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getLastLoginTime() {
         return lastLoginTime;
     }

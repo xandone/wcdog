@@ -74,4 +74,16 @@ up_time datetime DEFAULT NULL,
 primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+## 流量统计表
+create table y_wcdog_flow(
+id int(11) unsigned not null auto_increment,
+classic_count int(5) DEFAULT '0',
+yellow_count int(5) DEFAULT '0',
+mind_count int(5) DEFAULT '0',
+shite_count int(5) DEFAULT '0',
+cold_count int(5) DEFAULT '0',
+post_time datetime DEFAULT NULL,
+primary key (id)
+)ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
 ```
