@@ -102,8 +102,6 @@ public class JokeServiceIml implements JokeService {
         int total = (int) new PageInfo<>(list).getTotal();
 
         for (CommentBean bean : list) {
-            bean.setCommentDateStr(TimeUtil.getStringByFormat(bean.getCommentDate(), TimeUtil.dateFormatYMDHMS));
-
             UserBean user = userMapper.getUserById(bean.getCommentUserId());
             if (user != null) {
                 bean.setCommentNick(user.getNickname());

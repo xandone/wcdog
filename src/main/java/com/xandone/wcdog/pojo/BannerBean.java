@@ -1,5 +1,7 @@
 package com.xandone.wcdog.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -64,10 +66,11 @@ public class BannerBean {
         this.pageViews = pageViews;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getUpTime() {
         return upTime;
     }
-
+    
     public void setUpTime(Date upTime) {
         this.upTime = upTime;
     }
