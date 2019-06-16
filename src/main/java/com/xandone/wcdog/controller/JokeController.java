@@ -112,12 +112,13 @@ public class JokeController {
 
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult addComment(@RequestParam(value = "jokeId", required = false) String jokeId,
-                                 @RequestParam(value = "userId", required = false) String userId,
-                                 @RequestParam(value = "details", required = false) String details) {
+    public BaseResult addComment(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         List<CommentBean> dataList = new ArrayList<>();
         try {
+            String jokeId = map.get("jokeId");
+            String userId = map.get("userId");
+            String details = map.get("details");
             CommentBean commentBean = new CommentBean();
             commentBean.setCommentId(IDUtils.RandomId());
             commentBean.setJokeId(jokeId);
