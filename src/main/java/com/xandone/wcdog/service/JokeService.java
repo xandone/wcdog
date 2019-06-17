@@ -4,6 +4,7 @@ package com.xandone.wcdog.service;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.CommentBean;
 import com.xandone.wcdog.pojo.JokeBean;
+import com.xandone.wcdog.pojo.JokeLikeBean;
 
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,9 @@ import java.util.Map;
  */
 public interface JokeService {
 
-    JokeBean addJoke(Map<String ,String> map) throws Exception;
+    JokeBean addJoke(Map<String, String> map) throws Exception;
 
-    BaseListResult getAllJoke(Integer page, Integer row) throws Exception;
+    BaseListResult getAllJoke(Integer page, Integer row, String tag) throws Exception;
 
     void deleteJokeById(String jokeId) throws Exception;
 
@@ -30,5 +31,11 @@ public interface JokeService {
     void deleteCommentList(List<String> commentsId) throws Exception;
 
     void deleteCommentByJokeId(String jokeId) throws Exception;
+
+    void thumbsJoke(String jokeId, String userId) throws Exception;
+
+    List<JokeLikeBean> selectJokeLikeById(String jokeId) throws Exception;
+
+    void changeJokeLikeCount(Map<String, Object> map) throws Exception;
 
 }

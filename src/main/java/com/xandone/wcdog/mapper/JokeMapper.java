@@ -37,4 +37,6 @@ public interface JokeMapper {
 
     void deleteCommentByJokeIdList(List<String> jokeIds);
 
+    List<JokeBean> getJokeListTags(String tag);
+
 }

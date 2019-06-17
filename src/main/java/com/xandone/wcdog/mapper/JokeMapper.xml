@@ -69,6 +69,11 @@
         id desc
     </select>
 
+    <select id="getJokeListTags" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from y_joke where tags like concat('%',#{tag},'%') order by
+        id desc
+    </select>
+
     <select id="selectJokeLikeById" resultMap="JokeLikeMap">
         select * from
         y_joke_like
