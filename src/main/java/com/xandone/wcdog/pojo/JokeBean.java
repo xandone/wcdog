@@ -19,6 +19,7 @@ public class JokeBean {
 
     private String jokeUserNick;
     private String jokeUserIcon;
+    private Date selfApprovalTime;
 
     public String getJokeId() {
         return jokeId;
@@ -123,5 +124,13 @@ public class JokeBean {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public Date getSelfApprovalTime() {
+        return selfApprovalTime;
+    }
+
+    public void setSelfApprovalTime(Date selfApprovalTime) {
+        this.selfApprovalTime = selfApprovalTime;
     }
 }

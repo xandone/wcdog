@@ -12,5 +12,7 @@ public interface FlowService {
 
     FlowBean getFlowData(String adminId) throws Exception;
 
+    void upDateFlow(FlowBean flowBean) throws Exception;
+
 
 }

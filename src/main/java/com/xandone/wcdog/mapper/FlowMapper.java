@@ -9,4 +9,6 @@ import com.xandone.wcdog.pojo.FlowBean;
  */
 public interface FlowMapper {
     FlowBean getFlowData();
+
+    void upDateFlow(FlowBean flowBean);
 }

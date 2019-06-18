@@ -13,7 +13,7 @@ public interface JokeMapper {
 
     void addJoke(JokeBean jokeBean);
 
-    JokeBean selectJokeBeanById(String jokeId);
+    JokeBean getJokeBeanById(String jokeId);
 
     void thumbsJoke(JokeLikeBean jokeLikeBean);
 
@@ -39,4 +39,7 @@ public interface JokeMapper {
 
     List<JokeBean> getJokeListTags(String tag);
 
+    List<JokeBean> getUserSelfJokes(String userId);
+
+    List<JokeLikeBean> selectJokeLikeByUserId(String userId);
 }

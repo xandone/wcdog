@@ -1,12 +1,10 @@
 package com.xandone.wcdog.controller;
 
 import com.xandone.wcdog.config.Config;
+import com.xandone.wcdog.pojo.*;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
-import com.xandone.wcdog.pojo.CommentBean;
-import com.xandone.wcdog.pojo.JokeBean;
-import com.xandone.wcdog.pojo.JokeLikeBean;
-import com.xandone.wcdog.pojo.UserBean;
+import com.xandone.wcdog.service.FlowService;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
@@ -32,6 +30,8 @@ public class JokeController {
     JokeService jokeService;
     @Autowired
     UserService userService;
+    @Autowired
+    FlowService flowService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -43,6 +43,30 @@ public class JokeController {
             list.add(jokeBean);
             baseResult.setData(list);
             baseResult.setCode(SUCCESS_CODE);
+
+            FlowBean flowBean = flowService.getFlowData(map.get(Config.ADMIN_ID));
+            String tags = map.get("tags");
+            System.out.println(tags);
+            if (TextUtils.isEmpty(tags)) {
+                flowBean.setClassicCount(flowBean.getClassicCount() + 1);
+            } else {
+                if (tags.contains("0")) {
+                    flowBean.setClassicCount(flowBean.getClassicCount() + 1);
+                }
+                if (tags.contains("1")) {
+                    flowBean.setYellowCount(flowBean.getYellowCount() + 1);
+                }
+                if (tags.contains("2")) {
+                    flowBean.setMindCount(flowBean.getMindCount() + 1);
+                }
+                if (tags.contains("3")) {
+                    flowBean.setShiteCount(flowBean.getShiteCount() + 1);
+                }
+                if (tags.contains("4")) {
+                    flowBean.setColdCount(flowBean.getColdCount() + 1);
+                }
+            }
+            flowService.upDateFlow(flowBean);
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(Config.ERROR_CODE);

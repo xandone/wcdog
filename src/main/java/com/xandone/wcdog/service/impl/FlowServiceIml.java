@@ -22,5 +22,8 @@ public class FlowServiceIml implements FlowService {
         return flowMapper.getFlowData();
     }
 
-
+    @Override
+    public void upDateFlow(FlowBean flowBean) throws Exception {
+        flowMapper.upDateFlow(flowBean);
+    }
 }

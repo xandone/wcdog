@@ -16,4 +16,16 @@
         select * from y_wcdog_flow
     </select>
 
+    <update id="upDateFlow" parameterType="com.xandone.wcdog.pojo.FlowBean">
+        update y_wcdog_flow
+        <set>
+            <if test="classicCount != 0">classic_count = #{classicCount,jdbcType=INTEGER},</if>
+            <if test="yellowCount != 0">yellow_count = #{yellowCount,jdbcType=INTEGER},</if>
+            <if test="mindCount != 0">mind_count = #{mindCount,jdbcType=INTEGER},</if>
+            <if test="shiteCount != 0">shite_count = #{shiteCount,jdbcType=INTEGER},</if>
+            <if test="coldCount != 0">cold_count = #{coldCount,jdbcType=INTEGER},</if>
+            <if test="postTime != null">post_time = #{postTime,jdbcType=TIMESTAMP},</if>
+        </set>
+    </update>
+
 </mapper>

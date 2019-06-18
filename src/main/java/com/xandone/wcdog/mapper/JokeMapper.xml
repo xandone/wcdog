@@ -23,6 +23,7 @@
     <resultMap id="JokeLikeMap" type="com.xandone.wcdog.pojo.JokeLikeBean">
         <result column="joke_id" property="joke_id" jdbcType="VARCHAR"/>
         <result column="joke_user_id" property="joke_user_id" jdbcType="VARCHAR"/>
+        <result column="approval_time" property="approvalTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <resultMap id="JokeCommentMap" type="com.xandone.wcdog.pojo.CommentBean">
@@ -80,18 +81,19 @@
         where joke_id = #{joke_id}
     </select>
 
-    <select id="selectJokeBeanById" parameterType="java.lang.String"
-            resultType="com.xandone.wcdog.pojo.JokeBean">
+    <select id="getJokeBeanById" resultMap="BaseResultMap">
         select * from
         y_joke
-        where joke_id = #{joke_id}
+        where joke_id = #{jokeId}
     </select>
 
     <insert id="thumbsJoke" parameterType="com.xandone.wcdog.pojo.JokeLikeBean">
         insert into y_joke_like(
+        approval_time,
         joke_id,
         joke_user_id)
         values(
+        #{approvalTime},
         #{joke_id},
         #{joke_user_id})
     </insert>
@@ -156,5 +158,17 @@
             #{jokeId}
         </foreach>
     </delete>
+
+    <select id="getUserSelfJokes" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from y_joke where joke_user_id=#{userId} order by
+        id desc
+    </select>
+
+    <select id="selectJokeLikeByUserId" resultMap="JokeLikeMap">
+        select * from
+        y_joke_like
+        where joke_user_id = #{userId}
+    </select>
+
 
 </mapper>

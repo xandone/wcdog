@@ -38,4 +38,8 @@ public interface JokeService {
 
     void changeJokeLikeCount(Map<String, Object> map) throws Exception;
 
+    BaseListResult getUserSelfJokes(Integer page, Integer row, String userId) throws Exception;
+
+    BaseListResult getJokeLikeByUserId(Integer page, Integer row, String jokeId) throws Exception;
+
 }

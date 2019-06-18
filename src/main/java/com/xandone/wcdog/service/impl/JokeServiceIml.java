@@ -4,17 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xandone.wcdog.mapper.JokeMapper;
 import com.xandone.wcdog.mapper.UserMapper;
+import com.xandone.wcdog.pojo.*;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
-import com.xandone.wcdog.pojo.CommentBean;
-import com.xandone.wcdog.pojo.JokeBean;
-import com.xandone.wcdog.pojo.JokeLikeBean;
-import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.utils.IDUtils;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +54,7 @@ public class JokeServiceIml implements JokeService {
 
 
     @Override
-    public BaseListResult getAllJoke(Integer page, Integer row, String tag) {
+    public BaseListResult getAllJoke(Integer page, Integer row, String tag) throws Exception {
         BaseListResult base = new BaseListResult();
         PageHelper.startPage(page, row);
         List<JokeBean> list;
@@ -68,19 +66,7 @@ public class JokeServiceIml implements JokeService {
         int total = (int) new PageInfo<>(list).getTotal();
 
         for (JokeBean bean : list) {
-            UserBean user = userMapper.getUserById(bean.getJokeUserId());
-            List<JokeLikeBean> likeBeans = jokeMapper.selectJokeLikeById(bean.getJokeId());
-            List<CommentBean> commentBeans = jokeMapper.getJokeCommentById(bean.getJokeId());
-            if (user != null) {
-                bean.setJokeUserNick(user.getNickname());
-                bean.setJokeUserIcon(user.getUserIcon());
-            }
-            if (likeBeans != null) {
-                bean.setArticleLikeCount(likeBeans.size());
-            }
-            if (commentBeans != null) {
-                bean.setArticleCommentCount(commentBeans.size());
-            }
+            dealJokeBean(bean);
         }
 
         base.setData(list);
@@ -135,13 +121,12 @@ public class JokeServiceIml implements JokeService {
     }
 
     public void thumbsJoke(String jokeId, String userId) throws Exception {
-        JokeLikeBean jokeLikeBean = new JokeLikeBean(jokeId, userId);
+        JokeLikeBean jokeLikeBean = new JokeLikeBean(jokeId, userId, new Date());
         jokeMapper.thumbsJoke(jokeLikeBean);
     }
 
     public List<JokeLikeBean> selectJokeLikeById(String jokeId) throws Exception {
-        List<JokeLikeBean> likeBeans = jokeMapper.selectJokeLikeById(jokeId);
-        return likeBeans;
+        return jokeMapper.selectJokeLikeById(jokeId);
     }
 
     @Override
@@ -149,4 +134,59 @@ public class JokeServiceIml implements JokeService {
         jokeMapper.changeJokeLikeCount(map);
     }
 
+    @Override
+    public BaseListResult getUserSelfJokes(Integer page, Integer row, String userId) throws Exception {
+        BaseListResult base = new BaseListResult();
+        PageHelper.startPage(page, row);
+        List<JokeBean> list;
+        if (TextUtils.isEmpty(userId) || "-1".equals(userId)) {
+            list = new ArrayList<>();
+        } else {
+            list = jokeMapper.getUserSelfJokes(userId);
+        }
+        int total = (int) new PageInfo<>(list).getTotal();
+
+        for (JokeBean bean : list) {
+            dealJokeBean(bean);
+        }
+
+        base.setData(list);
+        base.setTotal(total);
+        return base;
+    }
+
+    @Override
+    public BaseListResult getJokeLikeByUserId(Integer page, Integer row, String userId) throws Exception {
+        BaseListResult base = new BaseListResult();
+        PageHelper.startPage(page, row);
+        List<JokeBean> datas = new ArrayList<>();
+        List<JokeLikeBean> list = jokeMapper.selectJokeLikeByUserId(userId);
+        for (JokeLikeBean bean : list) {
+            JokeBean jokeBean = jokeMapper.getJokeBeanById(bean.getJoke_id());
+            jokeBean.setSelfApprovalTime(bean.getApprovalTime());
+            dealJokeBean(jokeBean);
+            datas.add(jokeBean);
+        }
+        int total = (int) new PageInfo<>(list).getTotal();
+        base.setData(datas);
+        base.setTotal(total);
+        return base;
+    }
+
+    private JokeBean dealJokeBean(JokeBean bean) throws Exception {
+        UserBean user = userMapper.getUserById(bean.getJokeUserId());
+        List<JokeLikeBean> likeBeans = selectJokeLikeById(bean.getJokeId());
+        List<CommentBean> commentBeans = jokeMapper.getJokeCommentById(bean.getJokeId());
+        if (user != null) {
+            bean.setJokeUserNick(user.getNickname());
+            bean.setJokeUserIcon(user.getUserIcon());
+        }
+        if (likeBeans != null) {
+            bean.setArticleLikeCount(likeBeans.size());
+        }
+        if (commentBeans != null) {
+            bean.setArticleCommentCount(commentBeans.size());
+        }
+        return bean;
+    }
 }
