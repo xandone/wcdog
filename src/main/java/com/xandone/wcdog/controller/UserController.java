@@ -5,6 +5,7 @@ import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.LoginBean;
 import com.xandone.wcdog.pojo.UserBean;
+import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
 import com.xandone.wcdog.utils.SimpleUtils;
@@ -17,6 +18,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static com.xandone.wcdog.config.Config.SUCCESS_CODE;
+
 /**
  * @author ：xandone
  * created on  ：2019/1/13 10:06
@@ -27,6 +30,8 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    JokeService jokeService;
 
     @RequestMapping(value = "/regist", method = RequestMethod.GET)
     @ResponseBody
@@ -103,15 +108,16 @@ public class UserController {
         return baseResult;
     }
 
-    @RequestMapping(value = "/userlist")
+    @RequestMapping(value = "/selfJokes")
     @ResponseBody
-    public BaseListResult getAllUser(@RequestParam(value = "page") Integer page,
-                                     @RequestParam(value = "row") Integer row) {
+    public BaseListResult getSelfJokes(@RequestParam(value = "page") Integer page,
+                                       @RequestParam(value = "row") Integer row,
+                                       @RequestParam(value = "userId") String userId) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            BaseListResult result = userService.getAllUser(page, row);
+            BaseListResult result = jokeService.getUserSelfJokes(page, row, userId);
             if (result != null) {
-                result.setCode(Config.SUCCESS_CODE);
+                result.setCode(SUCCESS_CODE);
                 result.setMsg(Config.MES_REQUEST_SUCCESS);
                 return result;
             }
@@ -122,48 +128,30 @@ public class UserController {
             baseResult.setMsg(Config.MES_SERVER_ERROR);
         }
         return baseResult;
+
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/thumb")
     @ResponseBody
-    public BaseResult deleteUserById(@RequestBody Map<String, String> map) {
+    public BaseListResult getSelfLikeJokesById(@RequestParam(value = "page") Integer page,
+                                               @RequestParam(value = "row") Integer row,
+                                               @RequestParam(value = "userId") String userId) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            String userId = map.get("userId");
-            String adminId = map.get("adminId");
-            if (!Config.ADMIN_ID.equals(adminId)) {
-                baseResult.setCode(Config.ERROR_CODE);
-                baseResult.setMsg("没有删除权限");
-                return baseResult;
+            BaseListResult result = jokeService.getJokeLikeByUserId(page, row, userId);
+            if (result != null) {
+                result.setCode(SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
             }
-            userService.deleteUserById(userId);
-            baseResult.setCode(Config.SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
+            baseResult.setCode(Config.ERROR_CODE);
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
         }
         return baseResult;
-    }
 
-    @RequestMapping(value = "/deleteList", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult deleteUserByList(@RequestParam(value = "userIds") String userIds) {
-        BaseListResult baseResult = new BaseListResult();
-        System.out.println("user:" + userIds);
-        try {
-            userService.deleteUserByList(SimpleUtils.toList(userIds));
-            baseResult.setCode(Config.SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
-        }
-        return baseResult;
     }
 
 }

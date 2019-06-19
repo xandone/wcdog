@@ -91,6 +91,11 @@ public class BannerController {
         try {
             String articelId = map.get("articelId");
             String adminId = map.get("adminId");
+            if (!Config.ADMIN_ID.equals(adminId)) {
+                baseResult.setCode(Config.ERROR_CODE);
+                baseResult.setMsg("没有权限");
+                return baseResult;
+            }
             bannerService.deleteBannerById(articelId);
             baseResult.setCode(Config.SUCCESS_CODE);
             baseResult.setMsg("删除成功");

@@ -1,15 +1,23 @@
 package com.xandone.wcdog.controller;
 
 import com.xandone.wcdog.config.Config;
+import com.xandone.wcdog.pojo.AdminBean;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
+import com.xandone.wcdog.pojo.Base.BaseResult;
+import com.xandone.wcdog.service.AdminService;
 import com.xandone.wcdog.service.JokeService;
+import com.xandone.wcdog.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static com.xandone.wcdog.config.Config.SUCCESS_CODE;
+
 
 /**
  * @author ：xandone
@@ -20,18 +28,54 @@ import static com.xandone.wcdog.config.Config.SUCCESS_CODE;
 @RequestMapping(value = "admin")
 public class AdminController {
     @Autowired
+    private AdminService adminService;
+    @Autowired
     JokeService jokeService;
 
-    @RequestMapping(value = "/selfJokes")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public BaseListResult getSelfJokes(@RequestParam(value = "page") Integer page,
-                                       @RequestParam(value = "row") Integer row,
-                                       @RequestParam(value = "userId") String userId) {
+    public BaseResult login(@RequestBody Map<String, String> map) {
+        BaseResult baseResult = new BaseResult();
+        List<AdminBean> list = new ArrayList<>();
+        AdminBean adminBean = null;
+        String name = map.get("name");
+        String psw = map.get("psw");
+        try {
+            adminBean = adminService.getAdminByName(name);
+            if (adminBean == null) {
+                baseResult.setMsg("不存在该用户");
+                baseResult.setCode(Config.ERROR_CODE);
+                return baseResult;
+            } else if (!adminBean.getPassword().equals(psw)) {
+                baseResult.setMsg("密码错误");
+                baseResult.setCode(Config.ERROR_CODE);
+                return baseResult;
+            } else {
+                list.add(adminBean);
+                baseResult.setData(list);
+                baseResult.setCode(Config.SUCCESS_CODE);
+                baseResult.setMsg("登录成功");
+
+                adminBean.setLastLoginTime(new Date());
+                adminService.updateAdmin(adminBean);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+            baseResult.setCode(Config.ERROR_CODE);
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/userlist")
+    @ResponseBody
+    public BaseListResult getAllUser(@RequestParam(value = "page") Integer page,
+                                     @RequestParam(value = "row") Integer row) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            BaseListResult result = jokeService.getUserSelfJokes(page, row, userId);
+            BaseListResult result = adminService.getAllUser(page, row);
             if (result != null) {
-                result.setCode(SUCCESS_CODE);
+                result.setCode(Config.SUCCESS_CODE);
                 result.setMsg(Config.MES_REQUEST_SUCCESS);
                 return result;
             }
@@ -42,29 +86,122 @@ public class AdminController {
             baseResult.setMsg(Config.MES_SERVER_ERROR);
         }
         return baseResult;
-
     }
 
-    @RequestMapping(value = "/thumb")
+    @RequestMapping(value = "/user/delete", method = RequestMethod.POST)
     @ResponseBody
-    public BaseListResult getSelfLikeJokesById(@RequestParam(value = "page") Integer page,
-                                       @RequestParam(value = "row") Integer row,
-                                       @RequestParam(value = "userId") String userId) {
+    public BaseResult deleteUserById(@RequestBody Map<String, String> map) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            BaseListResult result = jokeService.getJokeLikeByUserId(page, row, userId);
-            if (result != null) {
-                result.setCode(SUCCESS_CODE);
-                result.setMsg(Config.MES_REQUEST_SUCCESS);
-                return result;
+            String userId = map.get("userId");
+            String adminId = map.get("adminId");
+            if (!Config.ADMIN_ID.equals(adminId)) {
+                baseResult.setCode(Config.ERROR_CODE);
+                baseResult.setMsg("没有删除权限");
+                return baseResult;
             }
-            baseResult.setCode(Config.ERROR_CODE);
+            adminService.deleteUserById(userId);
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg(Config.MES_SERVER_ERROR);
+            baseResult.setMsg("删除失败");
         }
         return baseResult;
-
     }
+
+    @RequestMapping(value = "/user/deleteList", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteUserByList(@RequestParam(value = "userIds") String userIds) {
+        BaseListResult baseResult = new BaseListResult();
+        System.out.println("user:" + userIds);
+        try {
+            adminService.deleteUserByList(SimpleUtils.toList(userIds));
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/joke/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteJokeById(@RequestBody Map<String, String> map) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            String jokeId = map.get("jokeId");
+            String adminId = map.get("adminId");
+            jokeService.deleteJokeById(jokeId);
+            jokeService.deleteCommentByJokeId(jokeId);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/joke/deleteList", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteJokeById(@RequestParam(value = "jokeIds") String jokeIds) {
+        BaseListResult baseResult = new BaseListResult();
+        System.out.println("joke:" + jokeIds);
+        try {
+            jokeService.deleteJokeByList(SimpleUtils.toList(jokeIds));
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/comment/deleteList", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteCommentList(@RequestParam(value = "userIds") String userIds) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            jokeService.deleteCommentList(SimpleUtils.toList(userIds));
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/comment/deletebyjokeid", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteCommentByJokeId(@RequestParam(value = "jokeId") String jokeId,
+                                            @RequestParam(value = "adminId") String adminId) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            jokeService.deleteCommentByJokeId(jokeId);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+
 }

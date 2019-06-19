@@ -1,10 +1,8 @@
+import com.xandone.wcdog.mapper.AdminMapper;
 import com.xandone.wcdog.mapper.BannerMapper;
 import com.xandone.wcdog.mapper.JokeMapper;
 import com.xandone.wcdog.mapper.UserMapper;
-import com.xandone.wcdog.pojo.BannerBean;
-import com.xandone.wcdog.pojo.CommentBean;
-import com.xandone.wcdog.pojo.JokeBean;
-import com.xandone.wcdog.pojo.UserBean;
+import com.xandone.wcdog.pojo.*;
 import com.xandone.wcdog.utils.IDUtils;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -20,10 +18,10 @@ public class AdminTest {
         UserMapper mapper = context.getBean(UserMapper.class);
 
         UserBean user = new UserBean(
-                "4@qq.com",
-                "1",
-                "狗蛋2",
-                "4",
+                "admin",
+                "123",
+                "Admin",
+                "250",
                 new Date());
         user.setUserIcon("http://img5.imgtn.bdimg.com/it/u=2230167403,4188800858&fm=26&gp=0.jpg");
 
@@ -90,6 +88,22 @@ public class AdminTest {
         bannerBean.setUpTime(new Date());
         mapper.addBanner(bannerBean);
 
+    }
+
+    @Test
+    public void addAdmin() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        AdminMapper mapper = context.getBean(AdminMapper.class);
+
+        AdminBean user = new AdminBean(
+                "admin",
+                "123",
+                "Admin",
+                "250",
+                new Date());
+        user.setAdminIcon("http://p1.pstatp.com/large/pgc-image/8f5a9eaea7cb426c895a67e6557eec32");
+
+        mapper.addAdmin(user);
     }
 
 }

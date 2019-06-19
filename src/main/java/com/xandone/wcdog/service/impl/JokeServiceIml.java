@@ -189,4 +189,11 @@ public class JokeServiceIml implements JokeService {
         }
         return bean;
     }
+
+    @Override
+    public JokeBean getJokeById(String jokeId) throws Exception {
+        JokeBean jokeBean = jokeMapper.getJokeBeanById(jokeId);
+        dealJokeBean(jokeBean);
+        return jokeBean;
+    }
 }

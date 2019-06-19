@@ -98,44 +98,6 @@ public class JokeController {
         return baseResult;
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult deleteJokeById(@RequestBody Map<String, String> map) {
-        BaseListResult baseResult = new BaseListResult();
-        try {
-            String jokeId = map.get("jokeId");
-            String adminId = map.get("adminId");
-            jokeService.deleteJokeById(jokeId);
-            jokeService.deleteCommentByJokeId(jokeId);
-            baseResult.setCode(SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
-        }
-        return baseResult;
-    }
-
-    @RequestMapping(value = "/deleteList", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult deleteJokeById(@RequestParam(value = "jokeIds") String jokeIds) {
-        BaseListResult baseResult = new BaseListResult();
-        System.out.println("joke:" + jokeIds);
-        try {
-            jokeService.deleteJokeByList(SimpleUtils.toList(jokeIds));
-            baseResult.setCode(SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
-        }
-        return baseResult;
-    }
-
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult addComment(@RequestBody Map<String, String> map) {
@@ -195,41 +157,6 @@ public class JokeController {
         return baseResult;
     }
 
-    @RequestMapping(value = "/comment/deleteList", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult deleteCommentList(@RequestParam(value = "userIds") String userIds) {
-        BaseListResult baseResult = new BaseListResult();
-        try {
-            jokeService.deleteCommentList(SimpleUtils.toList(userIds));
-            baseResult.setCode(SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
-        }
-        return baseResult;
-    }
-
-    @RequestMapping(value = "/comment/deletebyjokeid", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult deleteCommentByJokeId(@RequestParam(value = "jokeId") String jokeId,
-                                            @RequestParam(value = "adminId") String adminId) {
-        BaseListResult baseResult = new BaseListResult();
-        try {
-            jokeService.deleteCommentByJokeId(jokeId);
-            baseResult.setCode(SUCCESS_CODE);
-            baseResult.setMsg("删除成功");
-            return baseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            baseResult.setMsg("删除失败");
-        }
-        return baseResult;
-    }
-
 
     @RequestMapping("joke/thumbs")
     @ResponseBody
@@ -258,6 +185,26 @@ public class JokeController {
             baseResult.setCode(SUCCESS_CODE);
         }
 
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/jokeDetails")
+    @ResponseBody
+    public BaseResult deleteUserByList(@RequestParam(value = "jokeId") String jokeId) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            JokeBean jokeBean = jokeService.getJokeById(jokeId);
+            List<JokeBean> list = new ArrayList<>();
+            list.add(jokeBean);
+            baseResult.setData(list);
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("获取数据成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("获取数据异常");
+        }
         return baseResult;
     }
 
