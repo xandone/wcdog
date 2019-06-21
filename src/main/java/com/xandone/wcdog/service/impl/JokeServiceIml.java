@@ -12,6 +12,7 @@ import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -195,5 +196,24 @@ public class JokeServiceIml implements JokeService {
         JokeBean jokeBean = jokeMapper.getJokeBeanById(jokeId);
         dealJokeBean(jokeBean);
         return jokeBean;
+    }
+
+    @Override
+    public BaseListResult getJokeListFog(Integer page, Integer row, String key) throws Exception {
+        BaseListResult base = new BaseListResult();
+        PageHelper.startPage(page, row);
+        List<JokeBean> list;
+        key = URLDecoder.decode(key, "utf-8");
+        System.out.println("搜索：" + key);
+        list = jokeMapper.getJokeListFog(key);
+        int total = (int) new PageInfo<>(list).getTotal();
+
+        for (JokeBean bean : list) {
+            dealJokeBean(bean);
+        }
+
+        base.setData(list);
+        base.setTotal(total);
+        return base;
     }
 }

@@ -208,5 +208,27 @@ public class JokeController {
         return baseResult;
     }
 
+    @RequestMapping(value = "/jokelist/foggy")
+    @ResponseBody
+    public BaseListResult getJokeListFog(@RequestParam(value = "page") Integer page,
+                                         @RequestParam(value = "row") Integer row,
+                                         String key) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            BaseListResult result = jokeService.getJokeListFog(page, row, key);
+            if (result != null) {
+                result.setCode(SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
+            }
+            baseResult.setCode(Config.ERROR_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
+        return baseResult;
+    }
+
 
 }

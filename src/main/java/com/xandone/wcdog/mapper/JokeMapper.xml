@@ -171,4 +171,10 @@
     </select>
 
 
+    <select id="getJokeListFog" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from y_joke where title like concat('%',#{key},'%') order by
+        id desc
+    </select>
+
+
 </mapper>

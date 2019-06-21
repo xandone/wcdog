@@ -10,6 +10,8 @@
         <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_icon" property="userIcon" jdbcType="VARCHAR"/>
+        <result column="talk" property="talk" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
         <result column="token" property="token" jdbcType="VARCHAR"/>
         <result column="regist_time" property="registTime" jdbcType="TIMESTAMP"/>
         <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
@@ -48,6 +50,8 @@
             <if test="nickname != null">nickname = #{nickname,jdbcType=VARCHAR},</if>
             <if test="userId != null">user_id = #{userId,jdbcType=VARCHAR},</if>
             <if test="userIcon != null">user_icon = #{userIcon,jdbcType=VARCHAR},</if>
+            <if test="talk != null">talk = #{talk,jdbcType=VARCHAR},</if>
+            <if test="address != null">address = #{address,jdbcType=VARCHAR},</if>
             <if test="token != null">token = #{token,jdbcType=VARCHAR},</if>
             <if test="registTime != null">regist_time = #{registTime,jdbcType=TIMESTAMP},</if>
             <if test="lastLoginTime != null">last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},</if>

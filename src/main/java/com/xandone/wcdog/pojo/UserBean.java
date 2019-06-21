@@ -10,6 +10,8 @@ public class UserBean {
     private String nickname;
     private String userId;
     private String userIcon;
+    private String talk;
+    private String address;
     private String token;
     private Date registTime;
     private Date lastLoginTime;
@@ -64,6 +66,22 @@ public class UserBean {
 
     public void setUserIcon(String userIcon) {
         this.userIcon = userIcon;
+    }
+
+    public String getTalk() {
+        return talk;
+    }
+
+    public void setTalk(String talk) {
+        this.talk = talk;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getToken() {

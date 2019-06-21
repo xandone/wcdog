@@ -76,7 +76,7 @@ public class UserController {
     public BaseResult login(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         List<LoginBean> list = new ArrayList<>();
-        UserBean userBean = null;
+        UserBean userBean;
         String name = map.get("name");
         String psw = map.get("psw");
         try {
@@ -152,6 +152,50 @@ public class UserController {
         }
         return baseResult;
 
+    }
+
+    @RequestMapping(value = "/userInfo")
+    @ResponseBody
+    public BaseResult getUserInfo(@RequestParam(value = "userId") String userId) {
+        BaseResult baseResult = new BaseResult();
+        List<UserBean> list = new ArrayList<>();
+        try {
+            UserBean userBean = userService.getUserById(userId);
+            list.add(userBean);
+            baseResult.setData(list);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg(Config.MES_REQUEST_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/userInfo/modify")
+    @ResponseBody
+    public BaseResult modifyUserInfo(@RequestBody Map<String, String> map) {
+        BaseResult baseResult = new BaseResult();
+        List<UserBean> list = new ArrayList<>();
+        String userId = map.get("userId");
+        String talk = map.get("talk");
+        String address = map.get("address");
+        try {
+            UserBean userBean = userService.getUserById(userId);
+            userBean.setTalk(talk);
+            userBean.setAddress(address);
+            userService.updateUser(userBean);
+            list.add(userBean);
+            baseResult.setData(list);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg(Config.MES_REQUEST_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
+        return baseResult;
     }
 
 }
