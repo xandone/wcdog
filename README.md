@@ -1,17 +1,18 @@
-```
+
 ### JaveWeb小项目
 基于SSM架构，包含1.移动端app(Android) 2.web前端项目 3.后台管理系统<br/>
-戳这里[web前端项目](https://github.com/xandone/wcdog-web)
+戳这里[移动端app(Android)]()<br/>
+戳这里[web前端项目](https://github.com/xandone/wcdog-web)<br/>
 戳这里[后台管理系统](https://github.com/xandone/wcdog-manager)
 
 
 ## TO-DO
 #### 移动端app(Android)
-- [x] 登录/注册
-- [x] 发帖
-- [x] 回复/点赞
-- [x] 搜索功能
-- [x] 个人中心
+- [ ] 登录/注册
+- [ ] 发帖
+- [ ] 回复/点赞
+- [ ] 搜索功能
+- [ ] 个人中心
 - [ ] 其他
 
 #### web前端项目
@@ -44,6 +45,7 @@
 **nginx**    1.12.2 <br/>
 
 ### db
+```
 ## User表
 create table y_user(
 id int(11) unsigned not null auto_increment,

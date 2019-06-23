@@ -33,13 +33,15 @@ public class UserController {
     @Autowired
     JokeService jokeService;
 
-    @RequestMapping(value = "/regist", method = RequestMethod.GET)
+    @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult regist(@RequestParam(value = "name") String name,
-                             @RequestParam(value = "password") String password,
-                             @RequestParam(value = "nickname") String nickname) {
+    public BaseResult regist(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
+        List<UserBean> list=new ArrayList<>();
         try {
+            String name = map.get("name");
+            String password = map.get("psw");
+            String nickname = map.get("nickname");
             UserBean user = new UserBean();
             user.setName(name);
             user.setPassword(password);
@@ -47,20 +49,22 @@ public class UserController {
             user.setUserId(IDUtils.RandomId());
 
             UserBean tempBean1 = userService.getUserByName(name);
-            if (tempBean1 == null) {
+            if (tempBean1 != null) {
                 baseResult.setCode(Config.ERROR_CODE);
-                baseResult.setMsg("该邮箱已注册");
+                baseResult.setMsg("该用户名已注册");
                 return baseResult;
             }
 
             UserBean tempBean2 = userService.getUserByNick(nickname);
-            if (tempBean2 == null) {
+            if (tempBean2 != null) {
                 baseResult.setCode(Config.ERROR_CODE);
                 baseResult.setMsg("该昵称已存在");
                 return baseResult;
             }
 
             userService.addUser(user);
+            list.add(user);
+            baseResult.setData(list);
             baseResult.setCode(Config.SUCCESS_CODE);
             baseResult.setMsg("注册成功");
         } catch (Exception e) {
