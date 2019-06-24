@@ -9,7 +9,7 @@
     <display-name>wcdog</display-name>
 
     <welcome-file-list>
-        <welcome-file>demo.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <!-- 加载spring容器 -->
     <context-param>
