@@ -35,16 +35,15 @@ public class UserController {
 
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult regist(@RequestBody Map<String, String> map) {
+    public BaseResult regist(@RequestParam(value = "name") String name,
+                             @RequestParam(value = "psw") String psw,
+                             @RequestParam(value = "nickname") String nickname) {
         BaseResult baseResult = new BaseResult();
-        List<UserBean> list=new ArrayList<>();
+        List<UserBean> list = new ArrayList<>();
         try {
-            String name = map.get("name");
-            String password = map.get("psw");
-            String nickname = map.get("nickname");
             UserBean user = new UserBean();
             user.setName(name);
-            user.setPassword(password);
+            user.setPassword(psw);
             user.setNickname(nickname);
             user.setUserId(IDUtils.RandomId());
 
@@ -77,12 +76,11 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult login(@RequestBody Map<String, String> map) {
+    public BaseResult login(@RequestParam(value = "name") String name,
+                            @RequestParam(value = "psw") String psw) {
         BaseResult baseResult = new BaseResult();
-        List<LoginBean> list = new ArrayList<>();
+        List<UserBean> list = new ArrayList<>();
         UserBean userBean;
-        String name = map.get("name");
-        String psw = map.get("psw");
         try {
             userBean = userService.getUserByName(name);
             if (userBean == null) {
@@ -94,9 +92,7 @@ public class UserController {
                 baseResult.setCode(Config.ERROR_CODE);
                 return baseResult;
             } else {
-                LoginBean loginBean = new LoginBean();
-                loginBean.setUserBean(userBean);
-                list.add(loginBean);
+                list.add(userBean);
                 baseResult.setData(list);
                 baseResult.setCode(Config.SUCCESS_CODE);
                 baseResult.setMsg("登录成功");
