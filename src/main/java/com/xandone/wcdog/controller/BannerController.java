@@ -51,7 +51,7 @@ public class BannerController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult addJoke(@RequestBody Map<String, String> map) {
+    public BaseResult addBanner(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         try {
             String userId = map.get("userId");
@@ -86,7 +86,7 @@ public class BannerController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult deleteUserById(@RequestBody Map<String, String> map) {
+    public BaseResult deleteBannerById(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         try {
             String articelId = map.get("articelId");

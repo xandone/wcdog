@@ -100,13 +100,12 @@ public class JokeController {
 
     @RequestMapping(value = "/comment/add", method = RequestMethod.POST)
     @ResponseBody
-    public BaseResult addComment(@RequestBody Map<String, String> map) {
+    public BaseResult addComment(@RequestParam(value = "jokeId") String jokeId,
+                                 @RequestParam(value = "userId") String userId,
+                                 @RequestParam(value = "details") String details) {
         BaseResult baseResult = new BaseResult();
         List<CommentBean> dataList = new ArrayList<>();
         try {
-            String jokeId = map.get("jokeId");
-            String userId = map.get("userId");
-            String details = map.get("details");
             if (TextUtils.isEmpty(userId)) {
                 baseResult.setCode(Config.ERROR_CODE);
                 return baseResult;
@@ -230,5 +229,32 @@ public class JokeController {
         return baseResult;
     }
 
+    @RequestMapping("joke/thumbs/self")
+    @ResponseBody
+    public BaseResult getThumbsJoke(String jokeId, String jokeUserId) throws Exception {
+        BaseResult baseResult = new BaseResult();
+        boolean isThumbs = false;
+
+        JokeBean jokeBean = jokeService.getJokeById(jokeId);
+        List<JokeBean> data = new ArrayList<>();
+        data.add(jokeBean);
+
+        List<JokeLikeBean> likeBeans = jokeService.selectJokeLikeById(jokeId);
+        for (int i = 0; i < likeBeans.size(); i++) {
+            if (jokeUserId.equals(likeBeans.get(i).getJoke_user_id())) {
+                // 已点赞
+                isThumbs = true;
+                break;
+            }
+        }
+        if (isThumbs) {
+            // 已点赞
+            baseResult.setCode(Config.ERROR_CODE);
+        } else {
+            baseResult.setCode(SUCCESS_CODE);
+        }
+        baseResult.setData(data);
+        return baseResult;
+    }
 
 }

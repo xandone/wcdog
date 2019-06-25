@@ -3,12 +3,10 @@ package com.xandone.wcdog.controller;
 import com.xandone.wcdog.config.Config;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
-import com.xandone.wcdog.pojo.LoginBean;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
-import com.xandone.wcdog.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +44,7 @@ public class UserController {
             user.setPassword(psw);
             user.setNickname(nickname);
             user.setUserId(IDUtils.RandomId());
+            user.setRegistTime(new Date());
 
             UserBean tempBean1 = userService.getUserByName(name);
             if (tempBean1 != null) {
@@ -175,12 +174,11 @@ public class UserController {
 
     @RequestMapping(value = "/userInfo/modify")
     @ResponseBody
-    public BaseResult modifyUserInfo(@RequestBody Map<String, String> map) {
+    public BaseResult modifyUserInfo(@RequestParam(value = "userId") String userId,
+                                     @RequestParam(value = "talk") String talk,
+                                     @RequestParam(value = "address") String address) {
         BaseResult baseResult = new BaseResult();
         List<UserBean> list = new ArrayList<>();
-        String userId = map.get("userId");
-        String talk = map.get("talk");
-        String address = map.get("address");
         try {
             UserBean userBean = userService.getUserById(userId);
             userBean.setTalk(talk);
