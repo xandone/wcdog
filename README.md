@@ -1,18 +1,25 @@
 
-### JaveWeb小项目
-基于SSM架构，包含1.移动端app(Android) 2.web前端项目 3.后台管理系统<br/>
-戳这里[移动端app(Android)]()<br/>
+### JaveWeb迷你新闻发布系统
+基于SSM架构迷你新闻发布系统，包含前端、后端、移动端三端应用。
+### 介绍
+#### 1.移动端app(Android) 
+MVP+Material+retrofit2+Rx..<br/>
+戳这里[移动端app(Android)](https://github.com/xandone/wcdog-app)<br/>
+#### 2.web前端项目 
+vue+vuex+vue Router+scss<br/>
 戳这里[web前端项目](https://github.com/xandone/wcdog-web)<br/>
+#### 3.后台管理系统
+vue+vuex+vue Router+element<br/>
 戳这里[后台管理系统](https://github.com/xandone/wcdog-manager)
-
 
 ## TO-DO
 #### 移动端app(Android)
-- [ ] 登录/注册
+- [x] 登录/注册
 - [ ] 发帖
-- [ ] 回复/点赞
-- [ ] 搜索功能
-- [ ] 个人中心
+- [x] 回复/点赞
+- [x] 搜索功能
+- [x] 个人中心
+- [ ] 收藏
 - [ ] 其他
 
 #### web前端项目
@@ -35,6 +42,7 @@
 
 ### 项目部署
 #### 版本
+**IED**   IntelliJ IDEA <br/>
 **tomcat**   7.0.91 <br/>
 **maven**    3.5.4 <br/>
 **jdk**      1.8.0 <br/>
@@ -43,6 +51,15 @@
 **mybatis**  3.2.8 <br/>
 **os**       CentOs 6.5 <br/>
 **nginx**    1.12.2 <br/>
+
+### 说明
+1.mysql数据库，见项目根目录wcdog.sql，需手动导入，可自行添加数据<br/>
+2.war包见项目根目录，wcdog.war，注意tomcat端口，管理系统和H5前端baseUrl均为8081端口，
+也可以自行修改。
+
+#### 效果图预览
+详见各端项目README文件预览图
+
 
 ### db
 ```
