@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<mapper namespace="com.xandone.wcdog.mapper.PlankMapper">
+    <resultMap id="talkBean" type="com.xandone.wcdog.pojo.TalkBean">
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="talk" property="talk" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="addTalk" parameterType="com.xandone.wcdog.pojo.TalkBean">
+        insert into y_talk_list
+        (user_id,
+        talk,
+        send_time
+        ) values
+        (#{userId},
+        #{talk},
+        #{sendTime}
+        )
+    </insert>
+
+    <insert id="addPlankTalk" parameterType="com.xandone.wcdog.pojo.PlankTalkBean">
+        insert into y_plank
+        (content,
+        send_time
+        ) values
+        (#{content},
+        #{sendTime}
+        )
+    </insert>
+
+    <select id="getTalkList" resultMap="talkBean">
+        select * from y_talk_list order by
+        id desc
+    </select>
+
+</mapper>

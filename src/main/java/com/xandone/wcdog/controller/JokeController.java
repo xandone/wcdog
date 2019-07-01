@@ -189,7 +189,7 @@ public class JokeController {
 
     @RequestMapping(value = "/jokeDetails")
     @ResponseBody
-    public BaseResult deleteUserByList(@RequestParam(value = "jokeId") String jokeId) {
+    public BaseResult deleteJokeByList(@RequestParam(value = "jokeId") String jokeId) {
         BaseResult baseResult = new BaseResult();
         try {
             JokeBean jokeBean = jokeService.getJokeById(jokeId);
