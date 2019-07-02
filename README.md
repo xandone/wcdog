@@ -66,10 +66,10 @@ vue+vuex+vue Router+element<br/>
 ## User表
 create table y_user(
 id int(11) unsigned not null auto_increment,
+user_id varchar(18) not null,
 name varchar(20) not null unique,
 password varchar(20) not null,
 nickname varchar(20) not null,
-user_id varchar(18) DEFAULT NULL,
 user_icon varchar(255) DEFAULT NULL,
 talk varchar(300),
 address varchar(100),
@@ -159,7 +159,7 @@ id int(11) unsigned not null auto_increment,
 name varchar(20) not null unique,
 password varchar(20) not null,
 nickname varchar(20) not null,
-admin_id varchar(18) DEFAULT NULL,
+admin_id varchar(18) not null,
 admin_icon varchar(255) DEFAULT NULL,
 permisson varchar(255) DEFAULT NULL,
 token varchar(100),
@@ -168,4 +168,24 @@ last_login_time datetime,
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+## 说说列表
+create table y_talk_list(
+id int(11) unsigned not null auto_increment,
+talk_id varchar(18) not null,
+user_id varchar(18) DEFAULT NULL,
+talk varchar(100),
+send_time datetime,
+token varchar(100),
+primary key(id)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+## 公告栏表
+create table y_plank(
+id int(11) unsigned not null auto_increment,
+plank_id varchar(18) not null,
+content varchar(300) DEFAULT NULL,
+send_time datetime,
+token varchar(100),
+primary key(id)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 ```

@@ -1,5 +1,7 @@
 package com.xandone.wcdog.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -8,14 +10,17 @@ import java.util.Date;
  * description：
  */
 public class TalkBean {
+    private String talkId;
     private String userId;
     private String talk;
     private Date sendTime;
     private String token;
     private String userIcon;
     private String userNick;
+    private String sendTimeStr;
 
-    public TalkBean(){}
+    public TalkBean() {
+    }
 
     public TalkBean(String userId, String talkStr) {
         this.userId = userId;
@@ -38,6 +43,7 @@ public class TalkBean {
         this.talk = talk;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getSendTime() {
         return sendTime;
     }
@@ -68,5 +74,21 @@ public class TalkBean {
 
     public void setUserNick(String userNick) {
         this.userNick = userNick;
+    }
+
+    public String getSendTimeStr() {
+        return sendTimeStr;
+    }
+
+    public void setSendTimeStr(String sendTimeStr) {
+        this.sendTimeStr = sendTimeStr;
+    }
+
+    public String getTalkId() {
+        return talkId;
+    }
+
+    public void setTalkId(String talkId) {
+        this.talkId = talkId;
     }
 }

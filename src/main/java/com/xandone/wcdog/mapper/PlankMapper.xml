@@ -5,9 +5,16 @@
 <!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
 <mapper namespace="com.xandone.wcdog.mapper.PlankMapper">
     <resultMap id="talkBean" type="com.xandone.wcdog.pojo.TalkBean">
+        <result column="talk_id" property="talkId" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="talk" property="talk" jdbcType="VARCHAR"/>
         <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="plankTalkBean" type="com.xandone.wcdog.pojo.PlankTalkBean">
+        <result column="plank_id" property="plankId" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
@@ -15,10 +22,12 @@
         insert into y_talk_list
         (user_id,
         talk,
+        talk_id,
         send_time
         ) values
         (#{userId},
         #{talk},
+        #{talkId},
         #{sendTime}
         )
     </insert>
@@ -26,10 +35,12 @@
     <insert id="addPlankTalk" parameterType="com.xandone.wcdog.pojo.PlankTalkBean">
         insert into y_plank
         (content,
-        send_time
+        send_time,
+        plank_id
         ) values
         (#{content},
-        #{sendTime}
+        #{sendTime},
+        #{plankId}
         )
     </insert>
 
@@ -37,5 +48,22 @@
         select * from y_talk_list order by
         id desc
     </select>
+
+    <select id="getPlankList" resultMap="plankTalkBean">
+        select * from y_plank order by
+        id desc
+    </select>
+
+    <select id="getLastPlank" resultMap="plankTalkBean">
+        select * from y_plank order by id desc limit 1
+    </select>
+
+    <delete id="deletePlankById">
+        delete from y_plank where plank_id= #{plankId};
+    </delete>
+
+    <delete id="deleteTalkById">
+        delete from y_talk_list where talk_id= #{talkId};
+    </delete>
 
 </mapper>

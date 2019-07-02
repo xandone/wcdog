@@ -17,4 +17,12 @@ public interface PlankMapper {
 
     List<TalkBean> getTalkList();
 
+    List<PlankTalkBean> getPlankList();
+
+    PlankTalkBean getLastPlank();
+
+    void deletePlankById(String id);
+
+    void deleteTalkById(String id);
+
 }

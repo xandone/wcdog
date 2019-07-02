@@ -4,8 +4,10 @@ import com.xandone.wcdog.config.Config;
 import com.xandone.wcdog.pojo.AdminBean;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
+import com.xandone.wcdog.pojo.PlankTalkBean;
 import com.xandone.wcdog.service.AdminService;
 import com.xandone.wcdog.service.JokeService;
+import com.xandone.wcdog.service.PlankService;
 import com.xandone.wcdog.utils.SimpleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,8 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     JokeService jokeService;
+    @Autowired
+    PlankService plankService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
@@ -203,5 +207,60 @@ public class AdminController {
         return baseResult;
     }
 
+
+    @RequestMapping(value = "/planktalk/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deletePlankById(@RequestParam(value = "id") String id,
+                                      @RequestParam(value = "adminId") String adminId) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            plankService.deletePlankById(id);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/talk/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteTalkById(@RequestParam(value = "id") String id,
+                                     @RequestParam(value = "adminId") String adminId) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            plankService.deleteTalkById(id);
+            baseResult.setCode(SUCCESS_CODE);
+            baseResult.setMsg("删除成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("删除失败");
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/planktalk/add", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult addPlankTalk(@RequestParam(value = "adminId") String adminId, @RequestParam(value = "content") String content) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            PlankTalkBean plankTalkBean = plankService.addPlankTalk(content);
+            List<PlankTalkBean> list = new ArrayList<>();
+            list.add(plankTalkBean);
+            baseResult.setData(list);
+            baseResult.setCode(SUCCESS_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            return baseResult;
+        }
+
+        return baseResult;
+    }
 
 }

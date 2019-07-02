@@ -45,31 +45,12 @@ public class PlankController {
         return baseResult;
     }
 
-    @RequestMapping(value = "/planktalk/add", method = RequestMethod.POST)
-    @ResponseBody
-    public BaseResult addPlankTalk(@RequestParam(value = "userId") String userId, @RequestParam(value = "content") String content) {
-        BaseResult baseResult = new BaseResult();
-        try {
-            PlankTalkBean plankTalkBean = plankService.addPlankTalk(content);
-            List<PlankTalkBean> list = new ArrayList<>();
-            list.add(plankTalkBean);
-            baseResult.setData(list);
-            baseResult.setCode(SUCCESS_CODE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            baseResult.setCode(Config.ERROR_CODE);
-            return baseResult;
-        }
-
-        return baseResult;
-    }
-
     @RequestMapping(value = "/talkList")
     @ResponseBody
-    public BaseListResult getTalkList() {
+    public BaseListResult getTalkList(Integer size) {
         BaseListResult baseResult = new BaseListResult();
         try {
-            BaseListResult result = plankService.getTalkList();
+            BaseListResult result = plankService.getTalkList(size);
             if (result != null) {
                 result.setCode(SUCCESS_CODE);
                 result.setMsg(Config.MES_REQUEST_SUCCESS);
@@ -81,6 +62,47 @@ public class PlankController {
             baseResult.setCode(Config.ERROR_CODE);
             baseResult.setMsg(Config.MES_SERVER_ERROR);
         }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/planktalk/list")
+    @ResponseBody
+    public BaseListResult getPlankList(@RequestParam(value = "page") Integer page,
+                                       @RequestParam(value = "row") Integer row) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            BaseListResult result = plankService.getPlankList(page, row);
+            if (result != null) {
+                result.setCode(SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
+            }
+            baseResult.setCode(Config.ERROR_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
+        return baseResult;
+    }
+
+
+    @RequestMapping(value = "/planktalk/lastplank")
+    @ResponseBody
+    public BaseResult getLastPlank() {
+        BaseResult baseResult = new BaseResult();
+        try {
+            PlankTalkBean plankTalkBean = plankService.getLastPlank();
+            List<PlankTalkBean> list = new ArrayList<>();
+            list.add(plankTalkBean);
+            baseResult.setData(list);
+            baseResult.setCode(SUCCESS_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            return baseResult;
+        }
+
         return baseResult;
     }
 }

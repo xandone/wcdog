@@ -1,7 +1,4 @@
-import com.xandone.wcdog.mapper.AdminMapper;
-import com.xandone.wcdog.mapper.BannerMapper;
-import com.xandone.wcdog.mapper.JokeMapper;
-import com.xandone.wcdog.mapper.UserMapper;
+import com.xandone.wcdog.mapper.*;
 import com.xandone.wcdog.pojo.*;
 import com.xandone.wcdog.utils.IDUtils;
 import org.junit.Test;
@@ -104,6 +101,19 @@ public class AdminTest {
         user.setAdminIcon("http://p1.pstatp.com/large/pgc-image/8f5a9eaea7cb426c895a67e6557eec32");
 
         mapper.addAdmin(user);
+    }
+
+
+    @Test
+    public void addPlank() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        PlankMapper mapper = context.getBean(PlankMapper.class);
+
+        PlankTalkBean plankTalkBean = new PlankTalkBean();
+        plankTalkBean.setSendTime(new Date());
+        plankTalkBean.setContent("今天吃白菜炖粉条~~~~~");
+        mapper.addPlankTalk(plankTalkBean);
+
     }
 
 }

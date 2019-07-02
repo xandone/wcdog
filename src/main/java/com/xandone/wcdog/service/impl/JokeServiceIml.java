@@ -204,7 +204,6 @@ public class JokeServiceIml implements JokeService {
         PageHelper.startPage(page, row);
         List<JokeBean> list;
         key = URLDecoder.decode(key, "utf-8");
-        System.out.println("搜索：" + key);
         list = jokeMapper.getJokeListFog(key);
         int total = (int) new PageInfo<>(list).getTotal();
 
