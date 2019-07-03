@@ -188,4 +188,16 @@ send_time datetime,
 token varchar(100),
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+## apk版本
+create table y_apk(
+id int(11) unsigned not null auto_increment,
+apk_id varchar(18) not null,
+apk_version varchar(20)not null,
+apk_code int(5)not null,
+content varchar(300) not null,
+send_time datetime,
+token varchar(100),
+primary key(id)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 ```

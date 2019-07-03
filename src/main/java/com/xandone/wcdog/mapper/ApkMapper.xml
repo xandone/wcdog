@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> -->
+<mapper namespace="com.xandone.wcdog.mapper.ApkMapper">
+
+    <resultMap id="apkBean" type="com.xandone.wcdog.pojo.ApkBean">
+        <result column="apk_id" property="apkId" jdbcType="VARCHAR"/>
+        <result column="apk_version" property="apkVersion" jdbcType="VARCHAR"/>
+        <result column="apk_code" property="apkCode" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="token" property="token" jdbcType="VARCHAR"/>
+        <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getLastApk" resultMap="apkBean">
+        select * from y_apk order by id desc limit 1
+    </select>
+
+    <insert id="addLastApk" parameterType="com.xandone.wcdog.pojo.ApkBean">
+        insert into y_apk
+        (apk_id,
+        apk_version,
+        apk_code,
+        content,
+        send_time
+        ) values
+        (#{apkId},
+        #{apkVersion},
+        #{apkCode},
+        #{content},
+        #{sendTime}
+        )
+    </insert>
+
+</mapper>

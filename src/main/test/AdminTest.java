@@ -115,5 +115,19 @@ public class AdminTest {
         mapper.addPlankTalk(plankTalkBean);
 
     }
+    @Test
+    public void addApk() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+        ApkMapper mapper = context.getBean(ApkMapper.class);
+
+        ApkBean apkBean = new ApkBean();
+        apkBean.setApkCode(2);
+        apkBean.setApkId("1");
+        apkBean.setApkVersion("1.1.2");
+        apkBean.setContent("解决部分已知bug,优化网络请求");
+        apkBean.setSendTime(new Date());
+        mapper.addLastApk(apkBean);
+
+    }
 
 }
