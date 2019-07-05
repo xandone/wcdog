@@ -1,3 +1,4 @@
+import com.xandone.wcdog.config.Config;
 import com.xandone.wcdog.mapper.*;
 import com.xandone.wcdog.pojo.*;
 import com.xandone.wcdog.utils.IDUtils;
@@ -124,6 +125,7 @@ public class AdminTest {
         apkBean.setApkCode(2);
         apkBean.setApkId("1");
         apkBean.setApkVersion("1.1.2");
+        apkBean.setApkUrl(Config.APK_LOAD_URL);
         apkBean.setContent("解决部分已知bug,优化网络请求");
         apkBean.setSendTime(new Date());
         mapper.addLastApk(apkBean);

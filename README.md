@@ -19,6 +19,7 @@ vue+vuex+vue Router+element<br/>
 - [x] 回复/点赞
 - [x] 搜索功能
 - [x] 个人中心
+- [x] 版本更新
 - [ ] 收藏
 - [ ] 其他
 
@@ -26,7 +27,9 @@ vue+vuex+vue Router+element<br/>
 - [x] 登录/注册
 - [x] 发帖
 - [x] 回复/点赞
-- [x] 搜索功能
+- [x] 搜索
+- [x] 公告面板
+- [x] 发一条说说
 - [x] 个人中心
 - [ ] 其他
 
@@ -34,10 +37,11 @@ vue+vuex+vue Router+element<br/>
 - [x] 用户管理
 - [x] 帖子管理
 - [x] 评论管理
+- [x] 公告面板/说说管理
+- [x] banner管理
 - [ ] 图片管理
 - [ ] 用户权限
 - [ ] 管理员权限
-- [x] banner管理
 - [ ] 其他
 
 ### 项目部署
@@ -175,7 +179,6 @@ talk_id varchar(18) not null,
 user_id varchar(18) DEFAULT NULL,
 talk varchar(100),
 send_time datetime,
-token varchar(100),
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
@@ -185,7 +188,6 @@ id int(11) unsigned not null auto_increment,
 plank_id varchar(18) not null,
 content varchar(300) DEFAULT NULL,
 send_time datetime,
-token varchar(100),
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
@@ -194,10 +196,10 @@ create table y_apk(
 id int(11) unsigned not null auto_increment,
 apk_id varchar(18) not null,
 apk_version varchar(20)not null,
+apk_url varchar(255)not null,
 apk_code int(5)not null,
 content varchar(300) not null,
 send_time datetime,
-token varchar(100),
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 ```

@@ -8,7 +8,6 @@
         <result column="talk_id" property="talkId" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="talk" property="talk" jdbcType="VARCHAR"/>
-        <result column="token" property="token" jdbcType="VARCHAR"/>
         <result column="send_time" property="sendTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 

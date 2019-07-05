@@ -14,6 +14,10 @@ public class Config {
 
     public static final String FTP_IP = "192.168.74.128";//重装系统会变化
 
+    /**
+     * apk路径
+     */
+    public static final String APK_LOAD_URL = "http://192.168.191.1:8081/wcdog/apk/app_wcdog_debug.apk";
 
     public static final int SUCCESS_CODE = 200;
     public static final int ERROR_CODE = -1;

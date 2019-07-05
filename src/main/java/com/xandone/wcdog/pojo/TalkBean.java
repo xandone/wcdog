@@ -14,7 +14,6 @@ public class TalkBean {
     private String userId;
     private String talk;
     private Date sendTime;
-    private String token;
     private String userIcon;
     private String userNick;
     private String sendTimeStr;
@@ -50,14 +49,6 @@ public class TalkBean {
 
     public void setSendTime(Date sendTime) {
         this.sendTime = sendTime;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getUserIcon() {

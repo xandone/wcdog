@@ -14,8 +14,8 @@ public class ApkBean {
     private String apkVersion;
     private int apkCode;
     private String content;
+    private String apkUrl;
     private Date sendTime;
-    private String token;
 
     public String getApkId() {
         return apkId;
@@ -58,11 +58,11 @@ public class ApkBean {
         this.sendTime = sendTime;
     }
 
-    public String getToken() {
-        return token;
+    public String getApkUrl() {
+        return apkUrl;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setApkUrl(String apkUrl) {
+        this.apkUrl = apkUrl;
     }
 }
