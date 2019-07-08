@@ -46,4 +46,6 @@ public interface JokeService {
 
     BaseListResult getJokeListFog(Integer page, Integer row, String key) throws Exception;
 
+    BaseListResult searchJokeList(Integer page, Integer row, JokeBean jokeBean) throws Exception;
+
 }

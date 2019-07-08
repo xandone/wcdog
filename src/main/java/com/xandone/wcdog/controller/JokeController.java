@@ -9,6 +9,7 @@ import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
 import com.xandone.wcdog.utils.SimpleUtils;
+import com.xandone.wcdog.utils.XString;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -254,6 +255,33 @@ public class JokeController {
             baseResult.setCode(SUCCESS_CODE);
         }
         baseResult.setData(data);
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/jokelist/search")
+    @ResponseBody
+    public BaseListResult searchJokeList(@RequestParam(value = "page") Integer page,
+                                         @RequestParam(value = "row") Integer row,
+                                         String key,
+                                         String jokeId,
+                                         String jokeUserId,
+                                         String category,
+                                         String tags) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            JokeBean jokeBean = new JokeBean(key, jokeId, jokeUserId, category, tags);
+            BaseListResult result = jokeService.searchJokeList(page, row, jokeBean);
+            if (result != null) {
+                result.setCode(SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
+            }
+            baseResult.setCode(Config.ERROR_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
         return baseResult;
     }
 

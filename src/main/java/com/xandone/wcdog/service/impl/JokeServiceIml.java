@@ -215,4 +215,20 @@ public class JokeServiceIml implements JokeService {
         base.setTotal(total);
         return base;
     }
+
+    @Override
+    public BaseListResult searchJokeList(Integer page, Integer row, JokeBean jokeBean) throws Exception {
+        BaseListResult base = new BaseListResult();
+        PageHelper.startPage(page, row);
+        List<JokeBean> list = jokeMapper.searchJokeList(jokeBean);
+        int total = (int) new PageInfo<>(list).getTotal();
+
+        for (JokeBean bean : list) {
+            dealJokeBean(bean);
+        }
+
+        base.setData(list);
+        base.setTotal(total);
+        return base;
+    }
 }

@@ -44,4 +44,6 @@ public interface JokeMapper {
     List<JokeLikeBean> selectJokeLikeByUserId(String userId);
 
     List<JokeBean> getJokeListFog(String key);
+
+    List<JokeBean> searchJokeList(JokeBean jokeBean);
 }

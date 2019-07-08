@@ -170,11 +170,32 @@
         where joke_user_id = #{userId}
     </select>
 
-
     <select id="getJokeListFog" parameterType="java.lang.String" resultMap="BaseResultMap">
         select * from y_joke where title like concat('%',#{key},'%') order by
         id desc
     </select>
 
+    <select id="searchJokeList" parameterType="com.xandone.wcdog.pojo.JokeBean" resultMap="BaseResultMap">
+        select * from y_joke
+        <where>
+            <if test="title!=null">
+                title like concat('%',#{title},'%')
+            </if>
+            <if test="category!=null and category!='-1'">
+                and category =#{category}
+            </if>
+            <if test="jokeUserId!=null">
+                and joke_user_id=#{jokeUserId}
+            </if>
+            <if test="jokeId!=null">
+                and joke_id=#{jokeId}
+            </if>
+            <if test="tags!=null and tags!='-1'">
+                and tags like concat('%',#{tags},'%')
+            </if>
+        </where>
+        order by id desc
+
+    </select>
 
 </mapper>

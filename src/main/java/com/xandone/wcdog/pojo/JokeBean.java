@@ -2,6 +2,8 @@ package com.xandone.wcdog.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 
 public class JokeBean {
@@ -20,6 +22,27 @@ public class JokeBean {
     private String jokeUserNick;
     private String jokeUserIcon;
     private Date selfApprovalTime;
+
+    public JokeBean() {
+
+    }
+
+    public JokeBean(String key,
+                    String jokeId,
+                    String jokeUserId,
+                    String category,
+                    String tags) {
+        try {
+            this.title = key == null ? null : URLDecoder.decode(key, "utf-8");
+            this.jokeId = jokeId == null ? null : URLDecoder.decode(jokeId, "utf-8");
+            this.jokeUserId = jokeUserId == null ? null : URLDecoder.decode(jokeUserId, "utf-8");
+            this.category = category == null ? null : URLDecoder.decode(category, "utf-8");
+            this.tags = tags == null ? null : URLDecoder.decode(tags, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public String getJokeId() {
         return jokeId;
