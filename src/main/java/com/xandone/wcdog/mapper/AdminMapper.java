@@ -17,4 +17,8 @@ public interface AdminMapper {
     void deleteUserByList(List<String> userIds);
 
     List<UserBean> getUserList();
+
+    List<UserBean> searchUserList(UserBean userBean);
+
+    void updateUserByBean(UserBean userBean);
 }

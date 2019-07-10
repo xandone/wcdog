@@ -5,6 +5,7 @@ import com.xandone.wcdog.pojo.AdminBean;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.PlankTalkBean;
+import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.AdminService;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.PlankService;
@@ -80,6 +81,31 @@ public class AdminController {
             BaseListResult result = adminService.getAllUser(page, row);
             if (result != null) {
                 result.setCode(Config.SUCCESS_CODE);
+                result.setMsg(Config.MES_REQUEST_SUCCESS);
+                return result;
+            }
+            baseResult.setCode(Config.ERROR_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg(Config.MES_SERVER_ERROR);
+        }
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/userlist/search")
+    @ResponseBody
+    public BaseListResult searchJokeList(@RequestParam(value = "page") Integer page,
+                                         @RequestParam(value = "row") Integer row,
+                                         String userId,
+                                         String name,
+                                         String nickname) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            UserBean userBean = new UserBean(userId, name, nickname);
+            BaseListResult result = adminService.searchUserList(page, row, userBean);
+            if (result != null) {
+                result.setCode(SUCCESS_CODE);
                 result.setMsg(Config.MES_REQUEST_SUCCESS);
                 return result;
             }
@@ -260,6 +286,29 @@ public class AdminController {
             return baseResult;
         }
 
+        return baseResult;
+    }
+
+    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
+    @ResponseBody
+    public BaseResult deleteUserById(@RequestParam(value = "adminId") String adminId,
+                                     @RequestBody UserBean userBean) {
+        BaseListResult baseResult = new BaseListResult();
+        try {
+            if (!Config.ADMIN_ID.equals(adminId)) {
+                baseResult.setCode(Config.ERROR_CODE);
+                baseResult.setMsg("没有修改权限");
+                return baseResult;
+            }
+            adminService.updateUserByBean(userBean);
+            baseResult.setCode(Config.SUCCESS_CODE);
+            baseResult.setMsg("更新成功");
+            return baseResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(Config.ERROR_CODE);
+            baseResult.setMsg("更新失败");
+        }
         return baseResult;
     }
 

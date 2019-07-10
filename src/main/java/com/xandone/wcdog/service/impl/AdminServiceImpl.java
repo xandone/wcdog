@@ -8,6 +8,7 @@ import com.xandone.wcdog.pojo.AdminBean;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.AdminService;
+import com.xandone.wcdog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,21 @@ public class AdminServiceImpl implements AdminService {
         base.setData(list);
         base.setTotal(total);
         return base;
+    }
+
+    @Override
+    public BaseListResult searchUserList(Integer page, Integer row, UserBean userBean) throws Exception {
+        BaseListResult base = new BaseListResult();
+        PageHelper.startPage(page, row);
+        List<UserBean> list = adminMapper.searchUserList(userBean);
+        int total = (int) new PageInfo<>(list).getTotal();
+        base.setData(list);
+        base.setTotal(total);
+        return base;
+    }
+
+    @Override
+    public void updateUserByBean(UserBean userBean) throws Exception {
+        adminMapper.updateUserByBean(userBean);
     }
 }

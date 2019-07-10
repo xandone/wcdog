@@ -15,13 +15,14 @@
         <result column="token" property="token" jdbcType="VARCHAR"/>
         <result column="regist_time" property="registTime" jdbcType="TIMESTAMP"/>
         <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
+        <result column="banned" property="banned" jdbcType="INTEGER"/>
     </resultMap>
 
     <!-- id名称必须和 UserMapper中的方法名相对应 -->
     <insert id="addUser" parameterType="com.xandone.wcdog.pojo.UserBean">
         insert into y_user
-        (name,password,nickname,user_id,regist_time) values
-        (#{name},#{password},#{nickname},#{userId},#{registTime})
+        (name,password,nickname,user_id,regist_time,banned) values
+        (#{name},#{password},#{nickname},#{userId},#{registTime},#{banned})
     </insert>
 
     <select id="getUserByName" parameterType="java.lang.String"
@@ -55,6 +56,7 @@
             <if test="token != null">token = #{token,jdbcType=VARCHAR},</if>
             <if test="registTime != null">regist_time = #{registTime,jdbcType=TIMESTAMP},</if>
             <if test="lastLoginTime != null">last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},</if>
+            <if test="banned != null">banned = #{banned,jdbcType=INTEGER},</if>
         </set>
         where user_id = #{userId}
     </update>

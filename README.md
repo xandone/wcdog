@@ -80,6 +80,7 @@ address varchar(100),
 token varchar(100),
 regist_time datetime,
 last_login_time datetime,
+banned tinyint(1)DEFAULT 0,
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 

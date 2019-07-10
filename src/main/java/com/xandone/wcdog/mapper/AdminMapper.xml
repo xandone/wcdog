@@ -13,6 +13,7 @@
         <result column="token" property="token" jdbcType="VARCHAR"/>
         <result column="regist_time" property="registTime" jdbcType="TIMESTAMP"/>
         <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP"/>
+        <result column="banned" property="banned" jdbcType="INTEGER"/>
     </resultMap>
 
     <resultMap id="adminBean" type="com.xandone.wcdog.pojo.AdminBean">
@@ -68,5 +69,39 @@
             #{userId}
         </foreach>
     </delete>
+
+    <select id="searchUserList" parameterType="com.xandone.wcdog.pojo.UserBean" resultMap="userBean">
+        select * from y_user
+        <where>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+            <if test="userId!=null">
+                and user_id =#{userId}
+            </if>
+            <if test="nickname!=null">
+                and nickname=#{nickname}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <update id="updateUserByBean" parameterType="com.xandone.wcdog.pojo.UserBean">
+        update y_user
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="password != null">password = #{password,jdbcType=VARCHAR},</if>
+            <if test="nickname != null">nickname = #{nickname,jdbcType=VARCHAR},</if>
+            <if test="userId != null">user_id = #{userId,jdbcType=VARCHAR},</if>
+            <if test="userIcon != null">user_icon = #{userIcon,jdbcType=VARCHAR},</if>
+            <if test="talk != null">talk = #{talk,jdbcType=VARCHAR},</if>
+            <if test="address != null">address = #{address,jdbcType=VARCHAR},</if>
+            <if test="token != null">token = #{token,jdbcType=VARCHAR},</if>
+            <if test="registTime != null">regist_time = #{registTime,jdbcType=TIMESTAMP},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},</if>
+            <if test="banned != null">banned = #{banned,jdbcType=INTEGER},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
 
 </mapper>

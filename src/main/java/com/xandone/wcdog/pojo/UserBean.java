@@ -2,6 +2,8 @@ package com.xandone.wcdog.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 
 public class UserBean {
@@ -15,8 +17,22 @@ public class UserBean {
     private String token;
     private Date registTime;
     private Date lastLoginTime;
+    private int banned;
 
     public UserBean() {
+
+    }
+
+    public UserBean(String userId,
+                    String name,
+                    String nickname) {
+        try {
+            this.userId = userId == null ? null : URLDecoder.decode(userId, "utf-8");
+            this.name = name == null ? null : URLDecoder.decode(name, "utf-8");
+            this.nickname = nickname == null ? null : URLDecoder.decode(nickname, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -108,6 +124,14 @@ public class UserBean {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public int getBanned() {
+        return banned;
+    }
+
+    public void setBanned(int banned) {
+        this.banned = banned;
     }
 
     @Override
