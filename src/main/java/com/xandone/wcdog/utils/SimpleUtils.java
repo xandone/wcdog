@@ -25,6 +25,16 @@ public class SimpleUtils {
         }
     }
 
+    public static <T> T json2Pojo(String jsonStr, Class<T> cls) {
+        T obj = null;
+        try {
+            obj = mapper.readValue(jsonStr, cls);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
 
     /**
      * 以友好的方式显示时间

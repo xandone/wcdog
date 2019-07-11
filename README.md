@@ -39,6 +39,7 @@ vue+vuex+vue Router+element<br/>
 - [x] 评论管理
 - [x] 公告面板/说说管理
 - [x] banner管理
+- [x] 禁言功能
 - [ ] 图片管理
 - [ ] 用户权限
 - [ ] 管理员权限

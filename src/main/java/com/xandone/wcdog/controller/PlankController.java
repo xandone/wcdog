@@ -5,7 +5,10 @@ import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.PlankTalkBean;
 import com.xandone.wcdog.pojo.TalkBean;
+import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.PlankService;
+import com.xandone.wcdog.service.UserService;
+import com.xandone.wcdog.utils.ResultHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +28,21 @@ import static com.xandone.wcdog.config.Config.SUCCESS_CODE;
 public class PlankController {
     @Autowired
     PlankService plankService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult addTalk(@RequestParam(value = "userId") String userId, @RequestParam(value = "talk") String talk) {
         BaseResult baseResult = new BaseResult();
         try {
+            UserBean user = userService.getUserById(userId);
+            if (user == null) {
+                return ResultHelper.getResult(Config.ERROR_CODE);
+            }
+            if (user.getBanned() == 1) {
+                return ResultHelper.getResult(Config.ERROR_BANNED_CODE);
+            }
             TalkBean talkBean = plankService.addTalk(userId, talk);
             List<TalkBean> list = new ArrayList<>();
             list.add(talkBean);

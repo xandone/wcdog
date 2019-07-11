@@ -8,6 +8,7 @@ import com.xandone.wcdog.service.FlowService;
 import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
+import com.xandone.wcdog.utils.ResultHelper;
 import com.xandone.wcdog.utils.SimpleUtils;
 import com.xandone.wcdog.utils.XString;
 import org.apache.http.util.TextUtils;
@@ -39,6 +40,13 @@ public class JokeController {
     public BaseResult addJoke(@RequestBody Map<String, String> map) {
         BaseResult baseResult = new BaseResult();
         try {
+            UserBean user = userService.getUserById(map.get("jokeUserId"));
+            if (user == null) {
+                return ResultHelper.getResult(Config.ERROR_CODE);
+            }
+            if (user.getBanned() == 1) {
+                return ResultHelper.getResult(Config.ERROR_BANNED_CODE);
+            }
             JokeBean jokeBean = jokeService.addJoke(map);
             List<JokeBean> list = new ArrayList<>();
             list.add(jokeBean);
@@ -105,8 +113,16 @@ public class JokeController {
                                  @RequestParam(value = "userId") String userId,
                                  @RequestParam(value = "details") String details) {
         BaseResult baseResult = new BaseResult();
-        List<CommentBean> dataList = new ArrayList<>();
         try {
+            UserBean user = userService.getUserById(userId);
+            if (user == null) {
+                return ResultHelper.getResult(Config.ERROR_CODE);
+            }
+            if (user.getBanned() == 1) {
+                return ResultHelper.getResult(Config.ERROR_BANNED_CODE);
+            }
+            List<CommentBean> dataList = new ArrayList<>();
+
             if (TextUtils.isEmpty(userId)) {
                 baseResult.setCode(Config.ERROR_CODE);
                 return baseResult;
@@ -118,11 +134,8 @@ public class JokeController {
             commentBean.setCommentDetails(details);
             commentBean.setCommentDate(new Date());
 
-            UserBean user = userService.getUserById(userId);
-            if (user != null) {
-                commentBean.setCommentNick(user.getNickname());
-                commentBean.setCommentIcon(user.getUserIcon());
-            }
+            commentBean.setCommentNick(user.getNickname());
+            commentBean.setCommentIcon(user.getUserIcon());
             jokeService.addComment(commentBean);
             baseResult.setCode(SUCCESS_CODE);
             dataList.add(commentBean);

@@ -292,9 +292,10 @@ public class AdminController {
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult deleteUserById(@RequestParam(value = "adminId") String adminId,
-                                     @RequestBody UserBean userBean) {
+                                     @RequestParam(value = "jsonUser") String jsonUser) {
         BaseListResult baseResult = new BaseListResult();
         try {
+            UserBean userBean = SimpleUtils.json2Pojo(jsonUser, UserBean.class);
             if (!Config.ADMIN_ID.equals(adminId)) {
                 baseResult.setCode(Config.ERROR_CODE);
                 baseResult.setMsg("没有修改权限");

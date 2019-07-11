@@ -4,9 +4,10 @@
         "http://www.mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-    <settings>
-        <setting name="logImpl" value="STDOUT_LOGGING" />
-    </settings>
+    <!--控制台查看mysql语句-->
+    <!--<settings>-->
+        <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
+    <!--</settings>-->
 
     <!-- 配置分页插件 5.1.0 -->
     <plugins>
