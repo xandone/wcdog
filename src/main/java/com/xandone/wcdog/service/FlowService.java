@@ -14,5 +14,7 @@ public interface FlowService {
 
     void upDateFlow(FlowBean flowBean) throws Exception;
 
+    void addFlow(FlowBean flowBean) throws Exception;
+
 
 }

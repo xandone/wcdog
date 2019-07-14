@@ -8,6 +8,8 @@ import com.xandone.wcdog.pojo.FlowBean;
  * description：
  */
 public interface FlowMapper {
+    void addFlow(FlowBean flowBean);
+
     FlowBean getFlowData();
 
     void upDateFlow(FlowBean flowBean);

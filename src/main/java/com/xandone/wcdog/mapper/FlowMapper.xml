@@ -12,6 +12,23 @@
         <result column="cold_count" property="coldCount" jdbcType="INTEGER"/>
         <result column="post_time" property="postTime" jdbcType="TIMESTAMP"/>
     </resultMap>
+
+    <insert id="addFlow" parameterType="com.xandone.wcdog.pojo.FlowBean">
+        insert into y_wcdog_flow
+        (classic_count,
+        yellow_count,
+        mind_count,
+        shite_count,
+        cold_count,
+        post_time) values
+        (#{classicCount},
+        #{yellowCount},
+        #{mindCount},
+        #{shiteCount},
+        #{coldCount},
+        #{postTime})
+    </insert>
+
     <select id="getFlowData" resultMap="flowBean">
         select * from y_wcdog_flow
     </select>

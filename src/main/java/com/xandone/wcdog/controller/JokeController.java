@@ -54,8 +54,12 @@ public class JokeController {
             baseResult.setCode(SUCCESS_CODE);
 
             FlowBean flowBean = flowService.getFlowData(map.get(Config.ADMIN_ID));
+            if (flowBean == null) {
+                flowBean = new FlowBean();
+                flowBean.setPostTime(new Date());
+                flowService.addFlow(flowBean);
+            }
             String tags = map.get("tags");
-            System.out.println(tags);
             if (TextUtils.isEmpty(tags)) {
                 flowBean.setClassicCount(flowBean.getClassicCount() + 1);
             } else {
@@ -76,7 +80,8 @@ public class JokeController {
                 }
             }
             flowService.upDateFlow(flowBean);
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
             baseResult.setCode(Config.ERROR_CODE);
             return baseResult;

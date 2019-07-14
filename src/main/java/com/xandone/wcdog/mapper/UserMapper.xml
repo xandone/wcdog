@@ -40,7 +40,7 @@
     </select>
 
     <select id="getUserList" resultMap="userBean">
-        select * from y_user
+        select * from y_user order by id desc
     </select>
 
     <update id="updateUser" parameterType="com.xandone.wcdog.pojo.UserBean">
