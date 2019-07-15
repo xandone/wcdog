@@ -9,8 +9,6 @@ import com.xandone.wcdog.service.JokeService;
 import com.xandone.wcdog.service.UserService;
 import com.xandone.wcdog.utils.IDUtils;
 import com.xandone.wcdog.utils.ResultHelper;
-import com.xandone.wcdog.utils.SimpleUtils;
-import com.xandone.wcdog.utils.XString;
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

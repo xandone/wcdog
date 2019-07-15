@@ -10,6 +10,11 @@
         <result column="mind_count" property="mindCount" jdbcType="INTEGER"/>
         <result column="shite_count" property="shiteCount" jdbcType="INTEGER"/>
         <result column="cold_count" property="coldCount" jdbcType="INTEGER"/>
+        <result column="all_user_count" property="allUserCount" jdbcType="INTEGER"/>
+        <result column="all_admin_count" property="allAdminCount" jdbcType="INTEGER"/>
+        <result column="all_joke_count" property="allJokeCount" jdbcType="INTEGER"/>
+        <result column="all_comment_count" property="allCommentCount" jdbcType="INTEGER"/>
+        <result column="all_thumb_count" property="allThumbCount" jdbcType="INTEGER"/>
         <result column="post_time" property="postTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
@@ -20,12 +25,22 @@
         mind_count,
         shite_count,
         cold_count,
+        all_user_count,
+        all_admin_count,
+        all_joke_count,
+        all_comment_count,
+        all_thumb_count,
         post_time) values
         (#{classicCount},
         #{yellowCount},
         #{mindCount},
         #{shiteCount},
         #{coldCount},
+        #{allUserCount},
+        #{allAdminCount},
+        #{allJokeCount},
+        #{allCommentCount},
+        #{allThumbCount},
         #{postTime})
     </insert>
 
@@ -41,6 +56,11 @@
             <if test="mindCount != 0">mind_count = #{mindCount,jdbcType=INTEGER},</if>
             <if test="shiteCount != 0">shite_count = #{shiteCount,jdbcType=INTEGER},</if>
             <if test="coldCount != 0">cold_count = #{coldCount,jdbcType=INTEGER},</if>
+            <if test="allUserCount != 0">all_user_count = #{allUserCount,jdbcType=INTEGER},</if>
+            <if test="allAdminCount != 0">all_admin_count = #{allAdminCount,jdbcType=INTEGER},</if>
+            <if test="allJokeCount != 0">all_joke_count = #{allJokeCount,jdbcType=INTEGER},</if>
+            <if test="allCommentCount != 0">all_comment_count = #{allCommentCount,jdbcType=INTEGER},</if>
+            <if test="allThumbCount != 0">all_thumb_count = #{allThumbCount,jdbcType=INTEGER},</if>
             <if test="postTime != null">post_time = #{postTime,jdbcType=TIMESTAMP},</if>
         </set>
     </update>

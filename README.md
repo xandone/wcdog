@@ -2,13 +2,13 @@
 ### JaveWeb迷你新闻发布系统
 基于SSM架构迷你新闻发布系统，包含前端、后端、移动端三端应用。
 ### 介绍
-#### 1.移动端app(Android) 
+#### 1.移动端app(Android wcdog-app) 
 MVP+Material+retrofit2+Rx..<br/>
 戳这里[移动端app(Android)](https://github.com/xandone/wcdog-app)<br/>
-#### 2.web前端项目 
+#### 2.web前端项目(wcdog-web)
 vue+vuex+vue Router+scss<br/>
 戳这里[web前端项目](https://github.com/xandone/wcdog-web)<br/>
-#### 3.后台管理系统
+#### 3.后台管理系统(wcdog-manager)
 vue+vuex+vue Router+element<br/>
 戳这里[后台管理系统](https://github.com/xandone/wcdog-manager)
 
@@ -59,12 +59,18 @@ vue+vuex+vue Router+element<br/>
 
 ### 说明
 1.mysql数据库，见项目根目录wcdog.sql，需手动导入，可自行添加数据<br/>
-2.war包见项目根目录，wcdog.war，注意tomcat端口，管理系统和H5前端baseUrl均为8081端口，
-也可以自行修改。
+2.注意tomcat端口，管理系统和H5前端baseUrl均为8081端口，也可以自行修改。<br/>
+3.使用管理后台(wcdog-manager)新增joke的时候，注意使用的是y_user表中的user_id,所以需要
+在y_user表中有一个和y_admin相同user_id的用户,当然，也可以在adminMapper中新增addJoke方
+法(我懒得写了，共用的一个-_-!!);
 
-#### 效果图预览
-详见各端项目README文件预览图
-
+#### 部分预览图
+#### Android端
+<img width="270" height="480" src="https://github.com/xandone/wcdo/blob/master/pic/1.png"></img>
+#### 前端
+![image](https://github.com/xandone/wcdog/blob/master/pic/2.jpg)
+#### 管理系统
+![image](https://github.com/xandone/wcdog/blob/master/pic/3.jpg)
 
 ### db
 ```
@@ -155,6 +161,11 @@ yellow_count int(5) DEFAULT '0',
 mind_count int(5) DEFAULT '0',
 shite_count int(5) DEFAULT '0',
 cold_count int(5) DEFAULT '0',
+all_user_count int(5) DEFAULT '0',
+all_admin_count int(5) DEFAULT '0',
+all_joke_count int(5) DEFAULT '0',
+all_comment_count int(5) DEFAULT '0',
+all_thumb_count int(5) DEFAULT '0',
 post_time datetime DEFAULT NULL,
 primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;
@@ -204,4 +215,8 @@ content varchar(300) not null,
 send_time datetime,
 primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
 ```
+
+## License
+MIT

@@ -6,6 +6,8 @@ import com.xandone.wcdog.service.FlowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 
 /**
  * @author ：xandone
@@ -18,8 +20,14 @@ public class FlowServiceIml implements FlowService {
     FlowMapper flowMapper;
 
     @Override
-    public FlowBean getFlowData(String adminId) {
-        return flowMapper.getFlowData();
+    public FlowBean getFlowData(String adminId) throws Exception {
+        FlowBean flowBean = flowMapper.getFlowData();
+        if (flowBean == null) {
+            flowBean = new FlowBean();
+            flowBean.setPostTime(new Date());
+            addFlow(flowBean);
+        }
+        return flowBean;
     }
 
     @Override
