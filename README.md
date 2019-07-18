@@ -66,7 +66,7 @@ vue+vuex+vue Router+element<br/>
 
 #### 部分预览图
 #### Android端
-<img width="270" height="480" src="https://github.com/xandone/wcdo/blob/master/pic/1.png"></img>
+<img width="270" height="480" src="https://github.com/xandone/wcdog/blob/master/pic/1.png"></img>
 #### 前端
 ![image](https://github.com/xandone/wcdog/blob/master/pic/2.jpg)
 #### 管理系统
