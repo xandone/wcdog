@@ -16,5 +16,6 @@ public interface FlowService {
 
     void addFlow(FlowBean flowBean) throws Exception;
 
+    FlowBean getAllCount() throws Exception;
 
 }

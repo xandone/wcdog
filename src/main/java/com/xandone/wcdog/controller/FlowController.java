@@ -3,7 +3,9 @@ package com.xandone.wcdog.controller;
 import com.xandone.wcdog.config.Config;
 import com.xandone.wcdog.pojo.Base.BaseResult;
 import com.xandone.wcdog.pojo.FlowBean;
+import com.xandone.wcdog.service.AdminService;
 import com.xandone.wcdog.service.FlowService;
+import com.xandone.wcdog.service.impl.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,8 @@ import java.util.List;
 public class FlowController {
     @Autowired
     FlowService flowService;
+    @Autowired
+    AdminService adminService;
 
     @RequestMapping(value = "/flowData")
     @ResponseBody

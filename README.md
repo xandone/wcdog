@@ -161,11 +161,6 @@ yellow_count int(5) DEFAULT '0',
 mind_count int(5) DEFAULT '0',
 shite_count int(5) DEFAULT '0',
 cold_count int(5) DEFAULT '0',
-all_user_count int(5) DEFAULT '0',
-all_admin_count int(5) DEFAULT '0',
-all_joke_count int(5) DEFAULT '0',
-all_comment_count int(5) DEFAULT '0',
-all_thumb_count int(5) DEFAULT '0',
 post_time datetime DEFAULT NULL,
 primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=UTF8;

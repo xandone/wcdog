@@ -1,5 +1,6 @@
 package com.xandone.wcdog.service.impl;
 
+import com.xandone.wcdog.mapper.AdminMapper;
 import com.xandone.wcdog.mapper.FlowMapper;
 import com.xandone.wcdog.pojo.FlowBean;
 import com.xandone.wcdog.service.FlowService;
@@ -18,6 +19,8 @@ import java.util.Date;
 public class FlowServiceIml implements FlowService {
     @Autowired
     FlowMapper flowMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
     @Override
     public FlowBean getFlowData(String adminId) throws Exception {
@@ -27,6 +30,13 @@ public class FlowServiceIml implements FlowService {
             flowBean.setPostTime(new Date());
             addFlow(flowBean);
         }
+        FlowBean temp = getAllCount();
+        flowBean.setAllAdminCount(temp.getAllAdminCount());
+        flowBean.setAllUserCount(temp.getAllUserCount());
+        flowBean.setAllJokeCount(temp.getAllJokeCount());
+        flowBean.setAllCommentCount(temp.getAllCommentCount());
+        flowBean.setAllThumbCount(temp.getAllThumbCount());
+
         return flowBean;
     }
 
@@ -38,5 +48,16 @@ public class FlowServiceIml implements FlowService {
     @Override
     public void addFlow(FlowBean flowBean) throws Exception {
         flowMapper.addFlow(flowBean);
+    }
+
+    @Override
+    public FlowBean getAllCount() throws Exception {
+        FlowBean flowBean = new FlowBean();
+        flowBean.setAllAdminCount(adminMapper.getAdminCount());
+        flowBean.setAllUserCount(adminMapper.getUserCount());
+        flowBean.setAllJokeCount(adminMapper.getJokeCount());
+        flowBean.setAllCommentCount(adminMapper.getCommentCount());
+        flowBean.setAllThumbCount(adminMapper.getThumbCount());
+        return flowBean;
     }
 }

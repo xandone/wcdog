@@ -3,12 +3,10 @@ package com.xandone.wcdog.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.xandone.wcdog.mapper.AdminMapper;
-import com.xandone.wcdog.mapper.UserMapper;
 import com.xandone.wcdog.pojo.AdminBean;
 import com.xandone.wcdog.pojo.Base.BaseListResult;
 import com.xandone.wcdog.pojo.UserBean;
 import com.xandone.wcdog.service.AdminService;
-import com.xandone.wcdog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
-    private AdminMapper adminMapper;
+    AdminMapper adminMapper;
 
     @Override
     public AdminBean getAdminByName(String name) throws Exception {
@@ -71,4 +69,5 @@ public class AdminServiceImpl implements AdminService {
     public void updateUserByBean(UserBean userBean) throws Exception {
         adminMapper.updateUserByBean(userBean);
     }
+
 }

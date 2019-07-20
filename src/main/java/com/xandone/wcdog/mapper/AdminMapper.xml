@@ -104,4 +104,25 @@
         where user_id = #{userId}
     </update>
 
+    <select id="getAdminCount" resultType="java.lang.Integer">
+        select count(*) from y_admin
+    </select>
+
+    <select id="getCommentCount" resultType="java.lang.Integer">
+        select count(*) from y_joke_comment
+    </select>
+
+    <select id="getThumbCount" resultType="java.lang.Integer">
+        select count(*) from y_joke_like
+    </select>
+
+    <select id="getUserCount" resultType="java.lang.Integer">
+        select count(*) from y_user
+    </select>
+
+    <select id="getJokeCount" resultType="java.lang.Integer">
+        select count(*) from y_joke
+    </select>
+
+
 </mapper>
