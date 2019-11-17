@@ -1,8 +1,6 @@
 package com.xandone.wcdog.mapper;
 
-import com.sun.tools.javac.comp.Flow;
 import com.xandone.wcdog.pojo.AdminBean;
-import com.xandone.wcdog.pojo.FlowBean;
 import com.xandone.wcdog.pojo.UserBean;
 
 import java.util.List;

@@ -6,6 +6,10 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +52,7 @@ public class AdminTest {
         JokeMapper mapper = context.getBean(JokeMapper.class);
 
         JokeBean jokeBean = new JokeBean();
-        jokeBean.setJokeId("1");
+        jokeBean.setJokeId("1231231");
         jokeBean.setJokeUserId("2");
         jokeBean.setTitle("FIFA探讨世界杯扩军：中国可能要进世界杯？");
         jokeBean.setContent("2018年4月，南美足协主席多明格斯公开发言，希望国际足联考虑在2022年实现世界杯扩军，因凡蒂诺顺水推舟，"
@@ -75,16 +79,20 @@ public class AdminTest {
 
     @Test
     public void addBanner() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
-        BannerMapper mapper = context.getBean(BannerMapper.class);
-        BannerBean bannerBean = new BannerBean();
-        bannerBean.setUserId("1");
-        bannerBean.setArticelId(IDUtils.RandomId());
-        bannerBean.setImgUrl("https://upload-images.jianshu.io/upload_images/2518499-3d5a6ec6bc7f7efd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240");
-        bannerBean.setTitle("长河落日圆");
-        bannerBean.setPageViews(0);
-        bannerBean.setUpTime(new Date());
-        mapper.addBanner(bannerBean);
+        try {
+            ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
+            BannerMapper mapper = context.getBean(BannerMapper.class);
+            BannerBean bannerBean = new BannerBean();
+            bannerBean.setUserId("1");
+            bannerBean.setArticelId(IDUtils.RandomId());
+            bannerBean.setImgUrl("https://upload-images.jianshu.io/upload_images/2518499-3d5a6ec6bc7f7efd.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240");
+            bannerBean.setTitle("长河落日圆");
+            bannerBean.setPageViews(0);
+            bannerBean.setUpTime(new Date());
+            mapper.addBanner(bannerBean);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -116,6 +124,7 @@ public class AdminTest {
         mapper.addPlankTalk(plankTalkBean);
 
     }
+
     @Test
     public void addApk() {
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
@@ -130,6 +139,32 @@ public class AdminTest {
         apkBean.setSendTime(new Date());
         mapper.addLastApk(apkBean);
 
+    }
+
+
+    @Test
+    public void adda() {
+        Connection conn = null;
+        try {
+            String userName = "root";
+            String password = "123123";
+            String jdbcurl = "jdbc:mysql://localhost:3306/wcdog?useSSL=false&useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC";
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            conn = DriverManager.getConnection(jdbcurl, userName, password);
+            String sql = "select * from y_user";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            String result = "";
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String status = rs.getString("nickname");
+                result += id + "\t" + name + "\t" + status + "\n";
+            }
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

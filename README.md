@@ -51,7 +51,7 @@ vue+vuex+vue Router+element<br/>
 **tomcat**   7.0.91 <br/>
 **maven**    3.5.4 <br/>
 **jdk**      1.8.0 <br/>
-**mysql**    5.7.19 <br/>
+**mysql**    mysql-8.0.11 <br/>
 **spring**   4.1.3 <br/>
 **mybatis**  3.2.8 <br/>
 **os**       CentOs 6.5 <br/>
@@ -62,7 +62,8 @@ vue+vuex+vue Router+element<br/>
 2.注意tomcat端口，管理系统和H5前端baseUrl均为8081端口，也可以自行修改。<br/>
 3.使用管理后台(wcdog-manager)新增joke的时候，注意使用的是y_user表中的user_id,所以需要
 在y_user表中有一个和y_admin相同user_id的用户,当然，也可以在adminMapper中新增addJoke方
-法(我懒得写了，共用的一个-_-!!);
+法(我懒得写了，共用的一个-_-!!);<br/>
+4.注意mysql8的配置和mysql5.x的不同
 
 #### 部分预览图
 #### Android端
